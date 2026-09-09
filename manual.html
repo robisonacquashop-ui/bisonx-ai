@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROBO MT5 - Guia de uso | BISONX AI</title>
+<meta name="description" content="Manual do ROBO MT5 BISONX: como receber o motor, criar, compilar e usar seu Expert Advisor no MetaTrader 5.">
+<style>
+:root{
+  --bg:#070b1a; --card:#0f1630; --card2:#141d40; --border:#223065;
+  --text:#e9edff; --muted:#93a2d4; --cyan:#22d3ee; --green:#34d399;
+  --gold:#fbbf24; --red:#f87171; --blue:#60a5fa;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,Roboto,Arial,sans-serif;line-height:1.7}
+a{color:var(--cyan);text-decoration:none}
+.container{max-width:860px;margin:0 auto;padding:24px 20px 60px}
+header{background:rgba(7,11,26,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:12px;flex-wrap:wrap}
+.logo{font-weight:800;letter-spacing:1px}
+.logo span{color:var(--cyan)}
+.voltar{background:transparent;border:1px solid var(--cyan);color:var(--cyan);padding:8px 16px;border-radius:8px;font-weight:600;font-size:.88rem}
+.voltar:hover{background:var(--cyan);color:#062a33}
+h1{font-size:2.1rem;line-height:1.2;margin:30px 0 6px}
+.sub{color:var(--muted);margin-bottom:26px}
+.info{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin-bottom:22px;font-size:.95rem}
+.info b{color:var(--gold)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin-bottom:20px}
+.box h2{font-size:1.25rem;margin-bottom:12px;color:var(--cyan)}
+.box h2 .n{display:inline-flex;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#062a33;align-items:center;justify-content:center;margin-right:10px;font-size:1rem}
+.box ul{list-style:none;margin:10px 0}
+.box ul li{padding:5px 0 5px 26px;position:relative}
+.box ul li:before{content:"✔";position:absolute;left:0;color:var(--green)}
+.box ol{margin:10px 0 10px 20px}
+.box ol li{margin:6px 0}
+code{background:var(--card2);border:1px solid var(--border);padding:2px 8px;border-radius:6px;color:var(--green);font-family:Consolas,monospace;font-size:.88rem}
+.dica{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.35);border-radius:10px;padding:12px 16px;font-size:.9rem;margin-top:12px;color:var(--green)}
+.aviso{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.4);border-radius:10px;padding:12px 16px;font-size:.9rem;margin-top:12px;color:var(--red)}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-block;padding:13px 26px;border-radius:12px;font-weight:800;font-size:.95rem;border:none;cursor:pointer}
+.btn-primary{background:linear-gradient(90deg,var(--cyan),var(--blue));color:#062a33}
+.btn-primary:hover{filter:brightness(1.12)}
+.btn-wpp{background:#25D366;color:#062a33}
+.btn-wpp:hover{filter:brightness(1.08)}
+footer{border-top:1px solid var(--border);padding:26px 0;text-align:center;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="logo">BISONX<span>.AI</span> · ROBO MT5</div>
+    <a class="voltar" href="index.html">← Voltar ao site</a>
+  </div>
+</header>
+
+<div class="container">
+  <h1>🤖 Manual do ROBO MT5</h1>
+  <p class="sub">Guia completo para criar e compilar seu robô (Expert Advisor) do jeito que você quiser.</p>
+
+  <div class="info">
+    <b>O que você recebe:</b> o MOTOR BISONX instalado no seu PC — <b>sem expor dados nem senhas do desenvolvedor</b>. Com ele, <b>você mesmo</b> cria e compila seu robô em MQL5, e pode modificar quando quiser. O plano custa <b>R$ 49/mês</b>.
+  </div>
+
+  <div class="box">
+    <h2><span class="n">1</span>Compre o plano e receba o MOTOR</h2>
+    <ol>
+      <li>No site, clique em <b>Comprar</b> no card "ROBO MT5".</li>
+      <li>Faça o PIX e finalize o pedido no WhatsApp.</li>
+      <li>Após a confirmação, você recebe o <b>instalador do MOTOR</b> e sua chave de ativação.</li>
+      <li>Instale no seu PC e insira a chave — pronto, o motor está liberado.</li>
+    </ol>
+    <div class="dica">O motor roda 100% no seu PC. Nenhum dado, senha ou estratégia do desenvolvedor fica exposto para você — e nada dos seus dados vai para o desenvolvedor.</div>
+  </div>
+
+  <div class="box">
+    <h2><span class="n">2</span>Crie o robô do jeito que VOCÊ quiser</h2>
+    <p>Abra o MOTOR e faça o pedido em linguagem normal. Exemplos:</p>
+    <ul>
+      <li><code>"cria um robô que abre compra quando o preço cruza a média 20 pra cima e vende quando cruza pra baixo"</code></li>
+      <li><code>"faz um EA que usa RSI abaixo de 30 pra comprar e acima de 70 pra vender, no ouro"</code></li>
+      <li><code>"quero um robô com stop loss e take profit configuráveis, lote fixo 0.1"</code></li>
+      <li><code>"cria um robô de grid na EURUSD com 10 níveis"</code></li>
+    </ul>
+    <div class="dica">Quanto mais clara a sua estratégia, mais fiel o robô fica: entre, saída, indicadores, timeframe, lote, stop e take profit.</div>
+  </div>
+
+  <div class="box">
+    <h2><span class="n">3</span>O motor escreve o código e COMPILA</h2>
+    <p>O motor gera o código-fonte <code>.mq5</code>, compila e entrega o arquivo <code>.ex5</code> pronto. Você recebe o caminho do arquivo na tela.</p>
+    <ul>
+      <li>O arquivo <code>.ex5</code> é o robô pronto para rodar no MetaTrader 5.</li>
+      <li>O código-fonte também fica disponível para você revisar.</li>
+      <li>Compilação local, sem precisar de nenhum outro programa.</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2><span class="n">4</span>Instale no MetaTrader 5</h2>
+    <ol>
+      <li>Abra o MetaTrader 5.</li>
+      <li>Menu <b>Arquivo → Abrir pasta de dados → MQL5 → Experts</b>.</li>
+      <li>Copie o arquivo <code>.ex5</code> para dentro da pasta <b>Experts</b>.</li>
+      <li>Reinicie o MetaTrader (ou a janela do Navegador).</li>
+      <li>No <b>Navegador</b>, em <b>Consultores Especialistas</b>, aparecerá seu robô. Arraste para o gráfico desejado.</li>
+      <li>Ative o robô clicando no botão <b>"Robôs de negociação"</b> no topo.</li>
+    </ol>
+    <div class="dica">Teste antes: abra o <b>Testador de Estratégia</b> (Ctrl+R), escolha seu robô e rode em "Giradas TLS" para ver o resultado passado.</div>
+  </div>
+
+  <div class="box">
+    <h2><span class="n">5</span>Modifique quando quiser</h2>
+    <p>Mudou de ideia ou quer melhorar? Basta pedir para o motor. Exemplos:</p>
+    <ul>
+      <li><code>"modifica o robô pra usar lote 0.5 agora"</code></li>
+      <li><code>"troca a média 20 pela média 50"</code></li>
+      <li><code>"adiciona um filtro de tendência na compra"</code></li>
+    </ul>
+    <p>O motor atualiza o código, recompila e entrega o novo <code>.ex5</code>. É só substituir na pasta Experts.</p>
+  </div>
+
+  <div class="box">
+    <h2><span class="n">6</span>Precisa de ajuda?</h2>
+    <p>Se tiver qualquer dúvida nas etapas, chame a gente e envie a mensagem do erro ou print da tela — resolvemos rápido.</p>
+    <div class="cta">
+      <a class="btn btn-wpp" href="https://wa.me/5516997997327?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20ROBO%20MT5." target="_blank" rel="noopener">Atendimento no WhatsApp</a>
+      <a class="btn btn-primary" href="index.html">Voltar e comprar</a>
+    </div>
+  </div>
+
+  <div class="aviso">Garantia simples: pagamento de R$ 49/mês. O robô é criado pelo motor instalado no SEU PC — nada de código do desenvolvedor exposto, nada de senha compartilhada.</div>
+</div>
+
+<footer>© 2026 BISONX AI · ROBO MT5 · Código protegido · Licença segura</footer>
+</body>
+</html>

@@ -5,103 +5,175 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BISONX AI - Sinais de Trade & Motor de IA Inteligente</title>
 <meta name="description" content="BISONX AI: sinais de trade (MMA + RSI), motor de IA próprio e vaga completa. Licença segura, pagamento via PIX, teste grátis de 3 dias.">
+<meta property="og:title" content="BISONX AI - Sinais de Trade & Motor de IA Inteligente">
+<meta property="og:description" content="Sinais de trade inteligentes, motor de IA próprio e vaga completa. Licença segura, PIX e teste grátis de 3 dias.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bisonx.com.br/">
 <style>
 :root{
-  --bg:#0b1020; --card:#131a33; --card2:#1a2450; --border:#26336e;
-  --text:#e8ecff; --muted:#9aa8d3; --cyan:#22d3ee; --green:#34d399;
-  --gold:#fbbf24; --red:#f87171; --blue:#60a5fa;
+  --bg:#070b1a; --card:#0f1630; --card2:#141d40; --border:#223065;
+  --text:#e9edff; --muted:#93a2d4; --cyan:#22d3ee; --green:#34d399;
+  --gold:#fbbf24; --red:#f87171; --blue:#60a5fa; --pink:#e879f9;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,Roboto,Arial,sans-serif;line-height:1.6}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,Roboto,Arial,sans-serif;line-height:1.6;overflow-x:hidden}
 a{color:var(--cyan);text-decoration:none}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
+::selection{background:var(--cyan);color:#062a33}
+/* fundo animado */
+.bg-anim{position:fixed;inset:0;z-index:-2;background:radial-gradient(800px 500px at 80% -10%,rgba(34,211,238,.14),transparent 60%),radial-gradient(700px 500px at 10% 110%,rgba(232,121,249,.10),transparent 60%),radial-gradient(600px 400px at 50% 50%,rgba(96,165,250,.06),transparent 60%),var(--bg)}
+.bg-anim::before,.bg-anim::after{content:"";position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;animation:flutuar 16s infinite alternate ease-in-out}
+.bg-anim::before{width:340px;height:340px;background:radial-gradient(circle,rgba(34,211,238,.35),transparent 70%);top:-80px;left:-80px}
+.bg-anim::after{width:380px;height:380px;background:radial-gradient(circle,rgba(96,165,250,.35),transparent 70%);bottom:-100px;right:-60px;animation-duration:20s}
+@keyframes flutuar{from{transform:translateY(10px) scale(1)}to{transform:translateY(-30px) scale(1.15)}}
 /* header */
-header{position:sticky;top:0;z-index:50;background:rgba(11,16,32,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-.logo{font-size:1.4rem;font-weight:800;letter-spacing:1px}
+header{position:sticky;top:0;z-index:60;background:rgba(7,11,26,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:12px;flex-wrap:wrap}
+.logo{font-size:1.35rem;font-weight:800;letter-spacing:1px;color:var(--text)}
 .logo span{color:var(--cyan)}
-.nav ul{display:flex;gap:22px;list-style:none;align-items:center}
-.nav ul a{color:var(--text);font-weight:600;font-size:.95rem}
+.nav ul{display:flex;gap:18px;list-style:none;align-items:center;flex-wrap:wrap}
+.nav ul a{color:var(--text);font-weight:600;font-size:.92rem}
 .nav ul a:hover{color:var(--cyan)}
 .lang{display:flex;gap:4px}
 .lang button{background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:.8rem}
 .lang button.ativo{background:var(--cyan);color:#062a33;border-color:var(--cyan);font-weight:700}
-.cta-top{background:linear-gradient(90deg,var(--cyan),var(--blue));color:#062a33;font-weight:800;padding:10px 20px;border-radius:10px;font-size:.9rem}
+.cta-top{background:linear-gradient(90deg,var(--cyan),var(--blue));color:#062a33;font-weight:800;padding:9px 18px;border-radius:10px;font-size:.88rem;border:none;cursor:pointer}
 .cta-top:hover{filter:brightness(1.1);color:#062a33}
 /* hero */
-.hero{text-align:center;padding:70px 0 50px;background:radial-gradient(ellipse at top,#12204d 0%,var(--bg) 70%)}
-.hero h1{font-size:2.7rem;line-height:1.15;margin-bottom:18px}
-.hero h1 .gr{background:linear-gradient(90deg,var(--cyan),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--muted);font-size:1.15rem;max-width:700px;margin:0 auto 28px}
+.hero{text-align:center;padding:64px 0 46px;position:relative}
+.ticker{max-width:860px;margin:0 auto 34px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;font-family:Consolas,monospace;font-size:.95rem;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.tick{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:8px;background:var(--card2)}
+.tick .s{font-weight:800}
+.tick .v{color:var(--text)}
+.tick.buy .s{color:var(--green)}
+.tick.sell .s{color:var(--red)}
+.tick .seta{animation:piscar 1.4s infinite}
+@keyframes piscar{0%,100%{opacity:1}50%{opacity:.35}}
+.hero h1{font-size:2.6rem;line-height:1.15;margin-bottom:16px;font-weight:800}
+.hero h1 .gr{background:linear-gradient(90deg,var(--cyan),var(--blue),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:grad 6s linear infinite}
+@keyframes grad{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+.hero p{color:var(--muted);font-size:1.12rem;max-width:700px;margin:0 auto 26px}
 .badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
-.badge{background:var(--card);border:1px solid var(--border);padding:8px 16px;border-radius:30px;font-size:.85rem;color:var(--muted)}
+.badge{background:var(--card);border:1px solid var(--border);padding:8px 16px;border-radius:30px;font-size:.85rem;color:var(--muted);backdrop-filter:blur(4px)}
 .badge b{color:var(--green)}
 .botoes{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-.btn{display:inline-block;padding:14px 30px;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;border:none}
-.btn-primary{background:linear-gradient(90deg,var(--cyan),var(--blue));color:#062a33}
-.btn-primary:hover{filter:brightness(1.1)}
+.btn{display:inline-block;padding:14px 30px;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;border:none;font-family:inherit}
+.btn-primary{background:linear-gradient(90deg,var(--cyan),var(--blue));color:#062a33;box-shadow:0 8px 24px rgba(34,211,238,.25)}
+.btn-primary:hover{filter:brightness(1.12);transform:translateY(-2px)}
 .btn-ghost{background:transparent;border:2px solid var(--cyan);color:var(--cyan)}
 .btn-ghost:hover{background:var(--cyan);color:#062a33}
+.btn-gold{background:linear-gradient(90deg,var(--gold),#f59e0b);color:#3a2a00;box-shadow:0 8px 24px rgba(251,191,36,.25)}
+.btn-gold:hover{filter:brightness(1.1)}
+.btn.wpp{background:#25D366;color:#062a33;display:inline-flex;align-items:center;gap:10px}
+.btn.wpp:hover{filter:brightness(1.08)}
+/* secoes */
+.sec{padding:64px 0}
+.sec h2{text-align:center;font-size:1.95rem;margin-bottom:10px}
+.sec .sub{text-align:center;color:var(--muted);margin-bottom:38px}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visivel{opacity:1;transform:none}
 /* produtos */
-.sec{padding:70px 0}
-.sec h2{text-align:center;font-size:2rem;margin-bottom:12px}
-.sec .sub{text-align:center;color:var(--muted);margin-bottom:40px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
-.card{background:linear-gradient(180deg,var(--card),var(--bg));border:1px solid var(--border);border-radius:20px;padding:30px;position:relative;transition:transform .2s}
-.card:hover{transform:translateY(-6px);border-color:var(--cyan)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+.card{background:linear-gradient(180deg,var(--card),rgba(11,16,32,.6));border:1px solid var(--border);border-radius:20px;padding:28px;position:relative;transition:transform .25s,border-color .25s;backdrop-filter:blur(6px)}
+.card:hover{transform:translateY(-6px);border-color:var(--cyan);box-shadow:0 18px 40px rgba(34,211,238,.12)}
 .card.destaque{border:2px solid var(--gold)}
+.card .glow{position:absolute;inset:0;border-radius:20px;overflow:hidden;pointer-events:none}
+.tick-anim{display:none}
 .tag{position:absolute;top:-13px;left:20px;background:var(--gold);color:#3a2a00;font-size:.75rem;font-weight:800;padding:5px 14px;border-radius:30px;letter-spacing:.5px}
-.card h3{font-size:1.35rem;margin-bottom:6px}
-.card .ico{font-size:2rem;margin-bottom:10px}
-.card .desc{color:var(--muted);font-size:.95rem;margin-bottom:16px}
-.card ul{list-style:none;margin-bottom:20px}
-.card ul li{padding:5px 0 5px 26px;position:relative;font-size:.92rem;color:var(--text)}
+.card h3{font-size:1.3rem;margin-bottom:4px}
+.card .ico{font-size:2rem;margin-bottom:8px}
+.card .desc{color:var(--muted);font-size:.93rem;margin-bottom:14px}
+.card ul{list-style:none;margin-bottom:18px}
+.card ul li{padding:5px 0 5px 26px;position:relative;font-size:.9rem}
 .card ul li:before{content:"✔";position:absolute;left:0;color:var(--green)}
-.card .preco{font-size:1.8rem;font-weight:800;color:var(--cyan);margin-bottom:4px}
-.card .periodo{color:var(--muted);font-size:.85rem;margin-bottom:18px}
+.card .preco{font-size:1.7rem;font-weight:800;color:var(--cyan)}
+.card .periodo{color:var(--muted);font-size:.85rem;margin-bottom:16px}
 .card .btn{width:100%;text-align:center}
-.presos .mini{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
-.mini-btn{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:8px 14px;border-radius:10px;cursor:pointer;font-size:.9rem}
-.mini-btn:hover{border-color:var(--cyan)}
-.mini-btn.ativo{border-color:var(--cyan);color:var(--cyan);background:var(--card2)}
-.mini-valor{margin-top:18px;font-size:1.05rem;color:var(--muted)}
-.mini-valor b{color:var(--green);font-size:1.3rem}
-.mini-valor .btn{margin-top:12px}
+.plans{display:flex;gap:8px;justify-content:center;margin-bottom:26px;flex-wrap:wrap}
+.plan-btn{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:10px;cursor:pointer;font-size:.9rem;font-family:inherit}
+.plan-btn:hover{border-color:var(--cyan)}
+.plan-btn.ativo{border-color:var(--gold);color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.mini-note{text-align:center;color:var(--muted);font-size:.95rem;margin-top:22px}
+.mini-note b{color:var(--green);font-size:1.2rem}
 /* como funciona */
-.passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:20px}
-.passo{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center}
+.passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-top:16px}
+.passo{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center}
 .passo .n{width:42px;height:42px;margin:0 auto 12px;background:linear-gradient(135deg,var(--cyan),var(--blue));border-radius:50%;color:#062a33;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
-.passo h4{margin-bottom:8px}
-.passo p{color:var(--muted);font-size:.9rem}
+.passo h4{margin-bottom:6px}
+.passo p{color:var(--muted);font-size:.88rem}
 /* pix */
-.pix-box{max-width:640px;margin:0 auto;background:linear-gradient(180deg,var(--card),var(--bg));border:1px solid var(--border);border-radius:20px;padding:36px;text-align:center}
-.pix-box h3{font-size:1.5rem;margin-bottom:8px}
-.pix-chave{background:var(--card2);border:1px dashed var(--green);border-radius:10px;padding:18px;font-family:Consolas,monospace;font-size:1rem;color:var(--green);word-break:break-all;margin:18px 0}
-.pix-passos{text-align:left;background:var(--card2);border-radius:12px;padding:18px 22px;font-size:.95rem;color:var(--text)}
+.pix-box{max-width:660px;margin:0 auto;background:linear-gradient(180deg,var(--card),rgba(11,16,32,.55));border:1px solid var(--border);border-radius:20px;padding:34px;text-align:center;backdrop-filter:blur(6px)}
+.pix-box h3{font-size:1.45rem;margin-bottom:6px}
+.pix-chave{background:var(--card2);border:1px dashed var(--green);border-radius:10px;padding:16px;font-family:Consolas,monospace;font-size:1rem;color:var(--green);word-break:break-all;margin:16px 0}
+.pix-passos{text-align:left;background:var(--card2);border-radius:12px;padding:16px 20px;font-size:.92rem}
 .pix-passos li{margin:8px 0;list-style:none;padding-left:26px;position:relative}
-.pix-passos li:before{content:"•";position:absolute;left:4px;color:var(--green);font-size:1.4rem}
+.pix-passos li:before{content:"•";position:absolute;left:4px;color:var(--green);font-size:1.3rem}
 .aviso{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.4);border-radius:10px;padding:12px 16px;margin-top:16px;font-size:.85rem;color:var(--red)}
 /* faq */
-.faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:14px}
-.faq-item h4{cursor:pointer;font-size:1rem}
-.faq-item .resp{color:var(--muted);font-size:.92rem;margin-top:10px}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin-bottom:12px}
+.faq-item h4{cursor:pointer;font-size:.98rem;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.faq-item h4::after{content:"▾";color:var(--cyan)}
+.faq-item .resp{color:var(--muted);font-size:.9rem;margin-top:10px;display:none}
+.faq-item.aber .resp{display:block}
+.faq-item.aber h4::after{content:"▴"}
 /* rodape */
-footer{border-top:1px solid var(--border);padding:40px 0;text-align:center;color:var(--muted);font-size:.85rem}
-footer .links{margin-bottom:14px;display:flex;gap:18px;justify-content:center}
+footer{border-top:1px solid var(--border);padding:36px 0;text-align:center;color:var(--muted);font-size:.85rem}
+footer .links{margin-bottom:12px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
 /* modal */
-.modal-wrap{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.75);align-items:center;justify-content:center;padding:20px}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:18px;max-width:640px;width:100%;padding:32px;max-height:90vh;overflow:auto}
-.modal h3{margin-bottom:16px;font-size:1.3rem}
-.fechar{float:right;background:transparent;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer}
+.modal-wrap{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.78);align-items:center;justify-content:center;padding:18px}
+.modal-wrap.aber{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:20px;max-width:680px;width:100%;padding:26px;max-height:92vh;overflow:auto;position:relative;animation:subir .3s ease}
+@keyframes subir{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.fechar{position:absolute;top:12px;right:16px;background:transparent;border:none;color:var(--muted);font-size:1.6rem;cursor:pointer;z-index:2}
 .fechar:hover{color:var(--red)}
-/* wpp */
-.wpp{display:flex;align-items:center;gap:12px;background:#25D366;color:#062a33;font-weight:800;padding:14px 26px;border-radius:12px;font-size:1rem}
-.wpp:hover{filter:brightness(1.1);color:#062a33}
-@media(max-width:640px){.hero h1{font-size:2rem}.nav ul{gap:12px}.nav ul a{font-size:.85rem}}
+/* wizard */
+.wizard-head{margin-bottom:18px}
+.wizard-head h3{font-size:1.25rem;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.steps{display:flex;gap:6px;margin-bottom:4px}
+.steps .st{flex:1;text-align:center;font-size:.68rem;color:var(--muted);padding:6px 4px;border-radius:8px;background:var(--card2);border:1px solid var(--border)}
+.steps .st.ativo{color:var(--cyan);border-color:var(--cyan)}
+.steps .st.pronto{color:var(--green);border-color:var(--green)}
+.wiz-step{display:none}
+.wiz-step.ativo{display:block}
+.wiz-opcoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.wiz-opcao{background:var(--card2);border:2px solid var(--border);border-radius:14px;padding:16px 14px;text-align:center;cursor:pointer;transition:border-color .2s,transform .2s}
+.wiz-opcao:hover{transform:translateY(-3px)}
+.wiz-opcao.selecionado{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan) inset}
+.wiz-opcao .o-nome{font-weight:800;font-size:.98rem;margin-bottom:4px}
+.wiz-opcao .o-preco{color:var(--cyan);font-size:.95rem;font-weight:700}
+.wiz-plans{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0 18px}
+.wiz-field{margin-bottom:14px}
+.wiz-field label{display:block;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.wiz-field input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:1rem;font-family:inherit;outline:none}
+.wiz-field input:focus{border-color:var(--cyan)}
+.wiz-nav{display:flex;gap:10px;justify-content:space-between;margin-top:18px}
+.wiz-nav .btn{padding:11px 20px;font-size:.92rem}
+.wiz-resumo{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:16px 18px;font-size:.95rem;margin-bottom:16px}
+.wiz-resumo .row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--border)}
+.wiz-resumo .row:last-child{border:none}
+.wiz-resumo .row b{color:var(--green)}
+.pix-mini{background:var(--card2);border:1px dashed var(--green);border-radius:10px;padding:12px;font-family:Consolas,monospace;color:var(--green);font-size:.9rem;word-break:break-all;margin-bottom:6px}
+.msg-preview{background:#0d2519;border:1px solid #1c5540;border-radius:10px;padding:12px;font-size:.82rem;color:#a7f3d0;white-space:pre-wrap;margin-top:14px;display:none}
+/* botao flutuante whatsapp */
+.wpp-fixo{position:fixed;bottom:20px;right:20px;z-index:90;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 26px rgba(37,211,102,.4);transition:transform .2s}
+.wpp-fixo:hover{transform:scale(1.1)}
+.wpp-fixo svg{width:30px;height:30px;fill:#fff}
+@media(max-width:680px){
+  .hero h1{font-size:1.95rem}
+  .nav ul{gap:10px}
+  .nav ul a{display:none}
+  .nav ul .lang{display:flex}
+  .cta-top{display:block}
+  .ticker{font-size:.78rem}
+}
+@media(max-width:980px){
+  .hero h1{font-size:2.2rem}
+}
 </style>
 </head>
 <body>
+<div class="bg-anim"></div>
 
 <header>
   <div class="container nav">
@@ -116,22 +188,29 @@ footer .links{margin-bottom:14px;display:flex;gap:18px;justify-content:center}
         <button id="langEN">EN</button>
         <button id="langES">ES</button>
       </span></li>
-      <li><a class="cta-top" href="#pix" data-i="ctaTop">Comprar</a></li>
+      <li><button class="cta-top" onclick="abrirWizard()" data-i="ctaTop">Comprar</button></li>
     </ul>
   </div>
 </header>
 
 <section class="hero">
   <div class="container">
-    <h1><span class="gr" data-i="heroT1">Tecnologia de inteligência</span><br><span class="gr" data-i="heroT2">para o seu futuro</span></h1>
-    <p data-i="heroP">O BISONX oferece sinais de trade inteligentes (MMA + RSI) e o seu próprio motor de IA. Licença segura, código protegido, pagamento via PIX e teste grátis de 3 dias.</p>
+    <div class="ticker">
+      <span class="tick buy"><span class="seta">▲</span><span class="s">BUY XAUUSD</span><span class="v">1:1.8</span></span>
+      <span class="tick sell"><span class="seta">▼</span><span class="s">SELL XAUUSD</span><span class="v">1:1.2</span></span>
+      <span class="tick buy"><span class="seta">▲</span><span class="s">BUY EURUSD</span><span class="v">1:1.5</span></span>
+      <span class="tick sell"><span class="seta">▼</span><span class="s">SELL GBPUSD</span><span class="v">1:1.3</span></span>
+    </div>
+    <h1><span class="gr">Inteligência de verdade</span><br>para o seu trade</h1>
+    <p data-i="heroP">O BISONX gera sinais COMPRA / VENDA em tempo real (MMA + RSI) e roda o seu próprio motor de IA. Licença segura, código protegido, pagamento via PIX e teste grátis de 3 dias.</p>
     <div class="badges">
       <span class="badge"><b data-i="b1">100% legal</b> · <span data-i="b1b">licença oficial</span></span>
       <span class="badge"><b data-i="b2">Código protegido</b> · <span data-i="b2b">nada exposto</span></span>
       <span class="badge"><b data-i="b3">Teste 3 dias</b> · <span data-i="b3b">gratuito</span></span>
+      <span class="badge"><b data-i="b4">PIX</b> · <span data-i="b4b">sem taxa, cai na hora</span></span>
     </div>
     <div class="botoes">
-      <a class="btn btn-primary" href="#pix" data-i="heroBtn1">Comprar agora</a>
+      <button class="btn btn-primary" onclick="abrirWizard()" data-i="heroBtn1">Comprar agora</button>
       <a class="btn btn-ghost" href="#como" data-i="heroBtn2">Como funciona</a>
     </div>
   </div>
@@ -139,10 +218,14 @@ footer .links{margin-bottom:14px;display:flex;gap:18px;justify-content:center}
 
 <section class="sec" id="produtos">
   <div class="container">
-    <h2 data-i="prodH">Escolha o seu acesso</h2>
-    <p class="sub" data-i="prodS">3 produtos · preço em R$ · aceita PIX · licença ativada após confirmação</p>
-
-    <div class="grid">
+    <h2 class="reveal" data-i="prodH">Escolha o seu acesso</h2>
+    <p class="sub reveal" data-i="prodS">3 produtos · preço em R$ · aceita PIX · licença ativada após confirmação</p>
+    <div class="plans reveal">
+      <button class="plan-btn ativo" data-dup="mensal" data-i="m1">Mensal</button>
+      <button class="plan-btn" data-dup="trimestral" data-i="m2">Trimestral (-15%)</button>
+      <button class="plan-btn" data-dup="anual" data-i="m3">Anual (-30%)</button>
+    </div>
+    <div class="grid reveal">
       <div class="card">
         <div class="ico">📈</div>
         <h3 data-i="p1t">SINAIS PRO</h3>
@@ -154,9 +237,8 @@ footer .links{margin-bottom:14px;display:flex;gap:18px;justify-content:center}
         </ul>
         <div class="preco" data-i="p1preco">R$ 49</div>
         <div class="periodo" data-i="p1per">por mês</div>
-        <a class="btn btn-primary" href="#pix" data-plan="sinais" data-i="p1btn">Comprar</a>
+        <button class="btn btn-primary" data-plan="sinais" data-i="p1btn">Comprar</button>
       </div>
-
       <div class="card destaque">
         <span class="tag" data-i="p2tag">MAIS PROCURADO</span>
         <div class="ico">🧠</div>
@@ -169,9 +251,8 @@ footer .links{margin-bottom:14px;display:flex;gap:18px;justify-content:center}
         </ul>
         <div class="preco" data-i="p2preco">R$ 199</div>
         <div class="periodo" data-i="p2per">por mês</div>
-        <a class="btn btn-primary" href="#pix" data-plan="motor" data-i="p2btn">Comprar</a>
+        <button class="btn btn-gold" data-plan="motor" data-i="p2btn">Comprar</button>
       </div>
-
       <div class="card">
         <div class="ico">👑</div>
         <h3 data-i="p3t">VAGA COMPLETA</h3>
@@ -183,62 +264,75 @@ footer .links{margin-bottom:14px;display:flex;gap:18px;justify-content:center}
         </ul>
         <div class="preco" data-i="p3preco">R$ 99</div>
         <div class="periodo" data-i="p3per">por mês</div>
-        <a class="btn btn-primary" href="#pix" data-plan="vaga" data-i="p3btn">Comprar</a>
+        <button class="btn btn-primary" data-plan="vaga" data-i="p3btn">Comprar</button>
+      </div>
+      <div class="card">
+        <div class="ico">🤖</div>
+        <h3 data-i="p4t">ROBO MT5</h3>
+        <p class="desc" data-i="p4d">Você recebe o MOTOR no seu PC — sem expor dados nem senhas do desenvolvedor — e o próprio trader cria e compila o robô (Expert Advisor) do jeito que quiser.</p>
+        <ul>
+          <li data-i="p4l1">Motor enviado sem expor seus dados</li>
+          <li data-i="p4l2">Você mesmo cria e compila seu EA MQL5</li>
+          <li data-i="p4l3">Pode modificar quando quiser</li>
+        </ul>
+        <div class="preco" data-i="p4preco">R$ 49</div>
+        <div class="periodo" data-i="p4per">por mês</div>
+        <button class="btn btn-primary" data-plan="robo" data-i="p4btn">Comprar</button>
+        <a href="manual.html" style="display:block;text-align:center;margin-top:14px;font-size:.88rem;color:var(--cyan)" data-i="p4man">📖 Manual de uso</a>
       </div>
     </div>
-
-    <div class="presos">
-      <div class="mini">
-        <button class="mini-btn ativo" data-dup="mensal" data-i="m1">Mensal</button>
-        <button class="mini-btn" data-dup="trimestral" data-i="m2">Trimestral (-15%)</button>
-        <button class="mini-btn" data-dup="anual" data-i="m3">Anual (-30%)</button>
-      </div>
-      <div class="mini-valor" id="miniValor"></div>
-    </div>
+    <div class="mini-note reveal" id="miniValor"></div>
   </div>
 </section>
 
-<section class="sec" id="como" style="background:var(--card);">
+<section class="sec" id="como" style="background:rgba(15,22,48,.5);">
   <div class="container">
-    <h2 data-i="comoH">Como funciona</h2>
-    <p class="sub" data-i="comoS">Processo simples, transparente e seguro</p>
-    <div class="passos">
+    <h2 class="reveal" data-i="comoH">Como funciona</h2>
+    <p class="sub reveal" data-i="comoS">Todo o atendimento é feito pelo robô vendedor, rápido e direto</p>
+    <div class="passos reveal">
       <div class="passo"><div class="n">1</div><h4 data-i="s1">Escolha o produto</h4><p data-i="s1d">Selecione SINAIS, MOTOR ou VAGA na página.</p></div>
-      <div class="passo"><div class="n">2</div><h4 data-i="s2">Faça o PIX</h4><p data-i="s2d">Use a chave PIX da página e pague o valor exato.</p></div>
-      <div class="passo"><div class="n">3</div><h4 data-i="s3">Confirmação</h4><p data-i="s3d">O pagamento é confirmado e sua licença é gerada.</p></div>
-      <div class="passo"><div class="n">4</div><h4 data-i="s4">Receba a chave</h4><p data-i="s4d">Sua chave de ativação chega para você ativar.</p></div>
+      <div class="passo"><div class="n">2</div><h4 data-i="s2">Faça o PIX</h4><p data-i="s2d">Use a chave PIX e pague o valor exato.</p></div>
+      <div class="passo"><div class="n">3</div><h4 data-i="s3">Pedido no WhatsApp</h4><p data-i="s3d">O robô gera seu pedido pronto e abre o WhatsApp — você só confirma.</p></div>
+      <div class="passo"><div class="n">4</div><h4 data-i="s4">Receba a chave</h4><p data-i="s4d">Sua chave de ativação chega e o produto é liberado.</p></div>
     </div>
   </div>
 </section>
 
 <section class="sec" id="pix">
   <div class="container">
-    <h2 data-i="pixH">Pagamento via PIX</h2>
-    <p class="sub" data-i="pixS">O dinheiro cai direto na conta oficial. O código nunca é exposto.</p>
-    <div class="pix-box">
+    <h2 class="reveal" data-i="pixH">Pagamento via PIX</h2>
+    <p class="sub reveal" data-i="pixS">O dinheiro cai direto na conta oficial. O código nunca é exposto.</p>
+    <div class="pix-box reveal">
       <h3 data-i="pixT">Chave PIX (copia e cola)</h3>
-      <div class="pix-chave" id="pixChave" data-i="pixChaveTx">27604654894</div>
-      <div style="color:var(--muted);font-size:.85rem;margin-bottom:6px" data-i="pixNome">CPF · Robison Rodrigues Bezerra da Silva · Banco Nubank</div>
+      <div class="pix-chave" id="pixChave">27604654894</div>
+      <div style="color:var(--muted);font-size:.85rem;margin-bottom:6px" data-i="pixNome">CPF · Robison Rodrigues Bezerra da Silva · Nubank</div>
       <button class="btn btn-primary" id="copiarPix" style="margin-bottom:14px" data-i="copiar">Copiar chave PIX</button>
       <ol class="pix-passos">
         <li data-i="px1">Abra seu banco e escolha <b>PIX</b>.</li>
         <li data-i="px2">Toque em <b>"Pix copia e cola"</b> e cole a chave.</li>
         <li data-i="px3">Confira o valor e confirme o pagamento.</li>
-        <li data-i="px4">Envie o <b>comprovante pelo WhatsApp</b> para ativarmos.</li>
+        <li data-i="px4">Finalize o pedido no WhatsApp (botão verde abaixo).</li>
       </ol>
-      <a class="wpp" id="wppBtn" href="#" target="_blank" data-i="wpp">Enviar comprovante no WhatsApp</a>
+      <button class="btn wpp" style="margin-top:16px;width:100%;justify-content:center" id="wppBtnPrincipal" onclick="abrirWppWhats()" data-i="wpp">Finalizar pedido no WhatsApp</button>
+      <a class="wpp-fixo" id="wppFlut" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 32 32"><path d="M16 3C9.4 3 4 8.4 4 15.1c0 2.7.8 5.2 2.2 7.4L4 29l6.6-2.1c2.1 1.2 4.5 1.9 7.4 1.9 6.6 0 12-5.4 12-12.1S22.6 3 16 3zm5.8 16.9c-.3.8-1.5 1.5-2.1 1.6-.6.1-1.1.2-2.6-.5-6.1-2.6-8-6-8.3-6.4-.3-.3-2-2.7-2-5.2 0-2.5 1.3-3.7 1.8-4.2.5-.5 1-.6 1.4-.6h1c.3 0 .7-.1 1.1.8.4.9 1.3 3.1 1.4 3.3.1.2.2.5 0 .8-.1.3-.2.4-.4.7l-.6.8c-.2.2-.4.5-.2.9.2.4 1 1.6 2.1 2.6 1.5 1.3 2.7 1.7 3.1 1.9.4.2.6.2.8-.1s1-1.2 1.3-1.6c.3-.4.6-.3.9-.2.4.1 2.3 1.1 2.7 1.3.4.2.6.3.7.5.1.2.1.9-.2 1.6z"/></svg>
+      </a>
       <div class="aviso" data-i="avisoPix">Após o pagamento, sua licença é liberada e você recebe sua chave de ativação.</div>
     </div>
   </div>
 </section>
 
-<section class="sec" id="faq" style="background:var(--card);">
+<section class="sec" id="faq" style="background:rgba(15,22,48,.5);">
   <div class="container">
-    <h2 data-i="faqH">Perguntas frequentes</h2>
-    <div class="faq-item"><h4 data-i="f1">O código-fonte é exposto para o cliente?</h4><div class="resp" data-i="f1r">Não. Você recebe apenas a chave de licença e o programa compilado. Todo o código do motor permanece protegido no computador do desenvolvedor.</div></div>
-    <div class="faq-item"><h4 data-i="f2">Existe período de teste?</h4><div class="resp" data-i="f2r">Sim! Você pode solicitar um teste grátis de 3 dias pelo WhatsApp.</div></div>
-    <div class="faq-item"><h4 data-i="f3">Como recebo minha licença?</h4><div class="resp" data-i="f3r">Após a confirmação do PIX, sua chave de ativação é gerada e enviada para você ativar o produto.</div></div>
-    <div class="faq-item"><h4 data-i="f4">A licença é legalizada?</h4><div class="resp" data-i="f4r">Sim. Cada cliente recebe uma licença oficial, única e com validade. Uso totalmente legal.</div></div>
+    <h2 class="reveal" data-i="faqH">Dúvidas frequentes</h2>
+    <div class="reveal">
+      <div class="faq-item"><h4 data-i="f1">O código-fonte é exposto para o cliente?</h4><div class="resp" data-i="f1r">Não. Você recebe apenas o programa compilado e a sua chave de licença. Todo o código do motor permanece protegido no computador do desenvolvedor.</div></div>
+      <div class="faq-item"><h4 data-i="f2">Como comprar?</h4><div class="resp" data-i="f2r">Click em "Comprar", escolha produto e plano, faça o PIX e finalize no WhatsApp. O robô manda tudo pronto — é só confirmar.</div></div>
+      <div class="faq-item"><h4 data-i="f3">Existe período de teste?</h4><div class="resp" data-i="f3r">Sim! Você pode solicitar um teste grátis de 3 dias pelo WhatsApp.</div></div>
+      <div class="faq-item"><h4 data-i="f4">Como recebo minha licença?</h4><div class="resp" data-i="f4r">Após a confirmação do PIX, sua chave de ativação é gerada e enviada para você ativar o produto.</div></div>
+      <div class="faq-item"><h4 data-i="f5">A licença é legalizada?</h4><div class="resp" data-i="f5r">Sim. Cada cliente recebe uma licença oficial, única e com validade. Uso totalmente legal.</div></div>
+      <div class="faq-item"><h4 data-i="f6">Como funciona o ROBO MT5?</h4><div class="resp" data-i="f6r">Por apenas R$ 49/mês, você recebe o MOTOR no seu PC, sem expor dados nem senhas do desenvolvedor. Com ele, o próprio trader cria e compila seu robô (Expert Advisor) em MQL5 do jeito que quiser, e pode modificar quando quiser.</div></div>
+    </div>
   </div>
 </section>
 
@@ -251,175 +345,406 @@ footer .links{margin-bottom:14px;display:flex;gap:18px;justify-content:center}
   <div data-i="f4t">Código protegido · Licença segura · Feito com tecnologia própria</div>
 </footer>
 
-<div class="modal-wrap" id="modalPix">
+<!-- ============ ROBÔ VENDEDOR (wizard de compra) ============ -->
+<div class="modal-wrap" id="wizard">
   <div class="modal">
-    <button class="fechar" id="fecharModal">✕</button>
-    <h3 id="modalTitle" data-i="mT">Comprar</h3>
-    <p id="modalResumo">…</p>
-    <div style="text-align:center;margin:18px 0">
-      <a class="btn btn-primary" href="#pix" id="irPix" data-i="irPix">Pagar via PIX</a>
+    <button class="fechar" id="fecharWizard">✕</button>
+    <div class="wizard-head">
+      <h3>🤖 <span data-i="wzTitulo">Robô vendedor BISONX</span></h3>
+      <div class="steps">
+        <div class="st ativo" data-i="wzS1">Produto</div>
+        <div class="st" data-i="wzS2">Plano</div>
+        <div class="st" data-i="wzS3">Seus dados</div>
+        <div class="st" data-i="wzS4">Pedido</div>
+      </div>
+    </div>
+
+    <!-- passo 1: produto -->
+    <div class="wiz-step ativo" id="wzPasso1">
+      <p style="color:var(--muted);font-size:.92rem;margin-bottom:14px" data-i="wz1p">Qual produto você quer?</p>
+      <div class="wiz-opcoes">
+        <div class="wiz-opcao" data-plan="sinais">
+          <div class="o-nome" data-i="p1t2">📈 SINAIS PRO</div>
+          <div class="o-preco" data-i="wz1a">a partir de R$ 49/mês</div>
+        </div>
+        <div class="wiz-opcao" data-plan="motor">
+          <div class="o-nome" data-i="p2t2">🧠 MOTOR BISONX</div>
+          <div class="o-preco" data-i="wz1b">a partir de R$ 199/mês</div>
+        </div>
+        <div class="wiz-opcao" data-plan="vaga">
+          <div class="o-nome" data-i="p3t2">👑 VAGA COMPLETA</div>
+          <div class="o-preco" data-i="wz1c">a partir de R$ 99/mês</div>
+        </div>
+        <div class="wiz-opcao" data-plan="robo">
+          <div class="o-nome" data-i="p4t2">🤖 ROBO MT5</div>
+          <div class="o-preco" data-i="wz1d">a partir de R$ 49/mês</div>
+        </div>
+      </div>
+      <div class="wiz-nav">
+        <span></span>
+        <button class="btn btn-primary" data-i="wzNext1" onclick="wzIr(2)">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- passo 2: plano -->
+    <div class="wiz-step" id="wzPasso2">
+      <p style="color:var(--muted);font-size:.92rem;margin-bottom:8px" id="wz2txt"></p>
+      <div class="wiz-plans">
+        <button class="plan-btn ativo" data-wdup="mensal" data-i="m1">Mensal</button>
+        <button class="plan-btn" data-wdup="trimestral" data-i="m2">Trimestral (-15%)</button>
+        <button class="plan-btn" data-wdup="anual" data-i="m3">Anual (-30%)</button>
+      </div>
+      <div style="text-align:center;font-size:1.4rem;font-weight:800;color:var(--cyan)" id="wzPrecoPlan"></div>
+      <div style="text-align:center;color:var(--muted);font-size:.85rem" id="wzPerPlan"></div>
+      <div class="wiz-nav">
+        <button class="btn btn-ghost" data-i="wzBack" onclick="wzIr(1)">← Voltar</button>
+        <button class="btn btn-primary" data-i="wzNext2" onclick="wzIr(3)">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- passo 3: dados -->
+    <div class="wiz-step" id="wzPasso3">
+      <div class="wiz-field">
+        <label data-i="wzNome">Seu nome</label>
+        <input id="wzNome" placeholder="Ex.: João Silva" autocomplete="name">
+      </div>
+      <div class="wiz-field">
+        <label data-i="wzWhats">Seu WhatsApp (com DDD)</label>
+        <input id="wzWhats" placeholder="Ex.: 16 99999-9999" autocomplete="tel">
+      </div>
+      <div class="wiz-nav">
+        <button class="btn btn-ghost" data-i="wzBack" onclick="wzIr(2)">← Voltar</button>
+        <button class="btn btn-primary" data-i="wzNext3" onclick="wzConfirmar()">Gerar pedido →</button>
+      </div>
+    </div>
+
+    <!-- passo 4: pedido -->
+    <div class="wiz-step" id="wzPasso4">
+      <div class="wiz-resumo" id="wzResumo"></div>
+      <div style="text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:6px" data-i="wz4a">Pague com o PIX e finalize:</div>
+      <div class="pix-mini" id="wzPix">27604654894</div>
+      <button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="copiarPix(true)" id="wzCopiarPix" data-i="copiar">Copiar chave PIX</button>
+      <button class="btn wpp" style="width:100%;justify-content:center" id="wzWppBtn" data-i="wzEnviar">Enviar pedido no WhatsApp 📲</button>
+      <div class="msg-preview" id="wzMsgPrev"></div>
+      <button class="btn btn-ghost" style="margin-top:12px;width:100%" data-i="wzNovo" onclick="wzReiniciar()">↺ Fazer outro pedido</button>
     </div>
   </div>
 </div>
 
 <script>
+/* ---------- i18n ---------- */
 const i18n={
   "pt-BR":{
-    heroT1:"Tecnologia de inteligência",heroT2:"para o seu futuro",
-    heroP:"O BISONX oferece sinais de trade inteligentes (MMA + RSI) e o seu próprio motor de IA. Licença segura, código protegido, pagamento via PIX e teste grátis de 3 dias.",
-    b1:"100% legal",b1b:"licença oficial",b2:"Código protegido",b2b:"nada exposto",b3:"Teste 3 dias",b3b:"gratuito",
+    heroP:"O BISONX gera sinais COMPRA / VENDA em tempo real (MMA + RSI) e roda o seu próprio motor de IA. Licença segura, código protegido, pagamento via PIX e teste grátis de 3 dias.",
+    b1:"100% legal",b1b:"licença oficial",b2:"Código protegido",b2b:"nada exposto",b3:"Teste 3 dias",b3b:"gratuito",b4:"PIX",b4b:"sem taxa, cai na hora",
     heroBtn1:"Comprar agora",heroBtn2:"Como funciona",
     menuProdutos:"Produtos",menuComo:"Como funciona",menuPix:"Pagamento",menuFaq:"FAQ",ctaTop:"Comprar",
-    prodH:"Escolha o seu acesso",prodS:"3 produtos · preço em R$ · aceita PIX · licença ativada após confirmação",
+    prodH:"Escolha o seu acesso",prodS:"4 produtos · preço em R$ · aceita PIX · licença ativada após confirmação",
     p1t:"SINAIS PRO",p1d:"Sinais de trade automáticos (Média Móvel + RSI) com leitura em tempo real. Ideal para quem opera ouro (XAUUSD) e outros mercados.",
     p1l1:"Sinais COMPRA / VENDA automáticos",p1l2:"Análise MMA5 + MMA20 + RSI",p1l3:"Rodada no seu PC, seguro",
-    p1preco:"R$ 49",p1per:"por mês",p1btn:"Comprar",
+    p1preco:"R$ 49",p1per:"por mês",p1btn:"Comprar",p1t2:"📈 SINAIS PRO",
     p2tag:"MAIS PROCURADO",p2t:"MOTOR BISONX",p2d:"O seu próprio motor de IA: conversa, executa comandos e roda no seu aparelho. Tecnologia proprietária protegida.",
     p2l1:"Inteligência própria conversando e executando",p2l2:"Rodada 100% local / protegida",p2l3:"Atualizações e suporte",
-    p2preco:"R$ 199",p2per:"por mês",p2btn:"Comprar",
+    p2preco:"R$ 199",p2per:"por mês",p2btn:"Comprar",p2t2:"🧠 MOTOR BISONX",
     p3t:"VAGA COMPLETA",p3d:"Acesso total e personalizado. Para quem quer o melhor do BISONX com atendimento dedicado.",
     p3l1:"Tudo do SINAIS + MOTOR",p3l2:"Atendimento personalizado",p3l3:"Prioridade no suporte",
-    p3preco:"R$ 99",p3per:"por mês",p3btn:"Comprar",
+    p3preco:"R$ 99",p3per:"por mês",p3btn:"Comprar",p3t2:"👑 VAGA COMPLETA",
+    p4t:"ROBO MT5",p4d:"Você recebe o MOTOR no seu PC — sem expor dados nem senhas do desenvolvedor — e o próprio trader cria e compila o robô (Expert Advisor) do jeito que quiser.",
+    p4l1:"Motor enviado sem expor seus dados",p4l2:"Você mesmo cria e compila seu EA MQL5",p4l3:"Pode modificar quando quiser",
+    p4preco:"R$ 49",p4per:"por mês",p4btn:"Comprar",p4t2:"🤖 ROBO MT5",p4man:"📖 Manual de uso",
+    wz1d:"a partir de R$ 49/mês",
     m1:"Mensal",m2:"Trimestral (-15%)",m3:"Anual (-30%)",
-    comoH:"Como funciona",comoS:"Processo simples, transparente e seguro",
-    s1:"Escolha o produto",s1d:"Selecione SINAIS, MOTOR ou VAGA na página.",s2:"Faça o PIX",s2d:"Use a chave PIX da página e pague o valor exato.",s3:"Confirmação",s3d:"O pagamento é confirmado e sua licença é gerada.",s4:"Receba a chave",s4d:"Sua chave de ativação chega para você ativar.",
+    comoH:"Como funciona",comoS:"Todo o atendimento é feito pelo robô vendedor, rápido e direto",
+    s1:"Escolha o produto",s1d:"Selecione SINAIS, MOTOR, VAGA ou ROBO MT5 na página.",s2:"Faça o PIX",s2d:"Use a chave PIX e pague o valor exato.",s3:"Pedido no WhatsApp",s3d:"O robô gera seu pedido pronto e abre o WhatsApp — você só confirma.",s4:"Receba a chave",s4d:"Sua chave de ativação chega e o produto é liberado.",
     pixH:"Pagamento via PIX",pixS:"O dinheiro cai direto na conta oficial. O código nunca é exposto.",pixT:"Chave PIX (copia e cola)",
-    copiar:"Copiar chave PIX",px1:"Abra seu banco e escolha PIX.",px2:'Toque em "Pix copia e cola" e cole a chave.',px3:"Confira o valor e confirme o pagamento.",px4:"Envie o comprovante pelo WhatsApp para ativarmos.",wpp:"Enviar comprovante no WhatsApp",avisoPix:"Após o pagamento, sua licença é liberada e você recebe sua chave de ativação.",
-    faqH:"Perguntas frequentes",f1:"O código-fonte é exposto para o cliente?",f1r:"Não. Você recebe apenas a chave de licença e o programa compilado. Todo o código do motor permanece protegido no computador do desenvolvedor.",f2:"Existe período de teste?",f2r:"Sim! Você pode solicitar um teste grátis de 3 dias pelo WhatsApp.",f3:"Como recebo minha licença?",f3r:"Após a confirmação do PIX, sua chave de ativação é gerada e enviada para você ativar o produto.",f4:"A licença é legalizada?",f4r:"Sim. Cada cliente recebe uma licença oficial, única e com validade. Uso totalmente legal.",
-    mT:"Comprar",irPix:"Pagar via PIX",
-    f1t:"© 2026 BISONX AI",f2t:"Pagamento",f3t:"FAQ",f4t:"Código protegido · Licença segura · Feito com tecnologia própria"
+    copiar:"Copiar chave PIX",px1:"Abra seu banco e escolha PIX.",px2:"Toque em \"Pix copia e cola\" e cole a chave.",px3:"Confira o valor e confirme o pagamento.",px4:"Finalize o pedido no WhatsApp (botão verde abaixo).",wpp:"Finalizar pedido no WhatsApp",avisoPix:"Após o pagamento, sua licença é liberada e você recebe sua chave de ativação.",
+    faqH:"Dúvidas frequentes",f1:"O código-fonte é exposto para o cliente?",f1r:"Não. Você recebe apenas o programa compilado e a sua chave de licença. Todo o código do motor permanece protegido no computador do desenvolvedor.",f2:"Como comprar?",f2r:"Click em \"Comprar\", escolha produto e plano, faça o PIX e finalize no WhatsApp. O robô manda tudo pronto — é só confirmar.",f3:"Existe período de teste?",f3r:"Sim! Você pode solicitar um teste grátis de 3 dias pelo WhatsApp.",f4:"Como recebo minha licença?",f4r:"Após a confirmação do PIX, sua chave de ativação é gerada e enviada para você ativar o produto.",f5:"A licença é legalizada?",f5r:"Sim. Cada cliente recebe uma licença oficial, única e com validade. Uso totalmente legal.",f6:"Como funciona o ROBO MT5?",f6r:"Por apenas R$ 49/mês, você recebe o MOTOR no seu PC, sem expor dados nem senhas do desenvolvedor. Com ele, o próprio trader cria e compila seu robô (Expert Advisor) em MQL5 do jeito que quiser, e pode modificar quando quiser.",
+    f1t:"© 2026 BISONX AI",f2t:"Pagamento",f3t:"FAQ",f4t:"Código protegido · Licença segura · Feito com tecnologia própria",
+    wzTitulo:"Robô vendedor BISONX",wzS1:"Produto",wzS2:"Plano",wzS3:"Seus dados",wzS4:"Pedido",
+    wz1p:"Qual produto você quer?",wz1a:"a partir de R$ 49/mês",wz1b:"a partir de R$ 199/mês",wz1c:"a partir de R$ 99/mês",
+    wzNext1:"Continuar →",wzNext2:"Continuar →",wzNext3:"Gerar pedido →",wzBack:"← Voltar",
+    wzNome:"Seu nome",wzWhats:"Seu WhatsApp (com DDD)",
+    wz2txt:"Plano do produto:",wz4a:"Pague com o PIX e finalize:",wzEnviar:"Enviar pedido no WhatsApp 📲",wzNovo:"↺ Fazer outro pedido",
+    pedido:"Pedido",produto:"Produto",plano:"Plano",valor:"Valor",nome:"Nome",whats:"WhatsApp",gerado:"Pedido gerado",enviarPronto:"Enviar pedido no WhatsApp",
+    msgIntro:"Olá! Quero comprar a licença. Meu pedido:",msgPix:"Vou fazer o PIX agora (chave copiada) e envio o comprovante."
   },
   "en":{
-    heroT1:"Intelligence technology",heroT2:"for your future",
-    heroP:"BISONX delivers smart trade signals (MA + RSI) and your own AI engine. Secure license, protected code, PIX payment and a free 3-day trial.",
-    b1:"100% legal",b1b:"official license",b2:"Protected code",b2b:"nothing exposed",b3:"3-day trial",b3b:"free",
+    heroP:"BISONX generates real-time BUY / SELL signals (MA + RSI) and runs its own AI engine. Secure license, protected code, PIX payment and a free 3-day trial.",
+    b1:"100% legal",b1b:"official license",b2:"Protected code",b2b:"nothing exposed",b3:"3-day trial",b3b:"free",b4:"Instant",b4b:"fee-free PIX",
     heroBtn1:"Buy now",heroBtn2:"How it works",
     menuProdutos:"Products",menuComo:"How it works",menuPix:"Payment",menuFaq:"FAQ",ctaTop:"Buy",
-    prodH:"Choose your access",prodS:"3 products · price in R$ · accepts PIX · license activated after confirmation",
+    prodH:"Choose your access",prodS:"4 products · price in R$ · accepts PIX · license activated after confirmation",
     p1t:"SIGNALS PRO",p1d:"Automatic trade signals (Moving Average + RSI) with real-time reading. Ideal for gold (XAUUSD) and other markets.",
     p1l1:"Automatic BUY / SELL signals",p1l2:"MA5 + MA20 + RSI analysis",p1l3:"Runs on your PC, safe",
-    p1preco:"R$ 49",p1per:"per month",p1btn:"Buy",
+    p1preco:"R$ 49",p1per:"per month",p1btn:"Buy",p1t2:"📈 SIGNALS PRO",
     p2tag:"BEST SELLER",p2t:"BISONX ENGINE",p2d:"Your own AI engine: talks, runs commands and runs on your device. Protected proprietary technology.",
     p2l1:"Own intelligence chatting and executing",p2l2:"100% local / protected",p2l3:"Updates and support",
-    p2preco:"R$ 199",p2per:"per month",p2btn:"Buy",
+    p2preco:"R$ 199",p2per:"per month",p2btn:"Buy",p2t2:"🧠 BISONX ENGINE",
     p3t:"FULL SEAT",p3d:"Full and personalized access. For those who want the best of BISONX with dedicated service.",
     p3l1:"Everything in SIGNALS + ENGINE",p3l2:"Personalized support",p3l3:"Priority support",
-    p3preco:"R$ 99",p3per:"per month",p3btn:"Buy",
+    p3preco:"R$ 99",p3per:"per month",p3btn:"Buy",p3t2:"👑 FULL SEAT",
+    p4t:"MT5 ROBOT",p4d:"You receive the ENGINE on your PC — without exposing the developer's data or passwords — and the trader himself builds and compiles the Expert Advisor the way he wants.",
+    p4l1:"Engine sent without exposing your data",p4l2:"You build and compile your own MQL5 EA",p4l3:"You can modify it anytime",
+    p4preco:"R$ 49",p4per:"per month",p4btn:"Buy",p4t2:"🤖 MT5 ROBOT",p4man:"📖 User guide",
+    wz1d:"from R$ 49/mo",
     m1:"Monthly",m2:"Quarterly (-15%)",m3:"Yearly (-30%)",
-    comoH:"How it works",comoS:"Simple, transparent and secure process",
-    s1:"Choose product",s1d:"Select SIGNALS, ENGINE or FULL SEAT.",s2:"Pay with PIX",s2d:"Use the site PIX key and pay the exact amount.",s3:"Confirmation",s3d:"Payment confirmed and your license is generated.",s4:"Receive key",s4d:"Your activation key is delivered and activated.",
+    comoH:"How it works",comoS:"Everything handled by the sales robot, fast and direct",
+    s1:"Choose product",s1d:"Select SIGNALS, ENGINE, FULL SEAT or MT5 ROBOT.",s2:"Pay with PIX",s2d:"Use the site PIX key and pay the exact amount.",s3:"Order on WhatsApp",s3d:"The robot builds your order and opens WhatsApp — just confirm.",s4:"Receive key",s4d:"Your activation key is delivered and activated.",
     pixH:"PIX payment",pixS:"Money goes directly to the official account. Code is never exposed.",pixT:"PIX key (copy & paste)",
-    copiar:"Copy PIX key",px1:"Open your bank and choose PIX.",px2:'Tap "Copy & paste PIX" and paste the key.',px3:"Check the amount and confirm.",px4:"Send the receipt via WhatsApp to activate.",wpp:"Send receipt on WhatsApp",avisoPix:"After payment, your license is released and you receive your activation key.",
-    faqH:"Frequently asked questions",f1:"Is the source code exposed to the customer?",f1r:"No. You only receive the license key and the compiled program. All engine code remains protected on the developer computer.",f2:"Is there a trial period?",f2r:"Yes! Ask for a free 3-day trial on WhatsApp.",f3:"How do I receive my license?",f3r:"After PIX confirmation, your activation key is generated and sent for you to activate the product.",f4:"Is the license legal?",f4r:"Yes. Each customer receives an official, unique, valid license. Fully legal use.",
-    mT:"Buy",irPix:"Pay with PIX",
-    f1t:"© 2026 BISONX AI",f2t:"Payment",f3t:"FAQ",f4t:"Protected code · Secure license · Built with own technology"
+    copiar:"Copy PIX key",px1:"Open your bank and choose PIX.",px2:"Tap \"Copy & paste PIX\" and paste the key.",px3:"Check the amount and confirm.",px4:"Finish your order on WhatsApp (green button below).",wpp:"Finish order on WhatsApp",avisoPix:"After payment, your license is released and you receive your activation key.",
+    faqH:"Frequently asked questions",f1:"Is the source code exposed to the customer?",f1r:"No. You only receive the compiled program and your license key. All engine code remains protected on the developer computer.",f2:"How to buy?",f2r:"Click \"Buy\", choose product and plan, pay with PIX and finish on WhatsApp. The robot sends everything ready — just confirm.",f3:"Is there a trial period?",f3r:"Yes! Ask for a free 3-day trial on WhatsApp.",f4:"How do I receive my license?",f4r:"After PIX confirmation, your activation key is generated and sent for you to activate the product.",f5:"Is the license legal?",f5r:"Yes. Each customer receives an official, unique, valid license. Fully legal use.",f6:"How does MT5 ROBOT work?",f6r:"For only R$ 49/month, you receive the ENGINE on your PC, without exposing the developer's data or passwords. With it, the trader himself builds and compiles his Expert Advisor in MQL5 the way he wants, and can modify it anytime.",
+    f1t:"© 2026 BISONX AI",f2t:"Payment",f3t:"FAQ",f4t:"Protected code · Secure license · Built with own technology",
+    wzTitulo:"BISONX sales robot",wzS1:"Product",wzS2:"Plan",wzS3:"Your data",wzS4:"Order",
+    wz1p:"Which product do you want?",wz1a:"from R$ 49/mo",wz1b:"from R$ 199/mo",wz1c:"from R$ 99/mo",
+    wzNext1:"Continue →",wzNext2:"Continue →",wzNext3:"Generate order →",wzBack:"← Back",
+    wzNome:"Your name",wzWhats:"Your WhatsApp (with area code)",
+    wz2txt:"Product plan:",wz4a:"Pay with PIX and finish:",wzEnviar:"Send order on WhatsApp 📲",wzNovo:"↺ New order",
+    pedido:"Order",produto:"Product",plano:"Plan",valor:"Value",nome:"Name",whats:"WhatsApp",
+    msgIntro:"Hi! I want to buy the license. My order:",msgPix:"I'll pay with PIX now (key copied) and send the receipt."
   },
   "es":{
-    heroT1:"Tecnología de inteligencia",heroT2:"para tu futuro",
-    heroP:"BISONX ofrece señales de trading inteligentes (MA + RSI) y tu propio motor de IA. Licencia segura, código protegido, pago por PIX y prueba gratis de 3 días.",
-    b1:"100% legal",b1b:"licencia oficial",b2:"Código protegido",b2b:"nada expuesto",b3:"Prueba 3 días",b3b:"gratis",
+    heroP:"BISONX genera señales COMPRA / VENTA en tiempo real (MA + RSI) y ejecuta su propio motor de IA. Licencia segura, código protegido, pago por PIX y prueba gratis de 3 días.",
+    b1:"100% legal",b1b:"licencia oficial",b2:"Código protegido",b2b:"nada expuesto",b3:"Prueba 3 días",b3b:"gratis",b4:"PIX",b4b:"sin tasa, cae al instante",
     heroBtn1:"Comprar ahora",heroBtn2:"Cómo funciona",
     menuProdutos:"Productos",menuComo:"Cómo funciona",menuPix:"Pago",menuFaq:"FAQ",ctaTop:"Comprar",
-    prodH:"Elige tu acceso",prodS:"3 productos · precio en R$ · acepta PIX · licencia activada tras confirmación",
+    prodH:"Elige tu acceso",prodS:"4 productos · precio en R$ · acepta PIX · licencia activada tras confirmación",
     p1t:"SEÑALES PRO",p1d:"Señales de trading automáticas (Media Móvil + RSI) con lectura en tiempo real. Ideal para el oro (XAUUSD) y otros mercados.",
     p1l1:"Señales COMPRA / VENTA automáticas",p1l2:"Análisis MA5 + MA20 + RSI",p1l3:"Corre en tu PC, seguro",
-    p1preco:"R$ 49",p1per:"por mes",p1btn:"Comprar",
+    p1preco:"R$ 49",p1per:"por mes",p1btn:"Comprar",p1t2:"📈 SEÑALES PRO",
     p2tag:"MÁS COMPRADO",p2t:"MOTOR BISONX",p2d:"Tu propio motor de IA: conversa, ejecuta comandos y corre en tu dispositivo. Tecnología propia protegida.",
     p2l1:"Inteligencia propia que conversa y ejecuta",p2l2:"100% local / protegido",p2l3:"Actualizaciones y soporte",
-    p2preco:"R$ 199",p2per:"por mes",p2btn:"Comprar",
+    p2preco:"R$ 199",p2per:"por mes",p2btn:"Comprar",p2t2:"🧠 MOTOR BISONX",
     p3t:"PLAZA COMPLETA",p3d:"Acceso total y personalizado. Para quien quiere lo mejor de BISONX con atención dedicada.",
     p3l1:"Todo de SEÑALES + MOTOR",p3l2:"Atención personalizada",p3l3:"Prioridad en soporte",
-    p3preco:"R$ 99",p3per:"por mes",p3btn:"Comprar",
+    p3preco:"R$ 99",p3per:"por mes",p3btn:"Comprar",p3t2:"👑 PLAZA COMPLETA",
+    p4t:"ROBOT MT5",p4d:"Recibes el MOTOR en tu PC — sin exponer datos ni contraseñas del desarrollador — y el propio trader crea y compila el robot (Expert Advisor) como quiera.",
+    p4l1:"Motor enviado sin exponer tus datos",p4l2:"Tú mismo creas y compilas tu EA MQL5",p4l3:"Puedes modificarlo cuando quieras",
+    p4preco:"R$ 49",p4per:"por mes",p4btn:"Comprar",p4t2:"🤖 ROBOT MT5",p4man:"📖 Manual de uso",
+    wz1d:"desde R$ 49/mes",
     m1:"Mensual",m2:"Trimestral (-15%)",m3:"Anual (-30%)",
-    comoH:"Cómo funciona",comoS:"Proceso simple, transparente y seguro",
-    s1:"Elige el producto",s1d:"Selecciona SEÑALES, MOTOR o PLAZA.",s2:"Paga con PIX",s2d:"Usa la clave PIX de la página y paga el monto exacto.",s3:"Confirmación",s3d:"Se confirma el pago y se genera tu licencia.",s4:"Recibe la clave",s4d:"Tu clave de activación llega para activarla.",
+    comoH:"Cómo funciona",comoS:"Todo el proceso lo maneja el robot de ventas, rápido y directo",
+    s1:"Elige el producto",s1d:"Selecciona SEÑALES, MOTOR, PLAZA o ROBOT MT5.",s2:"Paga con PIX",s2d:"Usa la clave PIX de la página y paga el monto exacto.",s3:"Pedido por WhatsApp",s3d:"El robot arma tu pedido y abre WhatsApp — solo confirma.",s4:"Recibe la clave",s4d:"Tu clave de activación llega y el producto se libera.",
     pixH:"Pago por PIX",pixS:"El dinero cae directo en la cuenta oficial. El código nunca se expone.",pixT:"Clave PIX (copiar y pegar)",
-    copiar:"Copiar clave PIX",px1:"Abre tu banco y elige PIX.",px2:'Toca "PIX copiar y pegar" y pega la clave.',px3:"Revisa el monto y confirma.",px4:"Envía el comprobante por WhatsApp para activar.",wpp:"Enviar comprobante por WhatsApp",avisoPix:"Tras el pago, tu licencia se libera y recibes tu clave de activación.",
-    faqH:"Preguntas frecuentes",f1:"¿Se expone el código fuente al cliente?",f1r:"No. Solo recibes la clave de licencia y el programa compilado. Todo el código del motor permanece protegido en el computador del desarrollador.",f2:"¿Hay período de prueba?",f2r:"¡Sí! Pide la prueba gratis de 3 días por WhatsApp.",f3:"¿Cómo recibo mi licencia?",f3r:"Tras la confirmación del PIX, tu clave de activación se genera y se envía para activar el producto.",f4:"¿La licencia es legal?",f4r:"Sí. Cada cliente recibe una licencia oficial, única y con vigencia. Uso totalmente legal.",
-    mT:"Comprar",irPix:"Pagar por PIX",
-    f1t:"© 2026 BISONX AI",f2t:"Pago",f3t:"FAQ",f4t:"Código protegido · Licencia segura · Hecho con tecnología propia"
+    copiar:"Copiar clave PIX",px1:"Abre tu banco y elige PIX.",px2:"Toca \"PIX copiar y pegar\" y pega la clave.",px3:"Revisa el monto y confirma.",px4:"Termina tu pedido por WhatsApp (botón verde abajo).",wpp:"Terminar pedido por WhatsApp",avisoPix:"Tras el pago, tu licencia se libera y recibes tu clave de activación.",
+    faqH:"Preguntas frecuentes",f1:"¿Se expone el código fuente al cliente?",f1r:"No. Solo recibes el programa compilado y tu clave de licencia. Todo el código del motor permanece protegido en el computador del desarrollador.",f2:"¿Cómo comprar?",f2r:"Haz clic en \"Comprar\", elige producto y plan, paga con PIX y termina en WhatsApp. El robot lo envía todo listo — solo confirma.",f3:"¿Hay período de prueba?",f3r:"¡Sí! Pide la prueba gratis de 3 días por WhatsApp.",f4:"¿Cómo recibo mi licencia?",f4r:"Tras la confirmación del PIX, tu clave de activación se genera y se envía para activar el producto.",f5:"¿La licencia es legal?",f5r:"Sí. Cada cliente recibe una licencia oficial, única y con vigencia. Uso totalmente legal.",f6:"¿Cómo funciona el ROBOT MT5?",f6r:"Por solo R$ 49/mes, recibes el MOTOR en tu PC, sin exponer datos ni contraseñas del desarrollador. Con él, el propio trader crea y compila su robot (Expert Advisor) en MQL5 como quiera, y puede modificarlo cuando quiera.",
+    f1t:"© 2026 BISONX AI",f2t:"Pago",f3t:"FAQ",f4t:"Código protegido · Licencia segura · Hecho con tecnología propia",
+    wzTitulo:"Robot de ventas BISONX",wzS1:"Producto",wzS2:"Plan",wzS3:"Tus datos",wzS4:"Pedido",
+    wz1p:"¿Qué producto quieres?",wz1a:"desde R$ 49/mes",wz1b:"desde R$ 199/mes",wz1c:"desde R$ 99/mes",
+    wzNext1:"Continuar →",wzNext2:"Continuar →",wzNext3:"Generar pedido →",wzBack:"← Volver",
+    wzNome:"Tu nombre",wzWhats:"Tu WhatsApp (con código de área)",
+    wz2txt:"Plan del producto:",wz4a:"Paga con PIX y termina:",wzEnviar:"Enviar pedido por WhatsApp 📲",wzNovo:"↺ Nuevo pedido",
+    pedido:"Pedido",produto:"Producto",plano:"Plan",valor:"Valor",nome:"Nombre",whats:"WhatsApp",
+    msgIntro:"¡Hola! Quiero comprar la licencia. Mi pedido:",msgPix:"Voy a pagar con PIX ahora (clave copiada) y envío el comprobante."
   }
 };
 
+/* ---------- estado ---------- */
 let lang = localStorage.getItem('lang') || 'pt-BR';
 const WHATSAPP_NUM = "5516997997327";
-const WHATSAPP_MSG_PT = encodeURIComponent("Olá! Quero saber mais sobre o BISONX AI e enviar o comprovante do pagamento.");
-const WHATSAPP_MSG_EN = encodeURIComponent("Hello! I want to know more about BISONX AI and send the payment receipt.");
-const WHATSAPP_MSG_ES = encodeURIComponent("¡Hola! Quiero saber más sobre BISONX AI y enviar el comprobante del pago.");
+const PIX_KEY = "27604654894";
+const PRECOS = {
+  sinais:{mensal:49,trimestral:119,anual:349},
+  motor:{mensal:199,trimestral:null,anual:1499},
+  vaga:{mensal:99,trimestral:null,anual:799},
+  robo:{mensal:49,trimestral:null,anual:null}
+};
+const wiz = { passo:1, plan:'sinais', dup:'mensal', nome:'', whats:'' };
 
+/* ---------- i18n ---------- */
+function t(k){ const d=i18n[lang]||i18n['pt-BR']; return d[k]!==undefined?d[k]:''; }
 function aplicarIdioma(){
-  localStorage.setItem('lang', lang);
+  localStorage.setItem('lang',lang);
   document.documentElement.lang = lang;
-  const t = i18n[lang] || i18n['pt-BR'];
+  const d=i18n[lang]||i18n['pt-BR'];
   document.querySelectorAll('[data-i]').forEach(el=>{
     const k=el.getAttribute('data-i');
-    if(k && t[k]!==undefined) el.textContent=t[k];
+    if(k && d[k]!==undefined && !(el.id && el.id.startsWith('wz'))) el.textContent=d[k];
   });
   document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('ativo', b.id===('lang'+lang.split('-')[0].toUpperCase())));
-  const plan = window._planAtual || 'sinais';
-  atualizarMini(plan, window._dupAtual || 'mensal');
-  const wpp = document.getElementById('wppBtn');
-  const msg = lang==='en'?WHATSAPP_MSG_EN : lang==='es'?WHATSAPP_MSG_ES : WHATSAPP_MSG_PT;
-  wpp.href = `https://wa.me/${WHATSAPP_NUM}?text=${msg}`;
+  atualizarMini(window._dupAtual||'mensal');
+  wzTraduzir();
+  atualizarWpp();
 }
-
+function wzTraduzir(){
+  const d=i18n[lang]||i18n['pt-BR'];
+  document.querySelectorAll('#wizard [data-i]').forEach(el=>{
+    const k=el.getAttribute('data-i');
+    if(k && d[k]!==undefined) el.textContent=d[k];
+  });
+  document.getElementById('wz2txt').textContent = d['wz2txt'] + ' ' + planNome(wiz.plan, lang);
+  atualizarWzPreco();
+}
+function abrirWppWhats(e){
+  if(e) e.preventDefault();
+  const msgs={ 'pt-BR':"Olá! Quero saber mais sobre o BISONX AI e comprar uma licença.", 'en':"Hello! I want to know more about BISONX AI and buy a license.", 'es':"¡Hola! Quiero saber más sobre BISONX AI y comprar una licencia." };
+  const msg = encodeURIComponent(msgs[lang]||msgs['pt-BR']);
+  window.open(`https://wa.me/${WHATSAPP_NUM}?text=${msg}`,'_blank');
+}
+function atualizarWpp(){
+  const flut = document.getElementById('wppFlut');
+  if(flut) flut.onclick=abrirWppWhats;
+}
 document.getElementById('langPT').onclick=()=>{lang='pt-BR';aplicarIdioma();};
 document.getElementById('langEN').onclick=()=>{lang='en';aplicarIdioma();};
 document.getElementById('langES').onclick=()=>{lang='es';aplicarIdioma();};
 
-/* precos por duracao */
-const PRECOS = {
-  sinais:{mensal:49,trimestral:119,anual:349},
-  motor:{mensal:199,trimestral:null,anual:1499},
-  vaga:{mensal:99,trimestral:null,anual:799}
-};
-window._planAtual='sinais';
-window._dupAtual='mensal';
-function atualizarMini(plan, dup){
-  window._planAtual=plan; window._dupAtual=dup;
-  const el=document.getElementById('miniValor');
-  const v=PRECOS[plan]?PRECOS[plan][dup]:null;
-  document.querySelectorAll('.mini-btn').forEach(b=>b.classList.toggle('ativo', b.dataset.dup===dup));
-  const t=i18n[lang]||i18n['pt-BR'];
-  const nomes={sinais:t.p1t,motor:t.p2t,vaga:t.p3t};
-  const pers={mensal:t.p1per,trimestral:'/ 3m',anual:'/ 12m'};
-  if(v===null){ el.innerHTML=`<span style="color:var(--muted)">${nomes[plan]} (${t.m2 || dup}) — <a href="#pix" style="color:var(--cyan)">fale com a gente</a></span>`; }
-  else {
-    el.innerHTML = `${nomes[plan]} ${dup}: <b>R$ ${v}</b> <span style="color:var(--muted)">${pers[dup]||''}</span> <div class="btn btn-primary" style="width:auto;display:inline-block;margin-top:10px;cursor:pointer" data-plan="${plan}" data-dup="${dup}" onclick="comprar('${plan}','${dup}')">${t.irPix}</div>`;
+/* ---------- precos na pagina ---------- */
+function precoDe(plan,dup){
+  const p=PRECOS[plan];
+  if(!p) return null;
+  if(p[dup]!==undefined && p[dup]!==null) return p[dup];
+  return null;
+}
+function atualizarMini(dup){
+  window._dupAtual=dup;
+  document.querySelectorAll('.plans .plan-btn').forEach(b=>b.classList.toggle('ativo', b.dataset.dup===dup));
+  const nomes = (i18n[lang]||i18n['pt-BR']);
+  const el = document.getElementById('miniValor');
+  const vPreco = precoDe('sinais',dup);
+  if(vPreco==null){
+    el.innerHTML = `<span>${nomes[dup==='trimestral'?'m2':'m3']} — <a href="#produtos" style="color:var(--cyan)">${nomes.wz2txt}</a></span>`;
+  } else {
+    const l1=(dup==='mensal'?nomes.m1:dup==='trimestral'?nomes.m2:nomes.m3);
+    el.innerHTML = `${nomes.p1t} · <b>${l1}</b> → <b>R$ ${vPreco}</b> <span style="color:var(--muted)">${dupPer(dup)}</span> · <button class="btn btn-primary" style="width:auto;display:inline-block;margin-top:10px;cursor:pointer" onclick="abrirWizard('sinais')">${nomes.ctaTop}</button>`;
   }
 }
-document.querySelectorAll('.mini-btn').forEach(b=>b.onclick=()=>atualizarMini(window._planAtual,b.dataset.dup));
+document.querySelectorAll('.plans .plan-btn').forEach(b=>b.onclick=()=>atualizarMini(b.dataset.dup));
+document.querySelectorAll('button[data-plan]').forEach(btn=>{
+  btn.addEventListener('click',()=>abrirWizard(btn.dataset.plan));
+});
 
-function comprar(plan, dup){
-  darDestaque(plan);
-  atualizarMini(plan, dup);
-  const t=i18n[lang]||i18n['pt-BR'];
-  const nomes={sinais:t.p1t,motor:t.p2t,vaga:t.p3t};
-  const v=PRECOS[plan]?PRECOS[plan][dup]:null;
-  document.getElementById('modalResumo').textContent = `${nomes[plan]} (${dup})` + (v?` — R$ ${v}`:'');
-  document.getElementById('modalPix').style.display='flex';
+/* ---------- wizard (robô vendedor) ---------- */
+function abrirWizard(plan){
+  wiz.plan = plan || 'sinais';
+  wiz.dup = 'mensal';
+  wiz.passo = 1;
+  document.getElementById('wizard').classList.add('aber');
+  document.querySelectorAll('.wiz-opcao').forEach(o=>o.classList.toggle('selecionado', o.dataset.plan===wiz.plan));
+  wzIr(1);
 }
-function darDestaque(plan){
-  document.querySelectorAll('.card').forEach(c=>{const a=c.querySelector('[data-plan]'); if(a) c.style.borderColor = a.dataset.plan===plan ? 'var(--cyan)' : '';});
-}
-document.querySelectorAll('a[data-plan]').forEach(a=>a.addEventListener('click',e=>{
-  e.preventDefault(); comprar(a.dataset.plan, window._dupAtual||'mensal');
-}));
-document.getElementById('irPix').addEventListener('click',()=>{document.getElementById('modalPix').style.display='none';});
-document.getElementById('fecharModal').onclick=()=>{document.getElementById('modalPix').style.display='none';};
-document.getElementById('modalPix').addEventListener('click',e=>{if(e.target.id==='modalPix')e.target.style.display='none';});
+function fecharWizard(){ document.getElementById('wizard').classList.remove('aber'); }
+document.getElementById('fecharWizard').onclick=fecharWizard;
+document.getElementById('wizard').addEventListener('click',e=>{ if(e.target.id==='wizard') fecharWizard(); });
 
-/* copiar pix */
-document.getElementById('copiarPix').onclick=()=>{
-  const chave=document.getElementById('pixChave').textContent.trim();
-  navigator.clipboard.writeText(chave).then(()=>{
-    document.getElementById('copiarPix').textContent = (lang==='en'?'Copied!':lang==='es'?'¡Copiado!':'Copiado!');
-    setTimeout(()=>aplicarIdioma(),1500);
+document.querySelectorAll('.wiz-opcao').forEach(o=>{
+  o.onclick=()=>{ wiz.plan=o.dataset.plan; document.querySelectorAll('.wiz-opcao').forEach(x=>x.classList.toggle('selecionado', x.dataset.plan===wiz.plan)); };
+});
+document.querySelectorAll('.wiz-plans .plan-btn').forEach(b=>{
+  b.onclick=()=>{ wiz.dup=b.dataset.wdup; document.querySelectorAll('.wiz-plans .plan-btn').forEach(x=>x.classList.toggle('ativo', x.dataset.wdup===wiz.dup)); atualizarWzPreco(); };
+});
+
+function planNome(plan, langKey){
+  const d=i18n[langKey]||i18n['pt-BR'];
+  return {sinais:d.p1t, motor:d.p2t, vaga:d.p3t, robo:d.p4t}[plan];
+}
+function planoNome(dup, langKey){
+  const d=i18n[langKey]||i18n['pt-BR'];
+  return {mensal:d.m1, trimestral:d.m2, anual:d.m3}[dup];
+}
+function dupPer(dup){
+  if(dup==='trimestral') return '/ 3m';
+  if(dup==='anual') return '/ 12m';
+  return '';
+}
+function atualizarWzPreco(){
+  const nomePlan = planNome(wiz.plan, lang);
+  document.getElementById('wz2txt').textContent = t('wz2txt')+' '+nomePlan;
+  const v = precoDe(wiz.plan, wiz.dup);
+  const elPreco = document.getElementById('wzPrecoPlan');
+  const elPer = document.getElementById('wzPerPlan');
+  if(v==null){
+    elPreco.innerHTML = `<span style="font-size:.95rem;color:var(--gold)">${t('m2')} / ${t('m3')} — fale no WhatsApp</span>`;
+    elPer.textContent = '';
+  } else {
+    elPreco.innerHTML = 'R$ '+v;
+    elPer.textContent = dupPer(wiz.dup);
+  }
+}
+function wzIr(n){
+  wiz.passo=n;
+  for(let i=1;i<=4;i++) document.getElementById('wzPasso'+i).classList.toggle('ativo', i===n);
+  const ss=document.querySelectorAll('.steps .st');
+  ss.forEach((s,i)=>{
+    s.classList.toggle('ativo', i+1===n);
+    s.classList.toggle('pronto', i+1<n);
   });
-};
+  if(n===2) atualizarWzPreco();
+}
+function wzConfirmar(){
+  const nomeEl=document.getElementById('wzNome');
+  const whatsEl=document.getElementById('wzWhats');
+  wiz.nome=nomeEl.value.trim();
+  wiz.whats=whatsEl.value.trim();
+  if(!wiz.nome){ nomeEl.focus(); nomeEl.style.borderColor='var(--red)'; setTimeout(()=>nomeEl.style.borderColor='',1200); return; }
+  if(!wiz.whats){ whatsEl.focus(); whatsEl.style.borderColor='var(--red)'; setTimeout(()=>whatsEl.style.borderColor='',1200); return; }
+  montarPedido();
+}
+function gerarCodigo(){
+  const agora=new Date();
+  const d=`${agora.getFullYear()}${String(agora.getMonth()+1).padStart(2,'0')}${String(agora.getDate()).padStart(2,'0')}`;
+  const rnd=Math.floor(1000+Math.random()*9000);
+  return `BX-${d}-${rnd}`;
+}
+function montarPedido(){
+  const d=i18n[lang]||i18n['pt-BR'];
+  const codigo=gerarCodigo();
+  const v=precoDe(wiz.plan,wiz.dup);
+  const preco=v!==null ? 'R$ '+v : d.m2;
+  const resumo=document.getElementById('wzResumo');
+  const linhas = [
+    [d.pedido, codigo],
+    [d.produto, planNome(wiz.plan,lang)],
+    [d.plano, planoNome(wiz.dup,lang) + dupPer(wiz.dup)],
+    [d.valor, `<b>${preco}</b>`],
+    [d.nome, wiz.nome],
+    [d.whats, wiz.whats]
+  ];
+  resumo.innerHTML = linhas.map(([k,vv])=>`<div class="row"><span>${k}</span><b>${vv}</b></div>`).join('');
+  document.getElementById('wzPix').textContent=PIX_KEY;
+  document.getElementById('wzCopiarPix').textContent = d.copiar;
+  const wpp=document.getElementById('wzWppBtn');
+  wpp.textContent = d.wzEnviar;
+  wpp.dataset.codigo=codigo; wpp.dataset.preco=preco;
+  const msg = `*${d.msgIntro}*\n\n📦 ${d.pedido}: ${codigo}\n🛒 ${d.produto}: ${planNome(wiz.plan,lang)}\n🗓 ${d.plano}: ${planoNome(wiz.dup,lang)}${dupPer(wiz.dup)}\n💰 ${d.valor}: ${preco}\n👤 ${d.nome}: ${wiz.nome}\n📱 ${d.whats}: ${wiz.whats}\n\n💵 PIX: ${PIX_KEY}\n\n${d.msgPix}`;
+  const url = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`;
+  wpp.onclick = ()=>window.open(url,'_blank');
+  document.getElementById('wzMsgPrev').textContent = msg;
+  document.getElementById('wzMsgPrev').style.display='block';
+  wzIr(4);
+  try{ navigator.clipboard.writeText(PIX_KEY).catch(()=>{}); }catch(e){}
+}
+function wzReiniciar(){ abrirWizard(wiz.plan); }
+
+/* ---------- copiar pix ---------- */
+function copiarPix(noFeedback){
+  const chave=document.getElementById('pixChave') ? document.getElementById('pixChave').textContent.trim() : PIX_KEY;
+  navigator.clipboard.writeText(chave).then(()=>{
+    if(!noFeedback){
+      const b=document.getElementById('copiarPix');
+      if(b){ b.textContent=(t('copiar')==='Copiar chave PIX'?'Copiado!':'Copied!'); setTimeout(()=>aplicarIdioma(),1500); }
+    }
+  }).catch(()=>{});
+}
+document.getElementById('copiarPix').onclick=()=>copiarPix(false);
+
+/* faq */
+document.querySelectorAll('.faq-item h4').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('aber'));
+
+/* reveal ao rolar */
+const obs=new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visivel'); obs.unobserve(e.target); } }),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ticker aleatorio leve */
+setInterval(()=>{
+  document.querySelectorAll('.tick .v').forEach(el=>{
+    const first=Number(el.textContent.split(':')[1]||1);
+    const novo=(Math.random()*0.8+0.8).toFixed(1);
+    el.textContent='1:'+novo;
+  });
+},2500);
 
 aplicarIdioma();
-atualizarMini('sinais','mensal');
+atualizarMini('mensal');
 </script>
 </body>
 </html>
