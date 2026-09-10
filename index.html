@@ -219,7 +219,7 @@ footer .links{margin-bottom:12px;display:flex;gap:18px;justify-content:center;fl
 <section class="sec" id="produtos">
   <div class="container">
     <h2 class="reveal" data-i="prodH">Escolha o seu acesso</h2>
-    <p class="sub reveal" data-i="prodS">3 produtos · preço em R$ · aceita PIX · licença ativada após confirmação</p>
+    <p class="sub reveal" data-i="prodS">5 produtos · preço em R$ · aceita PIX · licença ativada após confirmação</p>
     <div class="plans reveal">
       <button class="plan-btn ativo" data-dup="mensal" data-i="m1">Mensal</button>
       <button class="plan-btn" data-dup="trimestral" data-i="m2">Trimestral (-15%)</button>
@@ -280,6 +280,19 @@ footer .links{margin-bottom:12px;display:flex;gap:18px;justify-content:center;fl
         <button class="btn btn-primary" data-plan="robo" data-i="p4btn">Comprar</button>
         <a href="manual.html" style="display:block;text-align:center;margin-top:14px;font-size:.88rem;color:var(--cyan)" data-i="p4man">📖 Manual de uso</a>
       </div>
+      <div class="card">
+        <div class="ico">📢</div>
+        <h3 data-i="p5t">GERADOR DE ANUNCIOS</h3>
+        <p class="desc" data-i="p5d">Anuncia sozinho nas redes conectadas (Facebook, TikTok, OLX e Instagram) e envia WhatsApp. Tem olhos: confirma cada passo na tela e grava relatório com fotos-prova. Funciona em qualquer PC e rede Wi-Fi.</p>
+        <ul>
+          <li data-i="p5l1">Publica no mural, grupos e páginas</li>
+          <li data-i="p5l2">Instagram com foto + legenda</li>
+          <li data-i="p5l3">Envio de WhatsApp com confirmação de visão</li>
+        </ul>
+        <div class="preco" data-i="p5preco">R$ 59</div>
+        <div class="periodo" data-i="p5per">por mês</div>
+        <button class="btn btn-primary" data-plan="gerador" data-i="p5btn">Comprar</button>
+      </div>
     </div>
     <div class="mini-note reveal" id="miniValor"></div>
   </div>
@@ -290,7 +303,7 @@ footer .links{margin-bottom:12px;display:flex;gap:18px;justify-content:center;fl
     <h2 class="reveal" data-i="comoH">Como funciona</h2>
     <p class="sub reveal" data-i="comoS">Todo o atendimento é feito pelo robô vendedor, rápido e direto</p>
     <div class="passos reveal">
-      <div class="passo"><div class="n">1</div><h4 data-i="s1">Escolha o produto</h4><p data-i="s1d">Selecione SINAIS, MOTOR ou VAGA na página.</p></div>
+      <div class="passo"><div class="n">1</div><h4 data-i="s1">Escolha o produto</h4><p data-i="s1d">Selecione SINAIS, MOTOR, VAGA, ROBO MT5 ou GERADOR DE ANUNCIOS na página.</p></div>
       <div class="passo"><div class="n">2</div><h4 data-i="s2">Faça o PIX</h4><p data-i="s2d">Use a chave PIX e pague o valor exato.</p></div>
       <div class="passo"><div class="n">3</div><h4 data-i="s3">Pedido no WhatsApp</h4><p data-i="s3d">O robô gera seu pedido pronto e abre o WhatsApp — você só confirma.</p></div>
       <div class="passo"><div class="n">4</div><h4 data-i="s4">Receba a chave</h4><p data-i="s4d">Sua chave de ativação chega e o produto é liberado.</p></div>
@@ -332,6 +345,7 @@ footer .links{margin-bottom:12px;display:flex;gap:18px;justify-content:center;fl
       <div class="faq-item"><h4 data-i="f4">Como recebo minha licença?</h4><div class="resp" data-i="f4r">Após a confirmação do PIX, sua chave de ativação é gerada e enviada para você ativar o produto.</div></div>
       <div class="faq-item"><h4 data-i="f5">A licença é legalizada?</h4><div class="resp" data-i="f5r">Sim. Cada cliente recebe uma licença oficial, única e com validade. Uso totalmente legal.</div></div>
       <div class="faq-item"><h4 data-i="f6">Como funciona o ROBO MT5?</h4><div class="resp" data-i="f6r">Por apenas R$ 49/mês, você recebe o MOTOR no seu PC, sem expor dados nem senhas do desenvolvedor. Com ele, o próprio trader cria e compila seu robô (Expert Advisor) em MQL5 do jeito que quiser, e pode modificar quando quiser.</div></div>
+      <div class="faq-item"><h4 data-i="f7">Como funciona o GERADOR DE ANUNCIOS?</h4><div class="resp" data-i="f7r">O GERADOR DE ANUNCIOS roda no seu PC e publica sozinho nas redes que você conectar (Facebook, TikTok, OLX e Instagram) e envia WhatsApp. Cada passo é confirmado na tela (ele tem olhos) e fica gravado um relatório com fotos-prova. Funciona em qualquer PC e em qualquer rede Wi-Fi, com teste grátis de 7 dias, por apenas R$ 59/mês.</div></div>
     </div>
   </div>
 </section>
@@ -378,6 +392,10 @@ footer .links{margin-bottom:12px;display:flex;gap:18px;justify-content:center;fl
         <div class="wiz-opcao" data-plan="robo">
           <div class="o-nome" data-i="p4t2">🤖 ROBO MT5</div>
           <div class="o-preco" data-i="wz1d">a partir de R$ 49/mês</div>
+        </div>
+        <div class="wiz-opcao" data-plan="gerador">
+          <div class="o-nome" data-i="p5t2">📢 GERADOR DE ANUNCIOS</div>
+          <div class="o-preco" data-i="wz1e">a partir de R$ 59/mês</div>
         </div>
       </div>
       <div class="wiz-nav">
@@ -439,7 +457,7 @@ const i18n={
     b1:"100% legal",b1b:"licença oficial",b2:"Código protegido",b2b:"nada exposto",b3:"Teste 3 dias",b3b:"gratuito",b4:"PIX",b4b:"sem taxa, cai na hora",
     heroBtn1:"Comprar agora",heroBtn2:"Como funciona",
     menuProdutos:"Produtos",menuComo:"Como funciona",menuPix:"Pagamento",menuFaq:"FAQ",ctaTop:"Comprar",
-    prodH:"Escolha o seu acesso",prodS:"4 produtos · preço em R$ · aceita PIX · licença ativada após confirmação",
+    prodH:"Escolha o seu acesso",prodS:"5 produtos · preço em R$ · aceita PIX · licença ativada após confirmação",
     p1t:"SINAIS PRO",p1d:"Sinais de trade automáticos (Média Móvel + RSI) com leitura em tempo real. Ideal para quem opera ouro (XAUUSD) e outros mercados.",
     p1l1:"Sinais COMPRA / VENDA automáticos",p1l2:"Análise MMA5 + MMA20 + RSI",p1l3:"Rodada no seu PC, seguro",
     p1preco:"R$ 49",p1per:"por mês",p1btn:"Comprar",p1t2:"📈 SINAIS PRO",
@@ -452,13 +470,16 @@ const i18n={
     p4t:"ROBO MT5",p4d:"Você recebe o MOTOR no seu PC — sem expor dados nem senhas do desenvolvedor — e o próprio trader cria e compila o robô (Expert Advisor) do jeito que quiser.",
     p4l1:"Motor enviado sem expor seus dados",p4l2:"Você mesmo cria e compila seu EA MQL5",p4l3:"Pode modificar quando quiser",
     p4preco:"R$ 49",p4per:"por mês",p4btn:"Comprar",p4t2:"🤖 ROBO MT5",p4man:"📖 Manual de uso",
-    wz1d:"a partir de R$ 49/mês",
+    p5t:"GERADOR DE ANUNCIOS",p5d:"Anuncia sozinho nas redes conectadas (Facebook, TikTok, OLX e Instagram) e envia WhatsApp. Tem olhos: confirma cada passo na tela e grava relatório com fotos-prova. Funciona em qualquer PC e rede Wi-Fi.",
+    p5l1:"Publica no mural, grupos e páginas",p5l2:"Instagram com foto + legenda",p5l3:"Envio de WhatsApp com confirmação de visão",
+    p5preco:"R$ 59",p5per:"por mês",p5btn:"Comprar",p5t2:"📢 GERADOR DE ANUNCIOS",
+    wz1d:"a partir de R$ 49/mês",wz1e:"a partir de R$ 59/mês",
     m1:"Mensal",m2:"Trimestral (-15%)",m3:"Anual (-30%)",
     comoH:"Como funciona",comoS:"Todo o atendimento é feito pelo robô vendedor, rápido e direto",
-    s1:"Escolha o produto",s1d:"Selecione SINAIS, MOTOR, VAGA ou ROBO MT5 na página.",s2:"Faça o PIX",s2d:"Use a chave PIX e pague o valor exato.",s3:"Pedido no WhatsApp",s3d:"O robô gera seu pedido pronto e abre o WhatsApp — você só confirma.",s4:"Receba a chave",s4d:"Sua chave de ativação chega e o produto é liberado.",
+    s1:"Escolha o produto",s1d:"Selecione SINAIS, MOTOR, VAGA, ROBO MT5 ou GERADOR DE ANUNCIOS na página.",s2:"Faça o PIX",s2d:"Use a chave PIX e pague o valor exato.",s3:"Pedido no WhatsApp",s3d:"O robô gera seu pedido pronto e abre o WhatsApp — você só confirma.",s4:"Receba a chave",s4d:"Sua chave de ativação chega e o produto é liberado.",
     pixH:"Pagamento via PIX",pixS:"O dinheiro cai direto na conta oficial. O código nunca é exposto.",pixT:"Chave PIX (copia e cola)",
     copiar:"Copiar chave PIX",px1:"Abra seu banco e escolha PIX.",px2:"Toque em \"Pix copia e cola\" e cole a chave.",px3:"Confira o valor e confirme o pagamento.",px4:"Finalize o pedido no WhatsApp (botão verde abaixo).",wpp:"Finalizar pedido no WhatsApp",avisoPix:"Após o pagamento, sua licença é liberada e você recebe sua chave de ativação.",
-    faqH:"Dúvidas frequentes",f1:"O código-fonte é exposto para o cliente?",f1r:"Não. Você recebe apenas o programa compilado e a sua chave de licença. Todo o código do motor permanece protegido no computador do desenvolvedor.",f2:"Como comprar?",f2r:"Click em \"Comprar\", escolha produto e plano, faça o PIX e finalize no WhatsApp. O robô manda tudo pronto — é só confirmar.",f3:"Existe período de teste?",f3r:"Sim! Você pode solicitar um teste grátis de 3 dias pelo WhatsApp.",f4:"Como recebo minha licença?",f4r:"Após a confirmação do PIX, sua chave de ativação é gerada e enviada para você ativar o produto.",f5:"A licença é legalizada?",f5r:"Sim. Cada cliente recebe uma licença oficial, única e com validade. Uso totalmente legal.",f6:"Como funciona o ROBO MT5?",f6r:"Por apenas R$ 49/mês, você recebe o MOTOR no seu PC, sem expor dados nem senhas do desenvolvedor. Com ele, o próprio trader cria e compila seu robô (Expert Advisor) em MQL5 do jeito que quiser, e pode modificar quando quiser.",
+    faqH:"Dúvidas frequentes",f1:"O código-fonte é exposto para o cliente?",f1r:"Não. Você recebe apenas o programa compilado e a sua chave de licença. Todo o código do motor permanece protegido no computador do desenvolvedor.",f2:"Como comprar?",f2r:"Click em \"Comprar\", escolha produto e plano, faça o PIX e finalize no WhatsApp. O robô manda tudo pronto — é só confirmar.",f3:"Existe período de teste?",f3r:"Sim! Você pode solicitar um teste grátis de 3 dias pelo WhatsApp.",f4:"Como recebo minha licença?",f4r:"Após a confirmação do PIX, sua chave de ativação é gerada e enviada para você ativar o produto.",f5:"A licença é legalizada?",f5r:"Sim. Cada cliente recebe uma licença oficial, única e com validade. Uso totalmente legal.",f6:"Como funciona o ROBO MT5?",f6r:"Por apenas R$ 49/mês, você recebe o MOTOR no seu PC, sem expor dados nem senhas do desenvolvedor. Com ele, o próprio trader cria e compila seu robô (Expert Advisor) em MQL5 do jeito que quiser, e pode modificar quando quiser.",f7:"Como funciona o GERADOR DE ANUNCIOS?",f7r:"O GERADOR DE ANUNCIOS roda no seu PC e publica sozinho nas redes que você conectar (Facebook, TikTok, OLX e Instagram) e envia WhatsApp. Cada passo é confirmado na tela (ele tem olhos) e fica gravado um relatório com fotos-prova. Funciona em qualquer PC e rede Wi-Fi, com teste grátis de 7 dias, por apenas R$ 59/mês.",
     f1t:"© 2026 BISONX AI",f2t:"Pagamento",f3t:"FAQ",f4t:"Código protegido · Licença segura · Feito com tecnologia própria",
     wzTitulo:"Robô vendedor BISONX",wzS1:"Produto",wzS2:"Plano",wzS3:"Seus dados",wzS4:"Pedido",
     wz1p:"Qual produto você quer?",wz1a:"a partir de R$ 49/mês",wz1b:"a partir de R$ 199/mês",wz1c:"a partir de R$ 99/mês",
@@ -473,7 +494,7 @@ const i18n={
     b1:"100% legal",b1b:"official license",b2:"Protected code",b2b:"nothing exposed",b3:"3-day trial",b3b:"free",b4:"Instant",b4b:"fee-free PIX",
     heroBtn1:"Buy now",heroBtn2:"How it works",
     menuProdutos:"Products",menuComo:"How it works",menuPix:"Payment",menuFaq:"FAQ",ctaTop:"Buy",
-    prodH:"Choose your access",prodS:"4 products · price in R$ · accepts PIX · license activated after confirmation",
+    prodH:"Choose your access",prodS:"5 products · price in R$ · accepts PIX · license activated after confirmation",
     p1t:"SIGNALS PRO",p1d:"Automatic trade signals (Moving Average + RSI) with real-time reading. Ideal for gold (XAUUSD) and other markets.",
     p1l1:"Automatic BUY / SELL signals",p1l2:"MA5 + MA20 + RSI analysis",p1l3:"Runs on your PC, safe",
     p1preco:"R$ 49",p1per:"per month",p1btn:"Buy",p1t2:"📈 SIGNALS PRO",
@@ -486,13 +507,16 @@ const i18n={
     p4t:"MT5 ROBOT",p4d:"You receive the ENGINE on your PC — without exposing the developer's data or passwords — and the trader himself builds and compiles the Expert Advisor the way he wants.",
     p4l1:"Engine sent without exposing your data",p4l2:"You build and compile your own MQL5 EA",p4l3:"You can modify it anytime",
     p4preco:"R$ 49",p4per:"per month",p4btn:"Buy",p4t2:"🤖 MT5 ROBOT",p4man:"📖 User guide",
-    wz1d:"from R$ 49/mo",
+    p5t:"AD GENERATOR",p5d:"Advertises by itself on your connected networks (Facebook, TikTok, OLX and Instagram) and sends WhatsApp. It has eyes: it confirms every step on screen and records a report with proof photos. Works on any PC and Wi-Fi.",
+    p5l1:"Posts to feed, groups and pages",p5l2:"Instagram with photo + caption",p5l3:"WhatsApp sending with vision confirmation",
+    p5preco:"R$ 59",p5per:"per month",p5btn:"Buy",p5t2:"📢 AD GENERATOR",
+    wz1d:"from R$ 49/mo",wz1e:"from R$ 59/mo",
     m1:"Monthly",m2:"Quarterly (-15%)",m3:"Yearly (-30%)",
     comoH:"How it works",comoS:"Everything handled by the sales robot, fast and direct",
-    s1:"Choose product",s1d:"Select SIGNALS, ENGINE, FULL SEAT or MT5 ROBOT.",s2:"Pay with PIX",s2d:"Use the site PIX key and pay the exact amount.",s3:"Order on WhatsApp",s3d:"The robot builds your order and opens WhatsApp — just confirm.",s4:"Receive key",s4d:"Your activation key is delivered and activated.",
+    s1:"Choose product",s1d:"Select SIGNALS, ENGINE, FULL SEAT, MT5 ROBOT or AD GENERATOR.",s2:"Pay with PIX",s2d:"Use the site PIX key and pay the exact amount.",s3:"Order on WhatsApp",s3d:"The robot builds your order and opens WhatsApp — just confirm.",s4:"Receive key",s4d:"Your activation key is delivered and activated.",
     pixH:"PIX payment",pixS:"Money goes directly to the official account. Code is never exposed.",pixT:"PIX key (copy & paste)",
     copiar:"Copy PIX key",px1:"Open your bank and choose PIX.",px2:"Tap \"Copy & paste PIX\" and paste the key.",px3:"Check the amount and confirm.",px4:"Finish your order on WhatsApp (green button below).",wpp:"Finish order on WhatsApp",avisoPix:"After payment, your license is released and you receive your activation key.",
-    faqH:"Frequently asked questions",f1:"Is the source code exposed to the customer?",f1r:"No. You only receive the compiled program and your license key. All engine code remains protected on the developer computer.",f2:"How to buy?",f2r:"Click \"Buy\", choose product and plan, pay with PIX and finish on WhatsApp. The robot sends everything ready — just confirm.",f3:"Is there a trial period?",f3r:"Yes! Ask for a free 3-day trial on WhatsApp.",f4:"How do I receive my license?",f4r:"After PIX confirmation, your activation key is generated and sent for you to activate the product.",f5:"Is the license legal?",f5r:"Yes. Each customer receives an official, unique, valid license. Fully legal use.",f6:"How does MT5 ROBOT work?",f6r:"For only R$ 49/month, you receive the ENGINE on your PC, without exposing the developer's data or passwords. With it, the trader himself builds and compiles his Expert Advisor in MQL5 the way he wants, and can modify it anytime.",
+    faqH:"Frequently asked questions",f1:"Is the source code exposed to the customer?",f1r:"No. You only receive the compiled program and your license key. All engine code remains protected on the developer computer.",f2:"How to buy?",f2r:"Click \"Buy\", choose product and plan, pay with PIX and finish on WhatsApp. The robot sends everything ready — just confirm.",f3:"Is there a trial period?",f3r:"Yes! Ask for a free 3-day trial on WhatsApp.",f4:"How do I receive my license?",f4r:"After PIX confirmation, your activation key is generated and sent for you to activate the product.",f5:"Is the license legal?",f5r:"Yes. Each customer receives an official, unique, valid license. Fully legal use.",f6:"How does MT5 ROBOT work?",f6r:"For only R$ 49/month, you receive the ENGINE on your PC, without exposing the developer's data or passwords. With it, the trader himself builds and compiles his Expert Advisor in MQL5 the way he wants, and can modify it anytime.",f7:"How does AD GENERATOR work?",f7r:"AD GENERATOR runs on your PC and publishes by itself on the networks you connect (Facebook, TikTok, OLX and Instagram) and sends WhatsApp. Every step is confirmed on screen (it has eyes) and a report with proof photos is saved. Works on any PC and Wi-Fi, with a free 7-day trial, for just R$ 59/month.",
     f1t:"© 2026 BISONX AI",f2t:"Payment",f3t:"FAQ",f4t:"Protected code · Secure license · Built with own technology",
     wzTitulo:"BISONX sales robot",wzS1:"Product",wzS2:"Plan",wzS3:"Your data",wzS4:"Order",
     wz1p:"Which product do you want?",wz1a:"from R$ 49/mo",wz1b:"from R$ 199/mo",wz1c:"from R$ 99/mo",
@@ -507,7 +531,7 @@ const i18n={
     b1:"100% legal",b1b:"licencia oficial",b2:"Código protegido",b2b:"nada expuesto",b3:"Prueba 3 días",b3b:"gratis",b4:"PIX",b4b:"sin tasa, cae al instante",
     heroBtn1:"Comprar ahora",heroBtn2:"Cómo funciona",
     menuProdutos:"Productos",menuComo:"Cómo funciona",menuPix:"Pago",menuFaq:"FAQ",ctaTop:"Comprar",
-    prodH:"Elige tu acceso",prodS:"4 productos · precio en R$ · acepta PIX · licencia activada tras confirmación",
+    prodH:"Elige tu acceso",prodS:"5 productos · precio en R$ · acepta PIX · licencia activada tras confirmación",
     p1t:"SEÑALES PRO",p1d:"Señales de trading automáticas (Media Móvil + RSI) con lectura en tiempo real. Ideal para el oro (XAUUSD) y otros mercados.",
     p1l1:"Señales COMPRA / VENTA automáticas",p1l2:"Análisis MA5 + MA20 + RSI",p1l3:"Corre en tu PC, seguro",
     p1preco:"R$ 49",p1per:"por mes",p1btn:"Comprar",p1t2:"📈 SEÑALES PRO",
@@ -520,13 +544,16 @@ const i18n={
     p4t:"ROBOT MT5",p4d:"Recibes el MOTOR en tu PC — sin exponer datos ni contraseñas del desarrollador — y el propio trader crea y compila el robot (Expert Advisor) como quiera.",
     p4l1:"Motor enviado sin exponer tus datos",p4l2:"Tú mismo creas y compilas tu EA MQL5",p4l3:"Puedes modificarlo cuando quieras",
     p4preco:"R$ 49",p4per:"por mes",p4btn:"Comprar",p4t2:"🤖 ROBOT MT5",p4man:"📖 Manual de uso",
-    wz1d:"desde R$ 49/mes",
+    p5t:"GENERADOR DE ANUNCIOS",p5d:"Publica solo en tus redes conectadas (Facebook, TikTok, OLX e Instagram) y envía WhatsApp. Tiene ojos: confirma cada paso en pantalla y graba un informe con fotos de prueba. Funciona en cualquier PC y red Wi-Fi.",
+    p5l1:"Publica en el muro, grupos y páginas",p5l2:"Instagram con foto + leyenda",p5l3:"Envío de WhatsApp con confirmación de visión",
+    p5preco:"R$ 59",p5per:"por mes",p5btn:"Comprar",p5t2:"📢 GENERADOR DE ANUNCIOS",
+    wz1d:"desde R$ 49/mes",wz1e:"desde R$ 59/mes",
     m1:"Mensual",m2:"Trimestral (-15%)",m3:"Anual (-30%)",
     comoH:"Cómo funciona",comoS:"Todo el proceso lo maneja el robot de ventas, rápido y directo",
-    s1:"Elige el producto",s1d:"Selecciona SEÑALES, MOTOR, PLAZA o ROBOT MT5.",s2:"Paga con PIX",s2d:"Usa la clave PIX de la página y paga el monto exacto.",s3:"Pedido por WhatsApp",s3d:"El robot arma tu pedido y abre WhatsApp — solo confirma.",s4:"Recibe la clave",s4d:"Tu clave de activación llega y el producto se libera.",
+    s1:"Elige el producto",s1d:"Selecciona SEÑALES, MOTOR, PLAZA, ROBOT MT5 o GENERADOR DE ANUNCIOS.",s2:"Paga con PIX",s2d:"Usa la clave PIX de la página y paga el monto exacto.",s3:"Pedido por WhatsApp",s3d:"El robot arma tu pedido y abre WhatsApp — solo confirma.",s4:"Recibe la clave",s4d:"Tu clave de activación llega y el producto se libera.",
     pixH:"Pago por PIX",pixS:"El dinero cae directo en la cuenta oficial. El código nunca se expone.",pixT:"Clave PIX (copiar y pegar)",
     copiar:"Copiar clave PIX",px1:"Abre tu banco y elige PIX.",px2:"Toca \"PIX copiar y pegar\" y pega la clave.",px3:"Revisa el monto y confirma.",px4:"Termina tu pedido por WhatsApp (botón verde abajo).",wpp:"Terminar pedido por WhatsApp",avisoPix:"Tras el pago, tu licencia se libera y recibes tu clave de activación.",
-    faqH:"Preguntas frecuentes",f1:"¿Se expone el código fuente al cliente?",f1r:"No. Solo recibes el programa compilado y tu clave de licencia. Todo el código del motor permanece protegido en el computador del desarrollador.",f2:"¿Cómo comprar?",f2r:"Haz clic en \"Comprar\", elige producto y plan, paga con PIX y termina en WhatsApp. El robot lo envía todo listo — solo confirma.",f3:"¿Hay período de prueba?",f3r:"¡Sí! Pide la prueba gratis de 3 días por WhatsApp.",f4:"¿Cómo recibo mi licencia?",f4r:"Tras la confirmación del PIX, tu clave de activación se genera y se envía para activar el producto.",f5:"¿La licencia es legal?",f5r:"Sí. Cada cliente recibe una licencia oficial, única y con vigencia. Uso totalmente legal.",f6:"¿Cómo funciona el ROBOT MT5?",f6r:"Por solo R$ 49/mes, recibes el MOTOR en tu PC, sin exponer datos ni contraseñas del desarrollador. Con él, el propio trader crea y compila su robot (Expert Advisor) en MQL5 como quiera, y puede modificarlo cuando quiera.",
+    faqH:"Preguntas frecuentes",f1:"¿Se expone el código fuente al cliente?",f1r:"No. Solo recibes el programa compilado y tu clave de licencia. Todo el código del motor permanece protegido en el computador del desarrollador.",f2:"¿Cómo comprar?",f2r:"Haz clic en \"Comprar\", elige producto y plan, paga con PIX y termina en WhatsApp. El robot lo envía todo listo — solo confirma.",f3:"¿Hay período de prueba?",f3r:"¡Sí! Pide la prueba gratis de 3 días por WhatsApp.",f4:"¿Cómo recibo mi licencia?",f4r:"Tras la confirmación del PIX, tu clave de activación se genera y se envía para activar el producto.",f5:"¿La licencia es legal?",f5r:"Sí. Cada cliente recibe una licencia oficial, única y con vigencia. Uso totalmente legal.",f6:"¿Cómo funciona el ROBOT MT5?",f6r:"Por solo R$ 49/mes, recibes el MOTOR en tu PC, sin exponer datos ni contraseñas del desarrollador. Con él, el propio trader crea y compila su robot (Expert Advisor) en MQL5 como quiera, y puede modificarlo cuando quiera.",f7:"¿Cómo funciona el GENERADOR DE ANUNCIOS?",f7r:"El GENERADOR DE ANUNCIOS corre en tu PC y publica solo en las redes que conectes (Facebook, TikTok, OLX e Instagram) y envía WhatsApp. Cada paso se confirma en pantalla (tiene ojos) y queda grabado un informe con fotos de prueba. Funciona en cualquier PC y red Wi-Fi, con prueba gratis de 7 días, por solo R$ 59/mes.",
     f1t:"© 2026 BISONX AI",f2t:"Pago",f3t:"FAQ",f4t:"Código protegido · Licencia segura · Hecho con tecnología propia",
     wzTitulo:"Robot de ventas BISONX",wzS1:"Producto",wzS2:"Plan",wzS3:"Tus datos",wzS4:"Pedido",
     wz1p:"¿Qué producto quieres?",wz1a:"desde R$ 49/mes",wz1b:"desde R$ 199/mes",wz1c:"desde R$ 99/mes",
@@ -546,7 +573,8 @@ const PRECOS = {
   sinais:{mensal:49,trimestral:119,anual:349},
   motor:{mensal:199,trimestral:null,anual:1499},
   vaga:{mensal:99,trimestral:null,anual:799},
-  robo:{mensal:49,trimestral:null,anual:null}
+  robo:{mensal:49,trimestral:null,anual:null},
+  gerador:{mensal:59,trimestral:null,anual:null}
 };
 const wiz = { passo:1, plan:'sinais', dup:'mensal', nome:'', whats:'' };
 
@@ -635,7 +663,7 @@ document.querySelectorAll('.wiz-plans .plan-btn').forEach(b=>{
 
 function planNome(plan, langKey){
   const d=i18n[langKey]||i18n['pt-BR'];
-  return {sinais:d.p1t, motor:d.p2t, vaga:d.p3t, robo:d.p4t}[plan];
+  return {sinais:d.p1t, motor:d.p2t, vaga:d.p3t, robo:d.p4t, gerador:d.p5t}[plan];
 }
 function planoNome(dup, langKey){
   const d=i18n[langKey]||i18n['pt-BR'];
