@@ -50,6 +50,13 @@ async function sha256hex(s){
     return [...new Uint8Array(d)].map(b=>b.toString(16).padStart(2,'0')).join('');
   }catch(e){ return ''; }
 }
+window.addEventListener('load', function(){
+  var p = new URLSearchParams(window.location.search).get('c');
+  if(p){
+    document.getElementById('cod').value = p;
+    document.getElementById('btn').click();
+  }
+});
 async function liberar(){
   const m = document.getElementById('msg');
   const a = document.getElementById('area');
