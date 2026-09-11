@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Robo BISONX - Crie seu Expert Advisor</title>
+<meta name="description" content="Crie e compile seu robo de trading (Expert Advisor MQL5) em 3 passos, sem programar. Build and compile your trading robot in 3 steps — no coding needed.">
+<style>
+  :root{
+    --bg:#05070d; --card:rgba(15,22,40,.55); --card2:#0c1323;
+    --text:#e9edff; --muted:#93a2d4; --cyan:#22d3ee; --green:#34d399;
+    --gold:#fbbf24; --red:#f87171;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,Roboto,Arial,sans-serif;line-height:1.55}
+  .bg-anim{position:fixed;inset:0;z-index:-2;background:
+    radial-gradient(800px 500px at 80% -10%,rgba(34,211,238,.14),transparent 60%),
+    radial-gradient(700px 500px at 0% 110%,rgba(52,211,153,.10),transparent 60%)}
+  .wrap{max-width:960px;margin:0 auto;padding:18px}
+  header{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(147,162,212,.18);gap:10px;flex-wrap:wrap}
+  .logo{font-weight:800;font-size:1.15rem;letter-spacing:.5px}
+  .logo span{color:var(--cyan)}
+  .voltar{color:var(--muted);text-decoration:none;font-size:.9rem}
+  .voltar:hover{color:var(--cyan)}
+  .lang{display:flex;gap:4px;background:var(--card2);border:1px solid rgba(147,162,212,.25);border-radius:10px;padding:3px}
+  .lang button{background:transparent;border:none;color:var(--muted);font-weight:700;font-size:.78rem;padding:5px 9px;border-radius:7px;cursor:pointer}
+  .lang button.ativo{background:linear-gradient(135deg,var(--cyan),var(--green));color:#04121a}
+  h1{font-size:clamp(1.5rem,4vw,2.3rem);margin:26px 0 6px}
+  .gr{background:linear-gradient(90deg,var(--cyan),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--muted);max-width:640px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+  .badge{background:var(--card2);border:1px solid rgba(52,211,153,.35);color:var(--green);border-radius:999px;padding:5px 13px;font-size:.82rem}
+  .passo{display:flex;gap:12px;align-items:flex-start;margin:30px 0 12px}
+  .passo .n{min-width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--green));color:#04121a;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .passo h2{font-size:1.2rem}
+  .passo p{color:var(--muted);font-size:.92rem}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .estr{background:var(--card);border:1px solid rgba(147,162,212,.22);border-radius:16px;padding:18px;cursor:pointer;transition:.18s;text-align:left;color:var(--text)}
+  .estr:hover{transform:translateY(-2px);border-color:var(--cyan)}
+  .estr.ativa{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(34,211,238,.25),0 10px 30px rgba(34,211,238,.12)}
+  .estr .ico{font-size:1.7rem}
+  .estr h3{margin:6px 0 6px;font-size:1.02rem}
+  .estr p{color:var(--muted);font-size:.84rem}
+  .estr .sel{display:none}
+  .estr.ativa .sel{display:block;color:var(--green);font-weight:700;margin-top:8px}
+  .resumo{background:var(--card2);border:1px solid rgba(52,211,153,.3);border-radius:12px;padding:12px 16px;margin-top:14px;font-size:.92rem}
+  .resumo b{color:var(--green)}
+  .lotes{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
+  .chip{background:var(--card2);border:1px solid rgba(147,162,212,.3);border-radius:12px;padding:10px 16px;cursor:pointer;text-align:center;font-size:.85rem;transition:.15s}
+  .chip:hover{border-color:var(--cyan)}
+  .chip.ativa{border-color:var(--gold);box-shadow:0 0 0 2px rgba(251,191,36,.2)}
+  .chip b{display:block;font-size:1rem}
+  .chip small{color:var(--muted)}
+  .lote-custom{background:var(--card2);border:1px solid rgba(147,162,212,.3);border-radius:12px;padding:8px 12px;width:110px;font-size:1rem;color:var(--text)}
+  .lote-custom:focus{outline:none;border-color:var(--cyan)}
+  .campo-nome{margin-top:18px}
+  .campo-nome label{display:block;color:var(--muted);font-size:.9rem;margin-bottom:6px}
+  input[type=text]{background:var(--card2);border:1px solid rgba(147,162,212,.3);border-radius:12px;padding:10px 14px;width:100%;color:var(--text);font-size:1rem}
+  input:focus{outline:none;border-color:var(--cyan)}
+  .btn-dl{display:block;margin:26px auto 0;background:linear-gradient(135deg,#059669,#10b981);border:none;color:#fff;font-size:1.12rem;font-weight:800;padding:18px 32px;border-radius:16px;cursor:pointer;box-shadow:0 12px 30px rgba(16,185,129,.35);transition:.18s}
+  .btn-dl:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(16,185,129,.5)}
+  .preview{background:#070b16;border:1px solid rgba(147,162,212,.2);border-radius:14px;padding:16px;margin-top:22px}
+  .preview h4{margin-bottom:10px;color:var(--muted);font-size:.88rem;cursor:pointer;user-select:none}
+  .preview pre{overflow:auto;max-height:200px;font-family:Consolas,monospace;font-size:.7rem;color:#7dd3fc;white-space:pre;display:none}
+  .preview.aberto pre{display:block}
+  .passos-inst{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:22px}
+  .pi{background:var(--card);border:1px solid rgba(147,162,212,.18);border-radius:14px;padding:16px}
+  .pi .num{width:28px;height:28px;border-radius:8px;background:var(--card2);color:var(--cyan);font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+  .pi b{display:block;margin-bottom:4px}
+  .pi p{color:var(--muted);font-size:.82rem}
+  .aviso{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.35);border-radius:12px;padding:12px 16px;color:#fecaca;font-size:.85rem;margin-top:24px}
+  footer{color:var(--muted);text-align:center;font-size:.82rem;padding:30px 0 40px}
+  a{color:var(--cyan)}
+</style>
+</head>
+<body>
+<div class="bg-anim"></div>
+<div class="wrap">
+  <header>
+    <div class="logo">BISONX<span>.AI</span></div>
+    <span class="lang">
+      <button id="langPT" class="ativo" onclick="setLang('PT')">PT</button>
+      <button id="langEN" onclick="setLang('EN')">EN</button>
+      <button id="langES" onclick="setLang('ES')">ES</button>
+    </span>
+    <a class="voltar" href="index.html" data-i="voltar">&larr; Voltar ao site</a>
+  </header>
+
+  <h1 data-i="h1">Crie o seu <span class="gr">ROBO de trading</span></h1>
+  <p class="sub" data-i="sub">Sem programar nada. Escolha a estratégia, o risco e o robô é montado e compilado sozinho. Funciona em qualquer computador e em qualquer Wi-Fi.</p>
+  <div class="badges">
+    <span class="badge" data-i="b1">⚡ Monta e compila sozinho</span>
+    <span class="badge" data-i="b2">✔ Sem precisar escrever 1 código</span>
+    <span class="badge" data-i="b3">🔒 Seu robô, seu controle</span>
+  </div>
+
+  <div class="passo"><div class="n">1</div><div><h2 data-i="p1t">Escolha a estratégia</h2><p data-i="p1s">Toque na que mais combina com o seu jeito de operar.</p></div></div>
+  <div class="grid3" id="estrat"></div>
+  <div class="resumo" id="resumo"></div>
+
+  <div class="passo"><div class="n">2</div><div><h2 data-i="p2t">Escolha o risco (lote)</h2><p data-i="p2s">Quanto maior o lote, maior o ganho — e também o risco.</p></div></div>
+  <div class="lotes">
+    <button class="chip" data-lote="0.01" onclick="lote('0.01')"><b>0.01</b><small data-i="c1">Seguro</small></button>
+    <button class="chip" data-lote="0.10" onclick="lote('0.10')"><b>0.10</b><small data-i="c2">Médio</small></button>
+    <button class="chip" data-lote="0.50" onclick="lote('0.50')"><b>0.50</b><small data-i="c3">Agressivo</small></button>
+    <input class="lote-custom" id="loteCustom" type="text" value="0.10" oninput="lote(this.value)" onfocus="this.select()" title="Lote">
+  </div>
+
+  <div class="campo-nome">
+    <label data-i="nomeLb">Nome do seu robô (opcional)</label>
+    <input type="text" id="nomeRobo" placeholder="Ex.: MeuRobo_Ouro" maxlength="24" oninput="preview()">
+  </div>
+
+  <div class="passo"><div class="n">3</div><div><h2 data-i="p3t">Gerar e baixar</h2><p data-i="p3s">Você recebe um arquivo .zip com o robô pronto e o instalador de 1 clique.</p></div></div>
+  <button class="btn-dl" onclick="baixar()">⚡ <span data-i="btn">GERAR E BAIXAR MEU ROBO</span></button>
+
+  <div class="preview" id="preview" onclick="this.classList.toggle('aberto')">
+    <h4><span data-i="prevt">Ver o código que será gerado (opcional)</span></h4>
+    <pre id="pre"></pre>
+  </div>
+
+  <div class="passos-inst">
+    <div class="pi"><div class="num">1</div><b data-i="i1t">Instale o MT5</b><p data-i="i1s">Baixe o MetaTrader 5 em metatrader5.com e faça login na sua corretora (gratuito).</p></div>
+    <div class="pi"><div class="num">2</div><b data-i="i2t">Extraia o .zip</b><p data-i="i2s">Descompacte o arquivo que baixou. Vem o robô + INSTALAR.bat + passo a passo.</p></div>
+    <div class="pi"><div class="num">3</div><b data-i="i3t">2 cliques no INSTALAR</b><p data-i="i3s">Ele coloca o robô na pasta certa e compila sozinho. Pronto em segundos.</p></div>
+    <div class="pi"><div class="num">4</div><b data-i="i4t">Arraste pro gráfico</b><p data-i="i4s">No MT5, arraste o robô para o gráfico, OK, e aperte o botão permitir automação.</p></div>
+  </div>
+
+  <div class="aviso" data-i="aviso">⚠️ <b>Importante:</b> teste sempre primeiro em conta demo ou no Testador de Estratégia. Trading tem risco e o BISONX não garante resultado — use dinheiro que você pode perder. Faça sempre o backup dos seus robôs.</div>
+
+  <footer><span data-i="foot">Feito pelo BISONX · Fale com a gente pelo</span> <a href="https://wa.me/5516997997327">WhatsApp</a></footer>
+</div>
+
+<script src="painel-robo.js"></script>
+<script>
+  var I18N = {
+    PT: {
+      voltar: "\u2190 Voltar ao site", h1: "Crie o seu ",
+      sub: "Sem programar nada. Escolha a estratégia, o risco e o robô é montado e compilado sozinho. Funciona em qualquer computador e em qualquer Wi-Fi.",
+      b1: "⚡ Monta e compila sozinho", b2: "✔ Sem precisar escrever 1 código", b3: "🔒 Seu robô, seu controle",
+      p1t: "Escolha a estratégia", p1s: "Toque na que mais combina com o seu jeito de operar.",
+      p2t: "Escolha o risco (lote)", p2s: "Quanto maior o lote, maior o ganho — e também o risco.",
+      p3t: "Gerar e baixar", p3s: "Você recebe um arquivo .zip com o robô pronto e o instalador de 1 clique.",
+      c1: "Seguro", c2: "Médio", c3: "Agressivo",
+      nomeLb: "Nome do seu robô (opcional)",
+      btn: "GERAR E BAIXAR MEU ROBO", prevt: "Ver o código que será gerado (opcional)",
+      i1t: "Instale o MT5", i1s: "Baixe o MetaTrader 5 em metatrader5.com e faça login na sua corretora (gratuito).",
+      i2t: "Extraia o .zip", i2s: "Descompacte o arquivo que baixou. Vem o robô + INSTALAR.bat + passo a passo.",
+      i3t: "2 cliques no INSTALAR", i3s: "Ele coloca o robô na pasta certa e compila sozinho. Pronto em segundos.",
+      i4t: "Arraste pro gráfico", i4s: "No MT5, arraste o robô para o gráfico, OK, e aperte o botão permitir automação.",
+      aviso: "⚠️ <b>Importante:</b> teste sempre primeiro em conta demo ou no Testador de Estratégia. Trading tem risco e o BISONX não garante resultado — use dinheiro que você pode perder. Faça sempre o backup dos seus robôs.",
+      foot: "Feito pelo BISONX · Fale com a gente pelo",
+      sel: "✓ SELECIONADA",
+      resLbl: "Sua estratégia", resLote: "Lote"
+    },
+    EN: {
+      voltar: "← Back to site", h1: "Create your ",
+      sub: "No coding needed. Choose a strategy, pick your risk and the robot is built and compiled automatically. Works on any computer and any Wi-Fi.",
+      b1: "⚡ Builds and compiles automatically", b2: "✔ No code skills required", b3: "🔒 Your robot, your control",
+      p1t: "Choose your strategy", p1s: "Pick the one that fits your trading style.",
+      p2t: "Choose your risk (lot)", p2s: "The bigger the lot, the bigger the gain — and the risk.",
+      p3t: "Generate and download", p3s: "You get a .zip file with your ready robot and a 1-click installer.",
+      c1: "Safe", c2: "Medium", c3: "Aggressive",
+      nomeLb: "Your robot's name (optional)",
+      btn: "GENERATE AND DOWNLOAD MY ROBOT", prevt: "See the generated code (optional)",
+      i1t: "Install MT5", i1s: "Download MetaTrader 5 at metatrader5.com and sign in with your broker (free).",
+      i2t: "Unzip the file", i2s: "Extract the downloaded .zip. It includes the robot + INSTALAR.bat + step-by-step guide.",
+      i3t: "Double-click INSTALAR", i3s: "It copies the robot to the right folder and compiles it automatically. Ready in seconds.",
+      i4t: "Drag to chart", i4s: "In MT5, drag the robot onto the chart, press OK, and enable the automation button.",
+      aviso: "⚠️ <b>Important:</b> always test first on a demo account or in the Strategy Tester. Trading involves risk and BISONX does not guarantee results — only use money you can afford to lose. Always keep a backup of your robots.",
+      foot: "Made by BISONX · Talk to us on",
+      sel: "✓ SELECTED",
+      resLbl: "Your strategy", resLote: "Lot"
+    },
+    ES: {
+      voltar: "← Volver al sitio", h1: "Crea tu ",
+      sub: "Sin programar nada. Elige la estrategia, el riesgo y el robot se monta y compila solo. Funciona en cualquier ordenador y en cualquier Wi-Fi.",
+      b1: "⚡ Monta y compila solo", b2: "✔ Sin escribir código", b3: "🔒 Tu robot, tu control",
+      p1t: "Elige la estrategia", p1s: "Elige la que mejor se adapte a tu manera de operar.",
+      p2t: "Elige el riesgo (lote)", p2s: "Cuanto mayor el lote, mayor la ganancia — y también el riesgo.",
+      p3t: "Generar y descargar", p3s: "Recibes un .zip con tu robot listo y el instalador de 1 clic.",
+      c1: "Seguro", c2: "Medio", c3: "Agresivo",
+      nomeLb: "Nombre de tu robot (opcional)",
+      btn: "GENERAR Y DESCARGAR MI ROBOT", prevt: "Ver el código generado (opcional)",
+      i1t: "Instala MT5", i1s: "Descarga MetaTrader 5 en metatrader5.com e inicia sesión con tu bróker (gratis).",
+      i2t: "Extrae el .zip", i2s: "Descomprime el archivo descargado. Incluye el robot + INSTALAR.bat + guía paso a paso.",
+      i3t: "Doble clic en INSTALAR", i3s: "Coloca el robot en la carpeta correcta y lo compila solo. Listo en segundos.",
+      i4t: "Arrastra al gráfico", i4s: "En MT5, arrastra el robot al gráfico, pulsa OK y activa el botón de automatización.",
+      aviso: "⚠️ <b>Importante:</b> prueba siempre primero en una cuenta demo o en el Probador de Estrategias. El trading conlleva riesgo y BISONX no garantiza resultados — usa solo dinero que puedas permitirte perder. Haz siempre copia de seguridad de tus robots.",
+      foot: "Hecho por BISONX · Háblanos por",
+      sel: "✓ SELECCIONADA",
+      resLbl: "Tu estrategia", resLote: "Lote"
+    }
+  };
+
+  var LANG = "PT";
+  function tr(k) { return (I18N[LANG] && I18N[LANG][k] !== undefined) ? I18N[LANG][k] : "?"; }
+  function setLang(l) {
+    LANG = l;
+    document.querySelectorAll("#langPT,#langEN,#langES").forEach(function (b) {
+      b.classList.toggle("ativo", b.id === "lang" + l);
+    });
+    document.querySelectorAll("[data-i]").forEach(function (el) {
+      var k = el.getAttribute("data-i");
+      el.innerHTML = tr(k) + (k === "h1" ? '<span class="gr">ROBO de trading</span>' : "");
+    });
+    montarCards(); preview();
+    try { localStorage.setItem("bxrobo_lang", l); } catch (e) {}
+  }
+
+  function montarCards() {
+    var g = document.getElementById("estrat");
+    g.innerHTML = ESTRATEGIAS_KEY.map(function (k) {
+      var e = ESTRATEGIAS[k];
+      return '<button class="estr" data-tipo="' + k + '" onclick="escolher(\'' + k + '\')">' +
+        '<div class="ico">' + e.icone + '</div>' +
+        '<h3>' + e.nome[LANG] + '</h3>' +
+        '<p>' + e.desc[LANG] + '</p>' +
+        '<span class="sel">' + tr("sel") + '</span></button>';
+    }).join("");
+  }
+
+  var tipo = "tendencia", loteVal = "0.10";
+  function escolher(t) {
+    tipo = t;
+    document.querySelectorAll(".estr").forEach(function (e) { e.classList.toggle("ativa", e.dataset.tipo === t); });
+    preview();
+  }
+  function lote(v) {
+    var n = parseFloat(String(v).replace(",", "."));
+    if (n >= 0) { loteVal = n.toFixed(2); document.getElementById("loteCustom").value = loteVal; }
+    document.querySelectorAll(".chip").forEach(function (c) {
+      c.classList.toggle("ativa", Math.abs(parseFloat(c.dataset.lote) - parseFloat(loteVal)) < 0.0001);
+    });
+    preview();
+  }
+  function numeroDoRobo() { return Math.random().toString(36).slice(2, 6).toUpperCase(); }
+  function preview() {
+    var e = ESTRATEGIAS[tipo];
+    document.getElementById("resumo").innerHTML =
+      "<b>✔ " + tr("resLbl") + ":</b> " + e.nome[LANG] +
+      " &nbsp;·&nbsp; <b>" + tr("resLote") + ":</b> " + parseFloat(loteVal).toFixed(2) +
+      " &nbsp;·&nbsp; " + e.desc[LANG];
+    document.getElementById("pre").textContent = gerarMq5(tipo, loteVal, 20260912);
+  }
+  function baixar() {
+    var nome = document.getElementById("nomeRobo").value;
+    var arquivos = montarArquivos(tipo, loteVal, nome);
+    var zip = fazerZip(arquivos);
+    var nomeBase = arquivos[0].nome.replace(".mq5", "") + "_" + numeroDoRobo();
+    var url = URL.createObjectURL(zip);
+    var a = document.createElement("a");
+    a.href = url; a.download = nomeBase + ".zip";
+    document.body.appendChild(a); a.click();
+    setTimeout(function () { document.body.removeChild(a); URL.revokeObjectURL(url); }, 2500);
+  }
+
+  (function init() {
+    try { var l = localStorage.getItem("bxrobo_lang"); if (l === "EN" || l === "ES" || l === "PT") LANG = l; } catch (e) {}
+    setLang(LANG);
+    lote("0.10");
+  })();
+</script>
+</body>
+</html>
