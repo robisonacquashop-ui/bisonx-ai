@@ -531,11 +531,43 @@ var SOLUCOES = {
   }
 };
 
+function idiomaDoPais(pais){
+  var PAISES_PT = ["br","pt","ao","mz","cv","gw","st","tl"];
+  var PAISES_ES = ["es","mx","ar","co","pe","ve","cl","ec","bo","py","uy","cr","cu","do","pa","sv","hn","ni","gt","pr"];
+  var p = (pais||"").toLowerCase();
+  if(PAISES_ES.indexOf(p)>=0) return "es";
+  if(PAISES_PT.indexOf(p)>=0) return "pt";
+  return "en"; // resto do mundo: ingles
+}
+
+function detectarPaisPorIP(cb){
+  try{
+    var x = new XMLHttpRequest();
+    x.open("GET", "https://ipwho.is/?fields=country_code", true);
+    x.timeout = 5000;
+    x.onload = function(){ try{ cb(JSON.parse(x.responseText).country_code); }catch(e){ cb(null); } };
+    x.onerror = function(){ cb(null); };
+    x.ontimeout = function(){ cb(null); };
+    x.send();
+  }catch(e){ cb(null); }
+}
+
 function detectarIdioma(){
   var nav = (navigator.language || navigator.userLanguage || "pt-PT").toLowerCase();
-  if(/en/.test(nav)) return "en";
-  if(/es/.test(nav)) return "es";
-  return "pt";
+  if(/^en/.test(nav)) return "en";
+  if(/^es/.test(nav)) return "es";
+  if(/^pt/.test(nav)) return "pt";
+  return "en";
+}
+
+function escolherIdiomaInicial(){
+  var q = new URLSearchParams(window.location.search).get("lang");
+  if(q && ["pt","en","es"].indexOf(q)>=0) return q;
+  try{
+    var salv = localStorage.getItem("bisonx_idioma");
+    if(salv && ["pt","en","es"].indexOf(salv)>=0) return salv;
+  }catch(e){}
+  return null;
 }
 
 function aplicarTexto(){
@@ -780,8 +812,30 @@ function copiarMsg(){
 }
 
 detectarParametros();
-try{ IDIOMA = localStorage.getItem("bisonx_idioma") || detectarIdioma(); }catch(e){ IDIOMA = detectarIdioma(); }
-aplicarTexto();
+// escolha de idioma: (?lang=) > (salvo pelo visitante) > (pais por IP) > (navegador)
+var inicial = escolherIdiomaInicial();
+if(inicial){
+  IDIOMA = inicial;
+  aplicarTexto();
+  // ainda detecta pais em segundo plano para futuras visitas sem escolha
+  detectarPaisPorIP(function(pais){
+    var auto = idiomaDoPais(pais);
+    try{ if(!localStorage.getItem("bisonx_idioma")){ localStorage.setItem("bisonx_idioma_auto", auto); } }catch(e){}
+  });
+}else{
+  IDIOMA = detectarIdioma();
+  aplicarTexto();
+  detectarPaisPorIP(function(pais){
+    var auto = idiomaDoPais(pais);
+    if(auto !== IDIOMA){
+      if(confirm(auto==="es" ? "Idioma detectado: Español. Cambiar el idioma?" :
+                 (auto==="pt" ? "Idioma detectado: Português. Trocar o idioma?" :
+                  "Detected language: English. Switch language?"))){
+        IDIOMA = auto; aplicarTexto();
+      }
+    }
+  });
+}
 </script>
 </body>
 </html>
