@@ -383,6 +383,10 @@ var SOLUCOES = {
     whats_c4: "  4. Renova\u00e7\u00e3o",
     whats_sit: "Situa\u00e7\u00e3o do cliente SITE (diagn\u00f3stico autom\u00e1tico):",
     whats_etapa: "  Etapa travada:",
+    whats_codbx: "C\u00f3digo BX detectado:",
+    whats_chave: "Chave detectada no link:",
+    whats_sim: "sim",
+    whats_nao: "n\u00e3o",
     whats_obrigado: "Por favor, resolva r\u00e1pido. Obrigado!"
   },
   en: {
@@ -455,6 +459,10 @@ var SOLUCOES = {
     whats_c4: "  4. Renewal",
     whats_sit: "Client SITE situation (automatic diagnostic):",
     whats_etapa: "  Stuck step:",
+    whats_codbx: "BX code detected:",
+    whats_chave: "Key detected in the link:",
+    whats_sim: "yes",
+    whats_nao: "no",
     whats_obrigado: "Please solve it fast. Thank you!"
   },
   es: {
@@ -527,6 +535,10 @@ var SOLUCOES = {
     whats_c4: "  4. Renovaci\u00f3n",
     whats_sit: "Situaci\u00f3n del cliente SITIO (diagn\u00f3stico autom\u00e1tico):",
     whats_etapa: "  Etapa trabada:",
+    whats_codbx: "C\u00f3digo BX detectado:",
+    whats_chave: "Clave detectada en el enlace:",
+    whats_sim: "s\u00ed",
+    whats_nao: "no",
     whats_obrigado: "Por favor, resu\u00e9lvelo r\u00e1pido. \u00a1Gracias!"
   }
 };
@@ -769,9 +781,10 @@ function mostrarSolucao(c){
 
 function prepararAux(){
   var h=[];
-  h.push((SOLUCOES[IDIOMA].whats_etapa || "  Etapa:") + " " + (caminho || "-"));
-  h.push("C\u00f3digo BX detectado: " + (codigoDetectado||"-"));
-  h.push("Chave detectada no link: " + (chaveDetectada?"sim":"n\u00e3o"));
+  var S = SOLUCOES[IDIOMA] || {};
+  h.push((S.whats_etapa || "  Etapa:") + " " + (caminho || "-"));
+  h.push((S.whats_codbx || "C\u00f3digo BX detectado:") + " " + (codigoDetectado||"-"));
+  h.push((S.whats_chave || "Chave detectada no link:") + " " + (chaveDetectada ? (S.whats_sim||"sim") : (S.whats_nao||"n\u00e3o")));
   return h.join("\n");
 }
 
