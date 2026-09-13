@@ -575,13 +575,9 @@ function aplicarTexto(){
   T = TEXTOS[IDIOMA];
   var els = document.querySelectorAll("[data-t]");
   els.forEach(function(el){
-    var k = el.getAttribute("data-t");
+    var k = el.getAttribute("data-t").replace(/-/g, "_");
     if(typeof T[k] !== "undefined"){
-      if(el.querySelector("span") && typeof T[k] === "string"){
-        el.innerHTML = T[k];
-      } else {
-        el.innerHTML = T[k];
-      }
+      el.innerHTML = T[k];
     }
   });
   document.getElementById("t-topo-titulo").innerHTML = T.topo_titulo;
@@ -773,7 +769,7 @@ function mostrarSolucao(c){
 
 function prepararAux(){
   var h=[];
-  h.push(TEXTOS[IDIOMA].whats_etapa + " " + (caminho || "-"));
+  h.push((SOLUCOES[IDIOMA].whats_etapa || "  Etapa:") + " " + (caminho || "-"));
   h.push("C\u00f3digo BX detectado: " + (codigoDetectado||"-"));
   h.push("Chave detectada no link: " + (chaveDetectada?"sim":"n\u00e3o"));
   return h.join("\n");
