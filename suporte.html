@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BISONX SINAIS PRO - Central de Suporte Automatizado</title>
+<title>BISONX SINAIS PRO - Central de Suporte Automatizado / Support Center / Centro de Soporte</title>
 <style>
   :root{
     --azul:#0d6efd; --azul-escuro:#0b5ed7;
@@ -16,20 +16,22 @@
   body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif; background:var(--fundo); color:var(--texto); line-height:1.55;}
   .topo{background:linear-gradient(135deg,#041e42,#0b5ed7); color:#fff; padding:34px 18px; text-align:center;}
   .topo h1{font-size:24px; margin-bottom:8px;}
-  .topo p{color:#cfe2ff; font-size:15px; max-width:720px; margin:0 auto;}
+  .topo p{color:#cfe2ff; font-size:15px; max-width:760px; margin:0 auto;}
   .topo .selo{display:inline-block; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.35); border-radius:20px; padding:4px 14px; font-size:12px; margin-top:12px;}
+  .idiomas{position:absolute; top:14px; right:16px; display:flex; gap:6px;}
+  .idiomas button{background:rgba(255,255,255,.15); color:#fff; border:1px solid rgba(255,255,255,.4); border-radius:20px; padding:5px 12px; font-size:13px; cursor:pointer;}
+  .idiomas button.ativo{background:#fff; color:#041e42; font-weight:700;}
   .container{max-width:860px; margin:22px auto; padding:0 14px;}
   .card{background:var(--card); border:1px solid var(--borda); border-radius:14px; padding:22px; margin-bottom:18px; box-shadow:0 1px 3px rgba(0,0,0,.06);}
   .card h2{font-size:19px; margin-bottom:14px; color:#041e42;}
   .card h3{font-size:16px; margin:16px 0 8px;}
   .etapa-badge{display:inline-block; background:#e7f1ff; color:#0b5ed7; border-radius:12px; padding:2px 12px; font-size:12px; font-weight:600; margin-bottom:10px;}
-  .btn{display:inline-block; border:none; border-radius:10px; padding:13px 20px; font-size:15px; font-weight:600; cursor:pointer; margin:6px 6px 6px 0; transition:transform .05s, box-shadow .15s;}
+  .btn{display:inline-block; border:none; border-radius:10px; padding:13px 16px; font-size:14px; font-weight:600; cursor:pointer; margin:6px 6px 6px 0; transition:transform .05s;}
   .btn:active{transform:scale(.98);}
   .btn-azul{background:var(--azul); color:#fff;}
   .btn-azul:hover{background:var(--azul-escuro);}
   .btn-verde{background:var(--verde); color:#fff;}
   .btn-verde:hover{background:var(--verde-escuro);}
-  .btn-verde-outline{background:#fff; color:var(--verde); border:2px solid var(--verde);}
   .btn-cinza-outline{background:#fff; color:#495057; border:2px solid var(--borda);}
   .btn-vermelho{background:var(--vermelho); color:#fff;}
   .btn-laranja{background:var(--laranja); color:#fff;}
@@ -41,314 +43,745 @@
   .ok{background:#e8f6ee; border:1px solid #b7e3c8; border-left:5px solid var(--verde); border-radius:10px; padding:14px 16px; margin:12px 0;}
   .erro{background:#fdecea; border:1px solid #f5c6c6; border-left:5px solid var(--vermelho); border-radius:10px; padding:14px 16px; margin:12px 0;}
   .codigo-bx{background:#041e42; color:#7fd4ff; font-family:Consolas,monospace; font-size:20px; padding:14px; border-radius:10px; text-align:center; letter-spacing:2px;}
-  input[type=text]{width:100%; padding:12px 14px; font-size:16px; border:2px solid var(--borda); border-radius:10px; margin:6px 0 12px;}
-  input[type=text]:focus{outline:none; border-color:var(--azul);}
   .progresso{display:flex; gap:6px; margin-bottom:18px; flex-wrap:wrap;}
   .progresso span{flex:1; text-align:center; padding:8px 4px; border-radius:8px; background:#e9ecef; color:var(--cinza); font-size:12px; font-weight:600;}
   .progresso span.pronto{background:var(--verde); color:#fff;}
   .progresso span.atual{background:var(--azul); color:#fff;}
-  .barra-warning{width:66px; height:6px; background:var(--vermelho); border-radius:3px; margin:8px 0;}
   .recap{background:#f8f9fa; border-radius:10px; padding:12px; font-family:Consolas,monospace; font-size:12px; white-space:pre-wrap; color:#495057; max-height:170px; overflow:auto;}
   .rodape{text-align:center; color:var(--cinza); font-size:13px; padding:22px 14px 34px;}
   .oculto{display:none;}
   .flex-row{display:flex; gap:10px; flex-wrap:wrap;}
   .mini{font-size:13px; color:var(--cinza);}
+  .topo{position:relative;}
 </style>
 </head>
 <body>
 
 <div class="topo">
-  <h1>&#x2699;&#xFE0F; Central de Suporte Automatizado &#8212; BISONX SINAIS PRO</h1>
-  <p>O suporte se adaptou para <strong>resolver o seu problema agora</strong>, passo a passo, sem você esperar na fila. Se algo travou, o diagnóstico é enviado sozinho ao vendedor com tudo que ele precisa.</p>
-  <span class="selo">&#x23F3; Resposta em segundos &#8226; Resolução automática na maioria dos casos</span>
+  <div class="idiomas">
+    <button id="btn-pt" onclick="mudarIdioma('pt')" class="ativo">&#127463;&#127479; PT</button>
+    <button id="btn-en" onclick="mudarIdioma('en')">&#127482;&#127480; EN</button>
+    <button id="btn-es" onclick="mudarIdioma('es')">&#127466;&#127480; ES</button>
+  </div>
+  <h1 id="t-topo-titulo">&#x2699;&#xFE0F; Central de Suporte Automatizado &#8212; BISONX SINAIS PRO</h1>
+  <p id="t-topo-sub">O suporte se adaptou para <strong>resolver o seu problema agora</strong>, passo a passo, sem você esperar na fila. Se algo travou, o diagnóstico é enviado sozinho ao vendedor com tudo que ele precisa.</p>
+  <span class="selo" id="t-topo-selo">&#x23F3; Resposta em segundos &#8226; Resolução automática na maioria dos casos</span>
 </div>
 
 <div class="container">
   <div class="progresso" id="progresso">
-    <span id="prog-1">1. Problema</span>
-    <span id="prog-2">2. Diagnóstico</span>
-    <span id="prog-3">3. Solução</span>
-    <span id="prog-4" class="oculto">4. Suporte humano</span>
+    <span id="prog-1">1. <span data-t="prog1"></span></span>
+    <span id="prog-2">2. <span data-t="prog2"></span></span>
+    <span id="prog-3">3. <span data-t="prog3"></span></span>
+    <span id="prog-4" class="oculto">4. <span data-t="prog4"></span></span>
   </div>
 
   <!-- PASSO 1 - qual problema -->
   <div class="card passo ativo" id="passo-1">
-    <span class="etapa-badge">Passo 1 de 3</span>
-    <h2>O que está acontecendo?</h2>
-    <p class="mini">Selecione a opção que mais combina. O sistema já sabe como tratar cada caso.</p>
+    <span class="etapa-badge" data-t="p1-badge"></span>
+    <h2 data-t="p1-titulo"></h2>
+    <p class="mini" data-t="p1-sub"></p>
     <div style="margin-top:16px;">
-      <button class="btn btn-azul" onclick="irPara(2,'install')">&#x1F4E6;&#xFE0F; Não consigo instalar / abrir o programa</button>
-      <button class="btn btn-azul" onclick="irPara(2,'plano')">&#x1F512; Problema com o plano / a chave não ativa</button>
-      <button class="btn btn-azul" onclick="irPara(2,'download')">&#x2B07;&#xFE0F; O download não funciona ou o código não libera</button>
-      <button class="btn btn-azul" onclick="irPara(2,'renovar')">&#x1F504; Minha licença venceu / quero renovar</button>
+      <button class="btn btn-azul" onclick="irPara(2,'install')"><span data-t="b-install"></span></button>
+      <button class="btn btn-azul" onclick="irPara(2,'plano')"><span data-t="b-plano"></span></button>
+      <button class="btn btn-azul" onclick="irPara(2,'download')"><span data-t="b-download"></span></button>
+      <button class="btn btn-azul" onclick="irPara(2,'renovar')"><span data-t="b-renovar"></span></button>
     </div>
   </div>
 
   <!-- PASSO 2 - diagnosticos -->
   <div class="card passo" id="passo-2">
     <span class="etapa-badge" id="passo2-titulo"></span>
-    <div id="diag-install" class="oculto">
-      <h2>Diagnóstico de instalação</h2>
+    <div id="diag-install">
+      <h2 data-t="d-inst-titulo"></h2>
       <div class="erro" id="smart-detect">
-        <strong>&#x26A0;&#xFE0F; Já tentou configurar o Windows? Muitas pessoas bloqueiam antes mesmo de ver o programa.</strong>
-        <button class="btn btn-verde" style="margin-top:10px;" onclick="irPara(3,'smart')">&#x1F6E1;&#xFE0F; Já resolver o bloqueio do Windows (SmartScreen)</button>
-        <button class="btn btn-cinza-outline" style="margin-top:10px;" onclick="irPara(3,'win2')">Já deixei o Windows liberar, mas o programa não abre</button>
+        <strong data-t="d-inst-erro"></strong>
+        <button class="btn btn-verde" style="margin-top:10px;" onclick="irPara(3,'smart')"><span data-t="d-inst-b1"></span></button>
+        <button class="btn btn-cinza-outline" style="margin-top:10px;" onclick="irPara(3,'win2')"><span data-t="d-inst-b2"></span></button>
       </div>
       <div class="ok">
-        <strong>&#x2705; Tenho o arquivo baixado (sinais_pro.exe).</strong> Continue para configurar o Windows e abrir pela 1ª vez.
+        <strong data-t="d-inst-ok"></strong>
       </div>
-      <button class="btn btn-laranja" onclick="irPara(3,'smart')">&#x26A0;&#xFE0F; Nem baixei ainda / não acho o arquivo</button>
+      <button class="btn btn-laranja" onclick="irPara(3,'smart')"><span data-t="d-inst-b3"></span></button>
     </div>
     <div id="diag-plano" class="oculto">
-      <h2>Diagnóstico do plano</h2>
+      <h2 data-t="d-plano-titulo"></h2>
       <div class="dica">
-        <strong>Você tem o código BX e a chave que o vendedor enviou?</strong>
-        <p class="mini">Depois do pagamento, você recebe: (1) o <strong>código de liberação</strong> (formato BX-XXXXXX-XXXXXX) para baixar e (2) a <strong>chave de licença</strong> para ativar. Os dois são diferentes.</p>
+        <strong data-t="d-plano-dica"></strong>
+        <p class="mini" data-t="d-plano-sub"></p>
       </div>
-      <button class="btn btn-azul" onclick="irPara(3,'chave-ativa')">Tenho o código e a chave, mas a chave não ativa</button>
-      <button class="btn btn-azul" onclick="irPara(3,'nao-recebi')">Paguei mas não recebi o código / a chave</button>
-      <button class="btn btn-azul" onclick="irPara(3,'erro-chave')">Aparece erro de "chave inválida / licença negada"</button>
+      <button class="btn btn-azul" onclick="irPara(3,'chave-ativa')"><span data-t="d-plano-b1"></span></button>
+      <button class="btn btn-azul" onclick="irPara(3,'nao-recebi')"><span data-t="d-plano-b2"></span></button>
+      <button class="btn btn-azul" onclick="irPara(3,'erro-chave')"><span data-t="d-plano-b3"></span></button>
     </div>
     <div id="diag-download" class="oculto">
-      <h2>Diagnóstico do download</h2>
+      <h2 data-t="d-dl-titulo"></h2>
       <div class="ok">
-        <strong>&#x2705; O download é por código único de liberação.</strong> Cada pagamento gera um código BX que destrava o arquivo exato do cliente. Se você tem o código, a área de download resolve em segundos.
+        <strong data-t="d-dl-ok"></strong>
       </div>
-      <a class="btn btn-verde" href="download/index.html" style="color:#fff; text-decoration:none;" onclick="irPara(3,'download-page')">&#x2B07;&#xFE0F; Ir para a área de download agora</a>
-      <button class="btn btn-azul" onclick="irPara(3,'codigo-errado')">Digitei o código e diz que é inválido</button>
+      <a class="btn btn-verde" href="download/index.html" style="color:#fff; text-decoration:none;" onclick="irPara(3,'download-page')"><span data-t="d-dl-b1"></span></a>
+      <button class="btn btn-azul" onclick="irPara(3,'codigo-errado')"><span data-t="d-dl-b2"></span></button>
     </div>
     <div id="diag-renovar" class="oculto">
-      <h2>Minha licença venceu / renovar</h2>
+      <h2 data-t="d-ren-titulo"></h2>
       <div class="dica">
-        <strong>Renovar é rápido: mesmo plano, novo prazo, você não perde nada.</strong>
-        <p class="mini">O vendedor prepara a renovação em segundos e você recebe a nova chave com o prazo somado ao que já tinha. O programa não para de funcionar.</p>
+        <strong data-t="d-ren-dica"></strong>
+        <p class="mini" data-t="d-ren-sub"></p>
       </div>
-      <button class="btn btn-verde" onclick="irPara(3,'renovar-whats')">&#x1F4B1;&#xFE0F; Quero renovar agora (PIX + nova chave)</button>
+      <button class="btn btn-verde" onclick="irPara(3,'renovar-whats')"><span data-t="d-ren-b1"></span></button>
     </div>
   </div>
 
   <!-- PASSO 3 - solucoes -->
   <div class="card passo" id="passo-3">
-    <span class="etapa-badge">Passo 3 de 3 &#8212; Resolvendo</span>
+    <span class="etapa-badge" data-t="p3-badge"></span>
     <h2 id="solucao-titulo"></h2>
     <div id="solucao-conteudo"></div>
     <div style="margin-top:18px; border-top:1px solid var(--borda); padding-top:16px;">
-      <h3>Não funcionou?</h3>
-      <p class="mini">Não se preocupe &#8212; um diagnóstico do seu caso é montado na hora e enviado ao vendedor com tudo que ele precisa para resolver rápido.</p>
-      <button class="btn btn-vermelho" onclick="gerarWhats()">&#x1F4AC;&#x1F517; Ainda com problema &#8212; abrir WhatsApp do suporte</button>
-      <button class="btn btn-cinza-outline" onclick="voltar(2)">&#x2190; Voltar</button>
+      <h3 data-t="p3-nao-funcionou"></h3>
+      <p class="mini" data-t="p3-sub"></p>
+      <button class="btn btn-vermelho" onclick="gerarWhats()"><span data-t="p3-b-whats"></span></button>
+      <button class="btn btn-cinza-outline" onclick="voltar(2)"><span data-t="p3-b-voltar"></span></button>
     </div>
   </div>
 
   <!-- PASSO 4 - suporte humano -->
   <div class="card passo" id="passo-4">
-    <span class="etapa-badge">Suporte humano (rápido)</span>
-    <h2>Você está conectando ao atendente &#128075;</h2>
+    <span class="etapa-badge" data-t="p4-badge"></span>
+    <h2 data-t="p4-titulo"></h2>
     <div class="ok">
-      <strong>Pronto para te ajudar!</strong> A mensagem abaixo já foi preparada com o diagnóstico do seu caso. Se o WhatsApp não abrir, copie e envie manualmente:
+      <strong data-t="p4-ok"></strong>
     </div>
     <div class="recap" id="msg-pronta"></div>
     <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn btn-verde" id="btn-abrir-whats" target="_blank" style="color:#fff; text-decoration:none;">&#x1F4AC; Abrir WhatsApp do suporte</a>
-      <button class="btn btn-azul" onclick="copiarMsg()">&#x1F4CB; Copiar mensagem</button>
-      <button class="btn btn-cinza-outline" onclick="voltar(1)">&#x1F504; Recomeçar</button>
+      <a class="btn btn-verde" id="btn-abrir-whats" target="_blank" style="color:#fff; text-decoration:none;"><span data-t="p4-b-abrir"></span></a>
+      <button class="btn btn-azul" onclick="copiarMsg()"><span data-t="p4-b-copiar"></span></button>
+      <button class="btn btn-cinza-outline" onclick="voltar(1)"><span data-t="p4-b-recomecar"></span></button>
     </div>
   </div>
 </div>
 
-<div class="rodape">&#169; 2026 BISONX SINAIS PRO &#8226; Central de Suporte Automatizado &#8212; diagnostica, resolve e, se preciso, chama o vendedor.</div>
+<div class="rodape" id="t-rodape"></div>
 
 <script>
-  var WHATS = "5516997997327";
-  var caminho = null;
-  var codigoDetectado = null;
-  var chaveDetectada = null;
+var WHATS = "5516997997327";
+var T = null;
+var IDIOMA = null;
+var caminho = null;
+var codigoDetectado = null;
+var chaveDetectada = null;
 
-  function detectarParametros(){
-    try{
-      var h = window.location.href;
-      var m = h.match(/BX[-][A-Z0-9]+/i);
-      if(m) codigoDetectado = m[0].toUpperCase();
-      m = h.match(/([A-Za-z0-9_%-]+-\d{4}-\d{2}-\d{2}-[0-9a-f]{24})/i);
-      if(m) chaveDetectada = m[1];
-    }catch(e){}
+var TEXTOS = {
+  pt: {
+    topo_titulo: "\u2699\uFE0F Central de Suporte Automatizado \u2014 BISONX SINAIS PRO",
+    topo_sub: "O suporte se adaptou para <strong>resolver o seu problema agora</strong>, passo a passo, sem voc\u00ea esperar na fila. Se algo travou, o diagn\u00f3stico \u00e9 enviado sozinho ao vendedor com tudo que ele precisa.",
+    topo_selo: "\u23F3 Resposta em segundos \u2022 Resolu\u00e7\u00e3o autom\u00e1tica na maioria dos casos",
+    prog1: "Problema", prog2: "Diagn\u00f3stico", prog3: "Solu\u00e7\u00e3o", prog4: "Suporte humano",
+    p1_badge: "Passo 1 de 3",
+    p1_titulo: "O que est\u00e1 acontecendo?",
+    p1_sub: "Selecione a op\u00e7\u00e3o que mais combina. O sistema j\u00e1 sabe como tratar cada caso.",
+    b_install: "\uD83D\uDCE6\uFE0F N\u00e3o consigo instalar / abrir o programa",
+    b_plano: "\uD83D\uDD12 Problema com o plano / a chave n\u00e3o ativa",
+    b_download: "\u2B07\uFE0F O download n\u00e3o funciona ou o c\u00f3digo n\u00e3o libera",
+    b_renovar: "\uD83D\uDD04 Minha licen\u00e7a venceu / quero renovar",
+    d_inst_titulo: "Diagn\u00f3stico de instala\u00e7\u00e3o",
+    d_inst_erro: "\u26A0\uFE0F J\u00e1 tentou configurar o Windows? Muitas pessoas bloqueiam antes mesmo de ver o programa.",
+    d_inst_b1: "\uD83D\uDEE1\uFE0F J\u00e1 resolver o bloqueio do Windows (SmartScreen)",
+    d_inst_b2: "J\u00e1 deixei o Windows liberar, mas o programa n\u00e3o abre",
+    d_inst_ok: "\u2705 Tenho o arquivo baixado (sinais_pro.exe). Continue para configurar o Windows e abrir pela 1\u00aa vez.",
+    d_inst_b3: "\u26A0\uFE0F Nem baixei ainda / n\u00e3o acho o arquivo",
+    d_plano_titulo: "Diagn\u00f3stico do plano",
+    d_plano_dica: "Voc\u00ea tem o c\u00f3digo BX e a chave que o vendedor enviou?",
+    d_plano_sub: "Depois do pagamento, voc\u00ea recebe: (1) o <strong>c\u00f3digo de libera\u00e7\u00e3o</strong> (formato BX-XXXXXX-XXXXXX) para baixar e (2) a <strong>chave de licen\u00e7a</strong> para ativar. Os dois s\u00e3o diferentes.",
+    d_plano_b1: "Tenho o c\u00f3digo e a chave, mas a chave n\u00e3o ativa",
+    d_plano_b2: "Paguei mas n\u00e3o recebi o c\u00f3digo / a chave",
+    d_plano_b3: "Aparece erro de \"chave inv\u00e1lida / licen\u00e7a negada\"",
+    d_dl_titulo: "Diagn\u00f3stico do download",
+    d_dl_ok: "\u2705 O download \u00e9 por c\u00f3digo \u00fanico de libera\u00e7\u00e3o. Cada pagamento gera um c\u00f3digo BX que destrava o arquivo exato do cliente.",
+    d_dl_b1: "\u2B07\uFE0F Ir para a \u00e1rea de download agora",
+    d_dl_b2: "Digitei o c\u00f3digo e diz que \u00e9 inv\u00e1lido",
+    d_ren_titulo: "Minha licen\u00e7a venceu / renovar",
+    d_ren_dica: "Renovar \u00e9 r\u00e1pido: mesmo plano, novo prazo, voc\u00ea n\u00e3o perde nada.",
+    d_ren_sub: "O vendedor prepara a renova\u00e7\u00e3o em segundos e voc\u00ea recebe a nova chave com o prazo somado ao que j\u00e1 tinha.",
+    d_ren_b1: "\uD83D\uDCB1\uFE0F Quero renovar agora (PIX + nova chave)",
+    p3_badge: "Passo 3 de 3 \u2014 Resolvendo",
+    p3_nao_funcionou: "N\u00e3o funcionou?",
+    p3_sub: "N\u00e3o se preocupe \u2014 um diagn\u00f3stico do seu caso \u00e9 montado na hora e enviado ao vendedor com tudo que ele precisa para resolver r\u00e1pido.",
+    p3_b_whats: "\uD83D\uDCAC\uD83D\uDD17 Ainda com problema \u2014 abrir WhatsApp do suporte",
+    p3_b_voltar: "\u2190 Voltar",
+    p4_badge: "Suporte humano (r\u00e1pido)",
+    p4_titulo: "Voc\u00ea est\u00e1 conectando ao atendente \uD83D\uDC5C",
+    p4_ok: "Pronto para te ajudar! A mensagem abaixo foi preparada com o diagn\u00f3stico do seu caso. Se o WhatsApp n\u00e3o abrir, copie e envie manualmente:",
+    p4_b_abrir: "\uD83D\uDCAC Abrir WhatsApp do suporte",
+    p4_b_copiar: "\uD83D\uDCCB Copiar mensagem",
+    p4_b_recomecar: "\uD83D\uDD04 Recome\u00e7ar",
+    rodape: "\u00A9 2026 BISONX SINAIS PRO \u2014 Central de Suporte Automatizado \u2014 diagnostica, resolve e, se preciso, chama o vendedor.",
+    sol: {}
+  },
+  en: {
+    topo_titulo: "\u2699\uFE0F Automated Support Center \u2014 BISONX SINAIS PRO",
+    topo_sub: "Support adapted to <strong>solve your problem right now</strong>, step by step, without waiting in line. If something got stuck, the diagnostic is sent automatically to the seller with everything needed.",
+    topo_selo: "\u23F3 Answer in seconds \u2022 Automatic resolution in most cases",
+    prog1: "Problem", prog2: "Diagnostic", prog3: "Solution", prog4: "Human support",
+    p1_badge: "Step 1 of 3",
+    p1_titulo: "What is happening?",
+    p1_sub: "Select the option that fits best. The system already knows how to handle each case.",
+    b_install: "\uD83D\uDCE6\uFE0F I can't install / open the program",
+    b_plano: "\uD83D\uDD12 Problem with the plan / the key won't activate",
+    b_download: "\u2B07\uFE0F Download doesn't work or the code won't release it",
+    b_renovar: "\uD83D\uDD04 My licence expired / I want to renew",
+    d_inst_titulo: "Installation diagnostic",
+    d_inst_erro: "\u26A0\uFE0F Have you tried setting up Windows? Many people get blocked before even seeing the program.",
+    d_inst_b1: "\uD83D\uDEE1\uFE0F I already solved the Windows block (SmartScreen)",
+    d_inst_b2: "Windows is allowed but the program won't open",
+    d_inst_ok: "\u2705 I have the downloaded file (sinais_pro.exe). Continue to set up Windows and open it the 1st time.",
+    d_inst_b3: "\u26A0\uFE0F I haven't downloaded yet / can't find the file",
+    d_plano_titulo: "Plan diagnostic",
+    d_plano_dica: "Do you have the BX code and the key the seller sent?",
+    d_plano_sub: "After payment you receive: (1) the <strong>release code</strong> (format BX-XXXXXX-XXXXXX) to download and (2) the <strong>licence key</strong> to activate. They are different.",
+    d_plano_b1: "I have the code and the key, but the key won't activate",
+    d_plano_b2: "I paid but didn't receive the code / the key",
+    d_plano_b3: "I get a \"invalid key / licence denied\" error",
+    d_dl_titulo: "Download diagnostic",
+    d_dl_ok: "\u2705 Download uses a unique release code. Each payment creates a BX code that unlocks the exact client file.",
+    d_dl_b1: "\u2B07\uFE0F Go to the download area now",
+    d_dl_b2: "I typed the code and it says invalid",
+    d_ren_titulo: "My licence expired / renew",
+    d_ren_dica: "Renewing is fast: same plan, new term, you lose nothing.",
+    d_ren_sub: "The seller prepares the renewal in seconds and you receive the new key with the term added to what you already had.",
+    d_ren_b1: "\uD83D\uDCB1\uFE0F I want to renew now (PIX + new key)",
+    p3_badge: "Step 3 of 3 \u2014 Solving",
+    p3_nao_funcionou: "Didn't work?",
+    p3_sub: "Don't worry \u2014 a diagnostic of your case is built right now and sent to the seller with everything needed to solve it fast.",
+    p3_b_whats: "\uD83D\uDCAC\uD83D\uDD17 Still with a problem \u2014 open support WhatsApp",
+    p3_b_voltar: "\u2190 Back",
+    p4_badge: "Human support (fast)",
+    p4_titulo: "You are connecting to the attendant \uD83D\uDC5C",
+    p4_ok: "Ready to help! The message below was built with your case diagnostic. If WhatsApp doesn't open, copy and send it manually:",
+    p4_b_abrir: "\uD83D\uDCAC Open support WhatsApp",
+    p4_b_copiar: "\uD83D\uDCCB Copy message",
+    p4_b_recomecar: "\uD83D\uDD04 Start over",
+    rodape: "\u00A9 2026 BISONX SINAIS PRO \u2014 Automated Support Center \u2014 diagnoses, solves and, if needed, calls the seller.",
+    sol: {}
+  },
+  es: {
+    topo_titulo: "\u2699\uFE0F Centro de Soporte Automatizado \u2014 BISONX SINAIS PRO",
+    topo_sub: "El soporte se adapt\u00f3 para <strong>resolver tu problema ahora mismo</strong>, paso a paso, sin esperar en la fila. Si algo se traba, el diagn\u00f3stico se env\u00eda solo al vendedor con todo lo que necesita.",
+    topo_selo: "\u23F3 Respuesta en segundos \u2022 Resoluci\u00f3n autom\u00e1tica en la mayor\u00eda de los casos",
+    prog1: "Problema", prog2: "Diagn\u00f3stico", prog3: "Soluci\u00f3n", prog4: "Soporte humano",
+    p1_badge: "Paso 1 de 3",
+    p1_titulo: "\u00BFQu\u00e9 est\u00e1 pasando?",
+    p1_sub: "Selecciona la opci\u00f3n que m\u00e1s se ajuste. El sistema ya sabe c\u00f3mo tratar cada caso.",
+    b_install: "\uD83D\uDCE6\uFE0F No puedo instalar / abrir el programa",
+    b_plano: "\uD83D\uDD12 Problema con el plan / la clave no activa",
+    b_download: "\u2B07\uFE0F La descarga no funciona o el c\u00f3digo no libera",
+    b_renovar: "\uD83D\uDD04 Mi licencia venci\u00f3 / quiero renovar",
+    d_inst_titulo: "Diagn\u00f3stico de instalaci\u00f3n",
+    d_inst_erro: "\u26A0\uFE0F \u00BFFuiste a configurar Windows? Muchos se bloquean antes de ver el programa.",
+    d_inst_b1: "\uD83D\uDEE1\uFE0F Ya resolv\u00ed el bloqueo de Windows (SmartScreen)",
+    d_inst_b2: "Windows ya deja, pero el programa no abre",
+    d_inst_ok: "\u2705 Ya tengo el archivo descargado (sinais_pro.exe). Contin\u00faa para configurar Windows y abrirlo la 1\u00aa vez.",
+    d_inst_b3: "\u26A0\uFE0F Ni siquiera descargu\u00e9 / no encuentro el archivo",
+    d_plano_titulo: "Diagn\u00f3stico del plan",
+    d_plano_dica: "\u00BFTienes el c\u00f3digo BX y la clave que envi\u00f3 el vendedor?",
+    d_plano_sub: "Despu\u00e9s del pago recibes: (1) el <strong>c\u00f3digo de liberaci\u00f3n</strong> (formato BX-XXXXXX-XXXXXX) para descargar y (2) la <strong>clave de licencia</strong> para activar. Son diferentes.",
+    d_plano_b1: "Tengo el c\u00f3digo y la clave, pero la clave no activa",
+    d_plano_b2: "Pagu\u00e9 pero no recib\u00ed el c\u00f3digo / la clave",
+    d_plano_b3: "Sale error de \"clave inv\u00e1lida / licencia denegada\"",
+    d_dl_titulo: "Diagn\u00f3stico de la descarga",
+    d_dl_ok: "\u2705 La descarga usa un c\u00f3digo \u00fanico de liberaci\u00f3n. Cada pago genera un c\u00f3digo BX que libera el archivo exacto del cliente.",
+    d_dl_b1: "\u2B07\uFE0F Ir al \u00e1rea de descarga ahora",
+    d_dl_b2: "Escrib\u00ed el c\u00f3digo y dice que es inv\u00e1lido",
+    d_ren_titulo: "Mi licencia venci\u00f3 / renovar",
+    d_ren_dica: "Renovar es r\u00e1pido: mismo plan, nuevo plazo, no pierdes nada.",
+    d_ren_sub: "El vendedor prepara la renovaci\u00f3n en segundos y recibes la nueva clave con el plazo sumado al que ya ten\u00edas.",
+    d_ren_b1: "\uD83D\uDCB1\uFE0F Quiero renovar ahora (PIX + nueva clave)",
+    p3_badge: "Paso 3 de 3 \u2014 Resolviendo",
+    p3_nao_funcionou: "\u00BFNo funcion\u00f3?",
+    p3_sub: "No te preocupes \u2014 se monta un diagn\u00f3stico de tu caso y se env\u00eda al vendedor con todo lo que necesita para resolverlo r\u00e1pido.",
+    p3_b_whats: "\uD83D\uDCAC\uD83D\uDD17 Sigo con problema \u2014 abrir WhatsApp del soporte",
+    p3_b_voltar: "\u2190 Volver",
+    p4_badge: "Soporte humano (r\u00e1pido)",
+    p4_titulo: "Te est\u00e1s conectando con el atendedor \uD83D\uDC5C",
+    p4_ok: "\u00A1Listo para ayudarte! El mensaje de abajo se prepar\u00f3 con el diagn\u00f3stico de tu caso. Si WhatsApp no abre, copia y env\u00eda manualmente:",
+    p4_b_abrir: "\uD83D\uDCAC Abrir WhatsApp del soporte",
+    p4_b_copiar: "\uD83D\uDCCB Copiar mensaje",
+    p4_b_recomecar: "\uD83D\uDD04 Volver a empezar",
+    rodape: "\u00A9 2026 BISONX SINAIS PRO \u2014 Centro de Soporte Automatizado \u2014 diagnostica, resuelve y, si hace falta, llama al vendedor.",
+    sol: {}
   }
+};
 
-  function irPara(passo, c){
-    caminho = c;
-    updateProg(passo);
-    document.querySelectorAll('.passo').forEach(function(el){ el.classList.remove('ativo'); });
-    if(passo===2){ ativarDiag(c); document.getElementById('passo-2').classList.add('ativo'); }
-    if(passo===3){ mostrarSolucao(c); document.getElementById('passo-3').classList.add('ativo'); }
+var SOLUCOES = {
+  pt: {
+    smart_t: "Como liberar o Windows e abrir o programa (1\u00ba uso)",
+    smart_0: "<strong>O que est\u00e1 acontecendo:</strong> o Windows tem uma prote\u00e7\u00e3o chamada SmartScreen que pode avisar sobre arquivos novos. Isso \u00e9 NORMAL no 1\u00ba download de qualquer programa. O seu arquivo \u00e9 seguro (assinado pelo BISONX).",
+    smart_passo1: "D\u00ea dois cliques no arquivo <code>sinais_pro.exe</code> que voc\u00ea baixou.",
+    smart_passo2: "Se aparecer <strong>\"O Windows protegeu seu PC\"</strong>, clique em <strong>\"Mais informa\u00e7\u00f5es\"</strong>.",
+    smart_passo3: "Clique em <strong>\"Executar mesmo assim\"</strong>.",
+    smart_passo4: "Se aparecer o aviso amarelo do <strong>Controle de Conta de Usu\u00e1rio</strong>, clique em <strong>\"Sim\"</strong>.",
+    smart_passo5: "O programa abre com o campo de <strong>chave de licen\u00e7a</strong>. Cole a chave que o vendedor enviou e confirme.",
+    smart_ok: "Pronto! Depois da 1\u00aa libera\u00e7\u00e3o, abre normal nas pr\u00f3ximas vezes. Se aparecer algo DIFERENTE desse roteiro, use o bot\u00e3o \"Ainda com problema\" abaixo resumindo o que apareceu na tela.",
+    smart_teste_t: "Fa\u00e7a um teste r\u00e1pido",
+    smart_teste_sub: "Abra o arquivo <code>sinais_pro.exe</code>. Em at\u00e9 5 segundos deve aparecer uma janela pedindo a chave. Conseguiu abrir?",
+    smart_sim: "Sim, abriu! \uD83C\uDF89",
+    smart_nao: "N\u00e3o abre \uD83D\uDE41",
+    win2_t: "O Windows est\u00e1 liberado, mas o programa n\u00e3o abre",
+    win2_erro: "<strong>O programa n\u00e3o abriu mesmo com o Windows liberado.</strong> Vamos re-download limpo + abrir como administrador (resolve 95% dos casos).",
+    win2_1: "Baixe o arquivo <strong>novamente</strong> na \u00e1rea de download com o SEU c\u00f3digo BX",
+    win2_2: "<strong>Apague</strong> o arquivo antigo do computador (o download antigo pode ter chegado cortado).",
+    win2_3: "Clique com o <strong>bot\u00e3o direito</strong> no novo <code>sinais_pro.exe</code> e escolha <strong>\"Executar como administrador\"</strong>.",
+    win2_4: "Confirme os avisos com <strong>\"Sim\"</strong>.",
+    win2_btn: "Re-baixar na \u00e1rea de download",
+    chave_ativa_t: "A chave n\u00e3o ativa \u2014 como ativar corretamente",
+    chave_ativa_dica: "<strong>A chave precisa ser copiada inteira, sem nada faltando.</strong> Ela tem este formato: <code>SEU_NOME-2026-12-12-xxxxxxxxxxxxxxxxxxxxxxxx</code>. Um espa\u00e7o extra ou letra trocada impede a ativa\u00e7\u00e3o.",
+    chave_ativa_1: "Na mensagem do vendedor, copie a chave <strong>inteira</strong> (para o nome e a data e a assinatura final).",
+    chave_ativa_2: "Abra o programa e, no campo de chave, use <strong>Ctrl+V</strong> (colar).",
+    chave_ativa_3: "Confirme. Deve aparecer <strong>\"Licen\u00e7a ativada\"</strong> / o motor ligando.",
+    chave_ativa_erro: "<strong>Ainda n\u00e3o ativa?</strong> A causa mais comum \u00e9 um erro de digita\u00e7\u00e3o ao copiar, ou o prazo do plano. Uso o bot\u00e3o abaixo com o diagn\u00f3stico pronto \u2014 o vendedor libera/renova em minutos.",
+    nao_recebi_t: "Paguei e n\u00e3o recebi o c\u00f3digo / a chave",
+    nao_recebi_ok: "<strong>N\u00e3o se preocupe \u2014 isso \u00e9 r\u00e1pido de resolver.</strong> O pagamento pode levar alguns minutos para ser confirmado. Quando confirmado, o pr\u00f3prio sistema libera o download e envia a chave automaticamente.",
+    nao_recebi_1: "Confira se o PIX saiu da sua conta (at\u00e9 10 min).",
+    nao_recebi_2: "Confira tamb\u00e9m a <strong>caixa de spam / lixo eletr\u00f4nico</strong> da mensagem.",
+    nao_recebi_3: "Se passou disso, use o bot\u00e3o abaixo: o vendedor verifica o pagamento na hora e libera o acesso na mesma chamada.",
+    erro_chave_t: "Erro de \"chave inv\u00e1lida / licen\u00e7a negada\"",
+    erro_chave_erro: "<strong>O programa mostrou recusa de licen\u00e7a.</strong> Isso normalmente quer dizer: licen\u00e7a ainda n\u00e3o confirmada, vencida, ou a chave foi digitada com erro.",
+    erro_chave_1: "Recoloque a chave copiando <strong>inteira</strong> da mensagem do vendedor (Ctrl+V, sem digitar).",
+    erro_chave_2: "Verifique a <strong>data</strong> dentro da chave (ex.: 2026-12-12). Se a data j\u00e1 passou, \u00e9 renova\u00e7\u00e3o.",
+    erro_chave_3: "Se confirmou tudo, use o bot\u00e3o abaixo \u2014 o atendente valida a licen\u00e7a e, se for o caso, <strong>atualiza/renova o plano na hora</strong> (voc\u00ea n\u00e3o fica sem acesso).",
+    download_page_t: "Siga para a \u00e1rea de download",
+    download_page_ok: "<strong>A \u00e1rea de download est\u00e1 aberta em uma nova aba.</strong>",
+    download_page_1: "Digite o c\u00f3digo BX exatamente como recebeu.",
+    download_page_2: "Clique em <strong>\"Liberar meu download\"</strong>.",
+    download_page_3: "Baixe o <code>sinais_pro.exe</code> e siga o passo a passo de abertura.",
+    download_page_dica: "<strong>N\u00e3o funcionou?</strong> Normalmente \u00e9 c\u00f3digo digitado com erro (ex.: zero \"0\" por letra \"O\"). Use o bot\u00e3o abaixo que o vendedor reenvia o c\u00f3digo certinho.",
+    codigo_errado_t: "Digitei o c\u00f3digo e diz que \u00e9 inv\u00e1lido",
+    codigo_errado_erro: "<strong>O c\u00f3digo foi digitado errado ou o download expirou.</strong>",
+    codigo_errado_1: "O c\u00f3digo tem 3 partes: <code>BX</code> + 6 letras/n\u00fameros + 6 letras/n\u00fameros. Cuidado com <strong>zero (0) \u00d7 letra O</strong>.",
+    codigo_errado_2: "Copie e cole direto da mensagem do vendedor.",
+    codigo_errado_3: "Se mesmo assim negar, use o bot\u00e3o abaixo: o vendedor <strong>gera um c\u00f3digo novo</strong> e voc\u00ea baixa na hora.",
+    renovar_whats_t: "Renovar minha licen\u00e7a",
+    renovar_whats_ok: "<strong>Renova\u00e7\u00e3o = voc\u00ea continua ativo sem interromper o trade.</strong> O vendedor monta a renova\u00e7\u00e3o (pelo WhatsApp/PIX) e devolve a chave nova com o prazo somado ao atual.",
+    renovar_whats_1: "Use o bot\u00e3o verde abaixo para abrir o WhatsApp j\u00e1 com o pedido de renova\u00e7\u00e3o.",
+    renovar_whats_2: "O vendedor confirma o valor do seu plano e envia o PIX.",
+    renovar_whats_3: "Pagou? A chave nova chega na hora (renova\u00e7\u00e3o autom\u00e1tica).",
+    renovar_whats_btn: "\uD83D\uDD04 Quero renovar agora",
+    renovar_whats_msg: "Ol\u00e1! Quero RENOVAR minha licen\u00e7a do BISONX SINAIS PRO.",
+    abriu_t: "O programa abriu!",
+    abriu_ok: "<strong>\uD83C\uDF89 Se o programa abriu pedindo a chave, est\u00e1 tudo certo.</strong>",
+    abriu_sub: "Cole a chave da mensagem do vendedor e confirme. Precisa de mais alguma coisa?",
+    nao_abre_t: "O programa n\u00e3o abriu \u2014 relat\u00f3rio pronto",
+    nao_abre_erro: "<strong>N\u00e3o abriu.</strong> Vamos verificar com o vendedor com um diagn\u00f3stico completo do seu caso (sem voc\u00ea descrever nada).",
+    nao_abre_sub: "A mensagem ser\u00e1 enviada com: etapa em que travou, sistema operacional e o c\u00f3digo do seu acesso.",
+    default_t: "Resolu\u00e7\u00e3o autom\u00e1tica",
+    default_ok: "Estamos resolvendo. Se esta mensagem for o final, use o bot\u00e3o abaixo para falar com o vendedor na hora.",
+    whats_0: "Ol\u00e1! PRECISO DE AJUDA com o BISONX SINAIS PRO.",
+    whats_casos: "Casos de suporte dispon\u00edveis:",
+    whats_c1: "  1. N\u00e3o consegui abrir/instalar",
+    whats_c2: "  2. Problema com chave/plano",
+    whats_c3: "  3. Download/c\u00f3digo n\u00e3o funciona",
+    whats_c4: "  4. Renova\u00e7\u00e3o",
+    whats_sit: "Situa\u00e7\u00e3o do cliente SITE (diagn\u00f3stico autom\u00e1tico):",
+    whats_etapa: "  Etapa travada:",
+    whats_obrigado: "Por favor, resolva r\u00e1pido. Obrigado!"
+  },
+  en: {
+    smart_t: "How to let Windows open the program (1st use)",
+    smart_0: "<strong>What is happening:</strong> Windows has a protection called SmartScreen that can warn about new files. This is NORMAL on the 1st download of any program. Your file is safe (signed by BISONX).",
+    smart_passo1: "Double-click the <code>sinais_pro.exe</code> file you downloaded.",
+    smart_passo2: "If you see <strong>\"Windows protected your PC\"</strong>, click <strong>\"More info\"</strong>.",
+    smart_passo3: "Click <strong>\"Run anyway\"</strong>.",
+    smart_passo4: "If the yellow <strong>User Account Control</strong> warning appears, click <strong>\"Yes\"</strong>.",
+    smart_passo5: "The program opens with the <strong>licence key</strong> field. Paste the key the seller sent and confirm.",
+    smart_ok: "Done! After the 1st release it opens normally next times. If you see something DIFFERENT from this script, use the \"Still with a problem\" button below and describe what appeared on screen.",
+    smart_teste_t: "Quick test",
+    smart_teste_sub: "Open <code>sinais_pro.exe</code>. Within 5 seconds a window asking for the key should appear. Did it open?",
+    smart_sim: "Yes, it opened! \uD83C\uDF89",
+    smart_nao: "It won't open \uD83D\uDE41",
+    win2_t: "Windows is allowed, but the program won't open",
+    win2_erro: "<strong>The program didn't open even with Windows allowed.</strong> Let's do a clean re-download + run as administrator (fixes 95% of cases).",
+    win2_1: "Download the file <strong>again</strong> in the download area with YOUR BX code",
+    win2_2: "<strong>Delete</strong> the old file from your computer (the old download may have arrived cut).",
+    win2_3: "<strong>Right-click</strong> the new <code>sinais_pro.exe</code> and choose <strong>\"Run as administrator\"</strong>.",
+    win2_4: "Confirm the warnings with <strong>\"Yes\"</strong>.",
+    win2_btn: "Re-download in the download area",
+    chave_ativa_t: "The key won't activate \u2014 how to activate correctly",
+    chave_ativa_dica: "<strong>The key must be copied whole, without anything missing.</strong> It has this format: <code>YOUR_NAME-2026-12-12-xxxxxxxxxxxxxxxxxxxxxxxx</code>. An extra space or a wrong character blocks activation.",
+    chave_ativa_1: "In the seller's message, copy the <strong>whole</strong> key (the name, the date and the final signature).",
+    chave_ativa_2: "In the program, in the key field, use <strong>Ctrl+V</strong> (paste).",
+    chave_ativa_3: "Confirm. It should show <strong>\"Licence activated\"</strong> / the engine starting.",
+    chave_ativa_erro: "<strong>Still won't activate?</strong> The most common cause is a typing error when copying, or the plan term. Use the button below with the diagnostic ready \u2014 the seller releases/renews it in minutes.",
+    nao_recebi_t: "I paid and didn't receive the code / the key",
+    nao_recebi_ok: "<strong>Don't worry \u2014 this is fast to solve.</strong> The payment may take a few minutes to be confirmed. When confirmed, the system itself releases the download and sends the key automatically.",
+    nao_recebi_1: "Check that the PIX left your account (up to 10 min).",
+    nao_recebi_2: "Also check the <strong>spam / junk folder</strong> of the message.",
+    nao_recebi_3: "If that passed, use the button below: the seller checks the payment right now and releases the access in the same call.",
+    erro_chave_t: "\"Invalid key / licence denied\" error",
+    erro_chave_erro: "<strong>The program showed a licence denial.</strong> This usually means: licence not confirmed yet, expired, or the key was typed wrong.",
+    erro_chave_1: "Re-enter the key copying it <strong>whole</strong> from the seller's message (Ctrl+V, don't type).",
+    erro_chave_2: "Check the <strong>date</strong> inside the key (e.g. 2026-12-12). If the date already passed, it's a renewal.",
+    erro_chave_3: "If you confirmed everything, use the button below \u2014 the attendant validates the licence and, if needed, <strong>updates/renews the plan in the moment</strong> (you never lose access).",
+    download_page_t: "Go to the download area",
+    download_page_ok: "<strong>The download area is open in a new tab.</strong>",
+    download_page_1: "Type the BX code exactly as you received it.",
+    download_page_2: "Click <strong>\"Release my download\"</strong>.",
+    download_page_3: "Download <code>sinais_pro.exe</code> and follow the opening steps.",
+    download_page_dica: "<strong>Didn't work?</strong> Usually the code was typed with an error (e.g. zero \"0\" vs letter \"O\"). Use the button below and the seller resends the correct code.",
+    codigo_errado_t: "I typed the code and it says invalid",
+    codigo_errado_erro: "<strong>The code was typed wrong or the download expired.</strong>",
+    codigo_errado_1: "The code has 3 parts: <code>BX</code> + 6 letters/numbers + 6 letters/numbers. Beware of <strong>zero (0) \u00d7 letter O</strong>.",
+    codigo_errado_2: "Copy and paste it directly from the seller's message.",
+    codigo_errado_3: "If it still denies it, use the button below: the seller <strong>creates a new code</strong> and you download right away.",
+    renovar_whats_t: "Renew my licence",
+    renovar_whats_ok: "<strong>Renewing = you stay active without stopping trading.</strong> The seller builds the renewal (via WhatsApp/PIX) and gives you the new key with the term added to the current one.",
+    renovar_whats_1: "Use the green button below to open WhatsApp already with the renewal request.",
+    renovar_whats_2: "The seller confirms the value of your plan and sends the PIX.",
+    renovar_whats_3: "Paid? The new key arrives in the moment (automatic renewal).",
+    renovar_whats_btn: "\uD83D\uDD04 I want to renew now",
+    renovar_whats_msg: "Hello! I want to RENEW my BISONX SINAIS PRO licence.",
+    abriu_t: "The program opened!",
+    abriu_ok: "<strong>\uD83C\uDF89 If the program opened asking for the key, everything is fine.</strong>",
+    abriu_sub: "Paste the key from the seller's message and confirm. Need anything else?",
+    nao_abre_t: "The program didn't open \u2014 report ready",
+    nao_abre_erro: "<strong>It didn't open.</strong> We'll check with the seller with a complete diagnostic of your case (no need to describe anything).",
+    nao_abre_sub: "The message will be sent with: the step where it got stuck, the operating system and your access code.",
+    default_t: "Automatic resolution",
+    default_ok: "We are solving it. If this message is the end, use the button below to talk to the seller right now.",
+    whats_0: "Hello! I NEED HELP with the BISONX SINAIS PRO.",
+    whats_casos: "Available support cases:",
+    whats_c1: "  1. I couldn't open/install",
+    whats_c2: "  2. Problem with key/plan",
+    whats_c3: "  3. Download/code doesn't work",
+    whats_c4: "  4. Renewal",
+    whats_sit: "Client SITE situation (automatic diagnostic):",
+    whats_etapa: "  Stuck step:",
+    whats_obrigado: "Please solve it fast. Thank you!"
+  },
+  es: {
+    smart_t: "C\u00f3mo liberar Windows y abrir el programa (1er uso)",
+    smart_0: "<strong>Qu\u00e9 est\u00e1 pasando:</strong> Windows tiene una protecci\u00f3n llamada SmartScreen que puede avisar sobre archivos nuevos. Es NORMAL en la 1\u00aa descarga de cualquier programa. Tu archivo es seguro (firmado por BISONX).",
+    smart_passo1: "Haz doble clic en el archivo <code>sinais_pro.exe</code> que descargaste.",
+    smart_passo2: "Si aparece <strong>\"Windows protegi\u00f3 tu PC\"</strong>, haz clic en <strong>\"M\u00e1s informaci\u00f3n\"</strong>.",
+    smart_passo3: "Haz clic en <strong>\"Ejecutar de todas formas\"</strong>.",
+    smart_passo4: "Si aparece el aviso amarillo del <strong>Control de Cuentas de Usuario</strong>, haz clic en <strong>\"S\u00ed\"</strong>.",
+    smart_passo5: "El programa se abre con el campo de <strong>clave de licencia</strong>. Pega la clave que envi\u00f3 el vendedor y confirma.",
+    smart_ok: "\u00a1Listo! Despu\u00e9s de la 1\u00aa liberaci\u00f3n, se abre normal las siguientes veces. Si aparece algo DIFERENTE de esta gu\u00eda, usa el bot\u00f3n \"Sigo con problema\" de abajo y resume lo que apareci\u00f3 en pantalla.",
+    smart_teste_t: "Haz una prueba r\u00e1pida",
+    smart_teste_sub: "Abre <code>sinais_pro.exe</code>. En hasta 5 segundos debe aparecer una ventana pidiendo la clave. \u00bfPudiste abrirlo?",
+    smart_sim: "\u00a1S\u00ed, se abri\u00f3! \uD83C\uDF89",
+    smart_nao: "No se abre \uD83D\uDE41",
+    win2_t: "Windows ya deja, pero el programa no abre",
+    win2_erro: "<strong>El programa no se abri\u00f3 ni con Windows liberado.</strong> Vamos a re-descargar limpio + abrir como administrador (resuelve el 95% de los casos).",
+    win2_1: "Descarga el archivo <strong>nuevamente</strong> en el \u00e1rea de descarga con TU c\u00f3digo BX",
+    win2_2: "<strong>Borra</strong> el archivo antiguo de tu computadora (la descarga antigua puede haber llegado cortada).",
+    win2_3: "Haz <strong>clic derecho</strong> en el nuevo <code>sinais_pro.exe</code> y elige <strong>\"Ejecutar como administrador\"</strong>.",
+    win2_4: "Confirma los avisos con <strong>\"S\u00ed\"</strong>.",
+    win2_btn: "Re-descargar en el \u00e1rea de descarga",
+    chave_ativa_t: "La clave no activa \u2014 c\u00f3mo activarla correctamente",
+    chave_ativa_dica: "<strong>La clave debe copiarse completa, sin que falte nada.</strong> Tiene este formato: <code>TU_NOMBRE-2026-12-12-xxxxxxxxxxxxxxxxxxxxxxxx</code>. Un espacio extra o una letra cambiada impide la activaci\u00f3n.",
+    chave_ativa_1: "En el mensaje del vendedor, copia la clave <strong>completa</strong> (el nombre, la fecha y la firma final).",
+    chave_ativa_2: "En el campo de clave del programa, usa <strong>Ctrl+V</strong> (pegar).",
+    chave_ativa_3: "Confirma. Debe aparecer <strong>\"Licencia activada\"</strong> / el motor encendiendo.",
+    chave_ativa_erro: "<strong>\u00bfTodav\u00eda no activa?</strong> La causa m\u00e1s com\u00fan es un error de escritura al copiar, o el plazo del plan. Usa el bot\u00f3n de abajo con el diagn\u00f3stico listo \u2014 el vendedor libera/renueva en minutos.",
+    nao_recebi_t: "Pagu\u00e9 y no recib\u00ed el c\u00f3digo / la clave",
+    nao_recebi_ok: "<strong>No te preocupes \u2014 esto se resuelve r\u00e1pido.</strong> El pago puede tardar unos minutos en confirmarse. Cuando se confirme, el propio sistema libera la descarga y env\u00eda la clave autom\u00e1ticamente.",
+    nao_recebi_1: "Confirma que el PIX sali\u00f3 de tu cuenta (hasta 10 min).",
+    nao_recebi_2: "Revisa tambi\u00e9n la <strong>carpeta de spam / correo no deseado</strong> del mensaje.",
+    nao_recebi_3: "Si pas\u00f3 de eso, usa el bot\u00f3n de abajo: el vendedor verifica el pago en el momento y libera el acceso en la misma llamada.",
+    erro_chave_t: "Error de \"clave inv\u00e1lida / licencia denegada\"",
+    erro_chave_erro: "<strong>El programa mostr\u00f3 rechazo de licencia.</strong> Normalmente significa: licencia a\u00fan no confirmada, vencida, o la clave se escribi\u00f3 mal.",
+    erro_chave_1: "Vuelve a poner la clave copi\u00e1ndola <strong>completa</strong> del mensaje del vendedor (Ctrl+V, sin escribir).",
+    erro_chave_2: "Revisa la <strong>fecha</strong> dentro de la clave (ej.: 2026-12-12). Si la fecha ya pas\u00f3, es renovaci\u00f3n.",
+    erro_chave_3: "Si confirmaste todo, usa el bot\u00f3n de abajo \u2014 el atendedor valida la licencia y, si hace falta, <strong>actualiza/renueva el plan en el momento</strong> (nunca te quedas sin acceso).",
+    download_page_t: "Ir al \u00e1rea de descarga",
+    download_page_ok: "<strong>El \u00e1rea de descarga est\u00e1 abierta en una nueva pesta\u00f1a.</strong>",
+    download_page_1: "Escribe el c\u00f3digo BX exactamente como lo recibiste.",
+    download_page_2: "Haz clic en <strong>\"Liberar mi descarga\"</strong>.",
+    download_page_3: "Descarga <code>sinais_pro.exe</code> y sigue los pasos de abertura.",
+    download_page_dica: "<strong>\u00bfNo funcion\u00f3?</strong> Normalmente es un c\u00f3digo mal escrito (ej.: cero \"0\" por letra \"O\"). Usa el bot\u00f3n de abajo y el vendedor reenv\u00eda el c\u00f3digo exacto.",
+    codigo_errado_t: "Escrib\u00ed el c\u00f3digo y dice que es inv\u00e1lido",
+    codigo_errado_erro: "<strong>El c\u00f3digo se escribi\u00f3 mal o la descarga venci\u00f3.</strong>",
+    codigo_errado_1: "El c\u00f3digo tiene 3 partes: <code>BX</code> + 6 letras/n\u00fameros + 6 letras/n\u00fameros. Cuidado con el <strong>cero (0) \u00d7 letra O</strong>.",
+    codigo_errado_2: "Copia y pega directo del mensaje del vendedor.",
+    codigo_errado_3: "Si igual lo rechaza, usa el bot\u00f3n de abajo: el vendedor <strong>genera un c\u00f3digo nuevo</strong> y descargas en el momento.",
+    renovar_whats_t: "Renovar mi licencia",
+    renovar_whats_ok: "<strong>Renovar = sigues activo sin interrumpir el trade.</strong> El vendedor arma la renovaci\u00f3n (por WhatsApp/PIX) y te devuelve la clave nueva con el plazo sumado al actual.",
+    renovar_whats_1: "Usa el bot\u00f3n verde de abajo para abrir WhatsApp ya con el pedido de renovaci\u00f3n.",
+    renovar_whats_2: "El vendedor confirma el valor de tu plan y env\u00eda el PIX.",
+    renovar_whats_3: "\u00bfPagaste? La clave nueva llega en el momento (renovaci\u00f3n autom\u00e1tica).",
+    renovar_whats_btn: "\uD83D\uDD04 Quiero renovar ahora",
+    renovar_whats_msg: "\u00a1Hola! Quiero RENOVAR mi licencia del BISONX SINAIS PRO.",
+    abriu_t: "\u00a1El programa se abri\u00f3!",
+    abriu_ok: "<strong>\uD83C\uDF89 Si el programa se abri\u00f3 pidiendo la clave, est\u00e1 todo bien.</strong>",
+    abriu_sub: "Pega la clave del mensaje del vendedor y confirma. \u00bfNecesitas algo m\u00e1s?",
+    nao_abre_t: "El programa no se abri\u00f3 \u2014 informe listo",
+    nao_abre_erro: "<strong>No se abri\u00f3.</strong> Vamos a verificar con el vendedor con un diagn\u00f3stico completo de tu caso (sin que describas nada).",
+    nao_abre_sub: "El mensaje se enviar\u00e1 con: la etapa donde se trab\u00f3, el sistema operativo y el c\u00f3digo de tu acceso.",
+    default_t: "Resoluci\u00f3n autom\u00e1tica",
+    default_ok: "Lo estamos resolviendo. Si este mensaje es el final, usa el bot\u00f3n de abajo para hablar con el vendedor en el momento.",
+    whats_0: "\u00a1Hola! NECESITO AYUDA con el BISONX SINAIS PRO.",
+    whats_casos: "Casos de soporte disponibles:",
+    whats_c1: "  1. No pude abrir/instalar",
+    whats_c2: "  2. Problema con clave/plan",
+    whats_c3: "  3. Descarga/c\u00f3digo no funciona",
+    whats_c4: "  4. Renovaci\u00f3n",
+    whats_sit: "Situaci\u00f3n del cliente SITIO (diagn\u00f3stico autom\u00e1tico):",
+    whats_etapa: "  Etapa trabada:",
+    whats_obrigado: "Por favor, resu\u00e9lvelo r\u00e1pido. \u00a1Gracias!"
   }
+};
 
-  function voltar(passo){
-    updateProg(passo);
-    document.querySelectorAll('.passo').forEach(function(el){ el.classList.remove('ativo'); });
-    document.getElementById('passo-'+passo).classList.add('ativo');
-  }
+function detectarIdioma(){
+  var nav = (navigator.language || navigator.userLanguage || "pt-PT").toLowerCase();
+  if(/en/.test(nav)) return "en";
+  if(/es/.test(nav)) return "es";
+  return "pt";
+}
 
-  function updateProg(p){
-    for(var i=1;i<=4;i++){
-      var el = document.getElementById('prog-'+i);
-      el.classList.remove('pronto','atual');
-      if(!el.classList.contains('oculto')){
-        if(i<p) el.classList.add('pronto');
-        if(i===p) el.classList.add('atual');
+function aplicarTexto(){
+  if(!IDIOMA) return;
+  T = TEXTOS[IDIOMA];
+  var els = document.querySelectorAll("[data-t]");
+  els.forEach(function(el){
+    var k = el.getAttribute("data-t");
+    if(typeof T[k] !== "undefined"){
+      if(el.querySelector("span") && typeof T[k] === "string"){
+        el.innerHTML = T[k];
+      } else {
+        el.innerHTML = T[k];
       }
     }
-    document.getElementById('prog-4').classList.remove('oculto');
+  });
+  document.getElementById("t-topo-titulo").innerHTML = T.topo_titulo;
+  document.getElementById("t-topo-sub").innerHTML = T.topo_sub;
+  document.getElementById("t-topo-selo").innerHTML = T.topo_selo;
+  document.getElementById("t-rodape").innerHTML = T.rodape;
+  document.querySelectorAll(".idiomas button").forEach(function(b){ b.classList.remove("ativo"); });
+  document.getElementById("btn-"+IDIOMA).classList.add("ativo");
+  document.documentElement.lang = IDIOMA;
+  if(caminho && document.getElementById("passo-3").classList.contains("ativo")){
+    mostrarSolucao(caminho);
   }
-
-  function ativarDiag(c){
-    document.querySelectorAll('#passo-2 [id^="diag-"]').forEach(function(el){ el.classList.add('oculto'); });
-    var mapa = {install:'diag-install', plano:'diag-plano', download:'diag-download', renovar:'diag-renovar'};
-    var nome = mapa[c]||'diag-install';
-    document.getElementById(nome).classList.remove('oculto');
-    document.getElementById('passo2-titulo').textContent = 'Passo 2 de 3 &#8212; Diagnóstico automático'.replace('&#8212;','—');
+  if(caminho === null && !document.getElementById("passo-1").classList.contains("ativo")){
+    // reapplies modo passo 1
   }
+  updatePasso2badge();
+}
 
-  function mostrarSolucao(c){
-    var t = document.getElementById('solucao-titulo');
-    var d = document.getElementById('solucao-conteudo');
-    var aux = prepararAux();
-    switch(c){
-      case 'smart': t.textContent = 'Como liberar o Windows e abrir o programa (1º uso)';
-        d.innerHTML =
-          '<div class="dica"><strong>O que está acontecendo:</strong> o Windows tem uma proteção chamada SmartScreen que pode avisar sobre arquivos novos. Isso é NORMAL no 1º download de qualquer programa. O seu arquivo é seguro (assinado pelo BISONX).</div>' +
-          '<ul class="passador">' +
-          '<li><strong>1.</strong> Dê dois cliques no arquivo <code>sinais_pro.exe</code> que você baixou.</li>' +
-          '<li><strong>2.</strong> Se aparecer <strong>"O Windows protegeu seu PC"</strong>, clique em <strong>"Mais informações"</strong>.</li>' +
-          '<li><strong>3.</strong> Clique em <strong>"Executar mesmo assim"</strong>.</li>' +
-          '<li><strong>4.</strong> Se aparecer o aviso amarelo do <strong>Controle de Conta de Usuário</strong>, clique em <strong>"Sim"</strong>.</li>' +
-          '<li><strong>5.</strong> O programa abre com o campo de <strong>chave de licença</strong>. Cole a chave que o vendedor enviou e confirme.</li>' +
-          '</ul>' +
-          '<div class="ok"><strong>Pronto!</strong> Depois da 1ª liberação, abre normal nas próximas vezes. Se aparecer algo DIFERENTE desse roteiro, use o botão "Ainda com problema" abaixo resumindo o que apareceu na tela.</div>' +
-          '<div class="card" style="margin-top:14px;"><h3>&#x1F4F7; Faça um teste rápido</h3><p class="mini">Abra o arquivo <code>sinais_pro.exe</code>. Em até 5 segundos deve aparecer uma janela pedindo a chave. Conseguiu abrir?</p>' +
-          '<div class="flex-row"><button class="btn btn-verde" onclick="irPara(3,\'abriu\')">Sim, abriu! &#x1F389;</button>' +
-          '<button class="btn btn-vermelho" onclick="irPara(3,\'nao-abre\')">Não abre &#x1F641;</button></div></div>';
-        break;
-      case 'win2': t.textContent = 'O Windows está liberado, mas o programa não abre';
-        d.innerHTML =
-          '<div class="erro"><strong>O programa não abriu mesmo com o Windows liberado.</strong> Vamos re-download limpo + abrir como administrador (resolve 95% dos casos).</div>' +
-          '<ul class="passador">' +
-          '<li><strong>1.</strong> Baixe o arquivo <strong>novamente</strong> na área de download com o SEU código BX <span class="codigo-bx" style="font-size:15px; display:block; margin:8px 0;">'+(codigoDetectado||'BX-XXXXXX-XXXXXX')+'</span></li>' +
-          '<li><strong>2.</strong> <strong>Apague</strong> o arquivo antigo do computador (o download antigo pode ter chegado cortado).</li>' +
-          '<li><strong>3.</strong> Clique com o <strong>botão direito</strong> no novo <code>sinais_pro.exe</code> e escolha <strong>"Executar como administrador"</strong>.</li>' +
-          '<li><strong>4.</strong> Confirme os avisos com <strong>"Sim"</strong>.</li>' +
-          '</ul>' +
-          '<a class="btn btn-verde" href="download/index.html" style="color:#fff; text-decoration:none;">&#x2B07;&#xFE0F; Re-baixar na área de download</a>';
-        break;
-      case 'chave-ativa': t.textContent = 'A chave não ativa — como ativar corretamente';
-        d.innerHTML =
-          '<div class="dica"><strong>A chave precisa ser copiada inteira, sem nada faltando.</strong> Ela tem este formato: <code>SEU_NOME-2026-12-12-xxxxxxxxxxxxxxxxxxxxxxxx</code>. Um espaço extra ou letra trocada impede a ativação.</div>' +
-          '<ul class="passador">' +
-          '<li><strong>1.</strong> Na mensagem do vendedor, copie a chave <strong>inteira</strong> (para o nome e a data e a assinatura final).</li>' +
-          '<li><strong>2.</strong> Abra o programa e, no campo de chave, use <strong>Ctrl+V</strong> (colar).</li>' +
-          '<li><strong>3.</strong> Confirme. Deve aparecer <strong>"Licença ativada"</strong> / o motor ligando.</li>' +
-          '</ul>' +
-          '<div class="erro"><strong>Ainda não ativa?</strong> A causa mais comum é um erro de digitação ao copiar, ou o prazo do plano. Uso o botão abaixo com o diagnóstico pronto — o vendedor libera/renova em minutos.</div>';
-        break;
-      case 'nao-recebi': t.textContent = 'Paguei e não recebi o código / a chave';
-        d.innerHTML =
-          '<div class="ok"><strong>Não se preocupe &#8212; isso é rápido de resolver.</strong> O pagamento pode levar alguns minutos para ser confirmado. Quando confirmado, o próprio sistema libera o download e envia a chave automaticamente.</div>' +
-          '<ul class="passador">' +
-          '<li><strong>1.</strong> Confira se o PIX saiu da sua conta (até 10 min).</li>' +
-          '<li><strong>2.</strong> Confira também a <strong>caixa de spam / lixo eletrônico</strong> da mensagem.</li>' +
-          '<li><strong>3.</strong> Se passou disso, use o botão abaixo: o vendedor verifica o pagamento na hora e libera o acesso na mesma chamada.</li>' +
-          '</ul>';
-        break;
-      case 'erro-chave': t.textContent = 'Erro de "chave inválida / licença negada"';
-        d.innerHTML =
-          '<div class="erro"><strong>O programa mostrou recusa de licença.</strong> Isso normalmente quer dizer: licença ainda não confirmada, vencida, ou a chave foi digitada com erro.</div>' +
-          '<ul class="passador">' +
-          '<li><strong>1.</strong> Recoloque a chave copiando <strong>inteira</strong> da mensagem do vendedor (Ctrl+V, sem digitar).</li>' +
-          '<li><strong>2.</strong> Verifique a <strong>data</strong> dentro da chave (ex.: 2026-12-12). Se a data já passou, é renovação.</li>' +
-          '<li><strong>3.</strong> Se confirmou tudo, use o botão abaixo — o atendente valida a licença e, se for o caso, <strong>atualiza/renova o plano na hora</strong> (você não fica sem acesso).</li>' +
-          '</ul>';
-        break;
-      case 'download-page': t.textContent = 'Siga para a área de download';
-        d.innerHTML =
-          '<div class="ok"><strong>A área de download está aberta em uma nova aba.</strong></div>' +
-          '<ul class="passador">' +
-          '<li><strong>1.</strong> Digite o código BX exatamente como recebeu.</li>' +
-          '<li><strong>2.</strong> Clique em <strong>"Liberar meu download"</strong>.</li>' +
-          '<li><strong>3.</strong> Baixe o <code>sinais_pro.exe</code> e siga o passo a passo de abertura.</li>' +
-          '</ul>' +
-          '<div class="dica"><strong>Não funcionou?</strong> Normalmente é código digitado com erro (ex.: zero "0" por letra "O"). Use o botão abaixo que o vendedor reenvia o código certinho.</div>';
-        break;
-      case 'codigo-errado': t.textContent = 'Digitei o código e diz que é inválido';
-        d.innerHTML =
-          '<div class="erro"><strong>O código foi digitado errado ou o download expirou.</strong></div>' +
-          '<ul class="passador">' +
-          '<li><strong>1.</strong> O código tem 3 partes: <code>BX</code> + 6 letras/números + 6 letras/números. Cuidado com <strong>zero (0) × letra O</strong>.</li>' +
-          '<li><strong>2.</strong> Copie e cole direto da mensagem do vendedor.</li>' +
-          '<li><strong>3.</strong> Se mesmo assim negar, use o botão abaixo: o vendedor <strong>gera um código novo</strong> e você baixa na hora.</li>' +
-          '</ul>';
-        break;
-      case 'renovar-whats': t.textContent = 'Renovar minha licença';
-        d.innerHTML =
-          '<div class="ok"><strong>Renovação = você continua ativo sem interromper o trade.</strong> O vendedor monta a renovação (pelo WhatsApp/PIX) e devolve a chave nova com o prazo somado ao atual.</div>' +
-          '<ul class="passador">' +
-          '<li><strong>1.</strong> Use o botão verde abaixo para abrir o WhatsApp já com o pedido de renovação.</li>' +
-          '<li><strong>2.</strong> O vendedor confirma o valor do seu plano e envia o PIX.</li>' +
-          '<li><strong>3.</strong> Pagou? A chave nova chega na hora (renovação automática).</li>' +
-          '</ul>' +
-          '<a class="btn btn-verde" target="_blank" style="color:#fff; text-decoration:none;" href="https://wa.me/'+WHATS+'?text='+encodeURIComponent('Olá! Quero RENOVAR minha licença do BISONX SINAIS PRO.')+'">&#x1F504; Quero renovar agora</a>';
-        break;
-      case 'abriu': t.textContent = 'O programa abriu!';
-        d.innerHTML =
-          '<div class="ok"><strong>&#x1F389; Se o programa abriu pedindo a chave, está tudo certo.</strong></div>' +
-          '<p>Cole a chave da mensagem do vendedor e confirme. Precisa de mais alguma coisa?</p>';
-        break;
-      case 'nao-abre': t.textContent = 'O programa não abriu — relatório pronto';
-        d.innerHTML =
-          '<div class="erro"><strong>Não abriu.</strong> Vamos verificar com o vendedor com um diagnóstico completo do seu caso (sem você descrever nada).</div>' +
-          '<p class="mini">A mensagem será enviada com: etapa em que travou, sistema operacional e o código do seu acesso.</p>';
-        break;
-      default: t.textContent = 'Resolução automática';
-        d.innerHTML = '<div class="ok">Estamos resolvendo. Se esta mensagem for o final, use o botão abaixo para falar com o vendedor na hora.</div>';
-    }
+function updatePasso2badge(){
+  var t = T;
+  document.getElementById("passo2-titulo").textContent = "Passo 2 de 3 \u2014 " + (T ? T.prog2 : "");
+}
+
+function mudarIdioma(l){
+  IDIOMA = l;
+  try{ localStorage.setItem("bisonx_idioma", l); }catch(e){}
+  aplicarTexto();
+}
+
+function detectarParametros(){
+  try{
+    var h = window.location.href;
+    var m = h.match(/BX[-][A-Z0-9]{6}[-][A-Z0-9]{6}/i);
+    if(m) codigoDetectado = m[0].toUpperCase();
+    m = h.match(/([A-Za-z0-9_%-]+-\d{4}-\d{2}-\d{2}-[0-9a-f]{24})/i);
+    if(m) chaveDetectada = m[1];
+  }catch(e){}
+}
+
+function irPara(passo, c){
+  caminho = c;
+  updateProg(passo);
+  document.querySelectorAll('.passo').forEach(function(el){ el.classList.remove('ativo'); });
+  if(passo===2){ ativarDiag(c); document.getElementById('passo-2').classList.add('ativo'); }
+  if(passo===3){ mostrarSolucao(c); document.getElementById('passo-3').classList.add('ativo'); }
+}
+
+function voltar(passo){
+  updateProg(passo);
+  document.querySelectorAll('.passo').forEach(function(el){ el.classList.remove('ativo'); });
+  document.getElementById('passo-'+passo).classList.add('ativo');
+}
+
+function updateProg(p){
+  for(var i=1;i<=4;i++){
+    var el = document.getElementById('prog-'+i);
+    el.classList.remove('pronto','atual');
+    if(i<p) el.classList.add('pronto');
+    if(i===p) el.classList.add('atual');
   }
+  document.getElementById('prog-4').classList.remove('oculto');
+}
 
-  function prepararAux(){
-    var h=[];
-    h.push("Código BX detectado: " + (codigoDetectado||"não veio no link"));
-    h.push("Chave detectada no link: " + (chaveDetectada?"sim":"não"));
-    return h.join("\n");
+function ativarDiag(c){
+  document.querySelectorAll('#passo-2 [id^="diag-"]').forEach(function(el){ el.classList.add('oculto'); });
+  var mapa = {install:'diag-install', plano:'diag-plano', download:'diag-download', renovar:'diag-renovar'};
+  var nome = mapa[c]||'diag-install';
+  document.getElementById(nome).classList.remove('oculto');
+  updatePasso2badge();
+}
+
+function sol(caso){
+  return SOLUCOES[IDIOMA] && SOLUCOES[IDIOMA][caso] || "";
+}
+
+function mostrarSolucao(c){
+  var t = document.getElementById('solucao-titulo');
+  var d = document.getElementById('solucao-conteudo');
+  var S = SOLUCOES[IDIOMA];
+  if(!S) return;
+  var cod = codigoDetectado || 'BX-XXXXXX-XXXXXX';
+  switch(c){
+    case 'smart':
+      t.textContent = S.smart_t;
+      d.innerHTML =
+        '<div class="dica">' + S.smart_0 + '</div>' +
+        '<ul class="passador">' +
+        '<li><strong>1.</strong> ' + S.smart_passo1 + '</li>' +
+        '<li><strong>2.</strong> ' + S.smart_passo2 + '</li>' +
+        '<li><strong>3.</strong> ' + S.smart_passo3 + '</li>' +
+        '<li><strong>4.</strong> ' + S.smart_passo4 + '</li>' +
+        '<li><strong>5.</strong> ' + S.smart_passo5 + '</li>' +
+        '</ul>' +
+        '<div class="ok">' + S.smart_ok + '</div>' +
+        '<div class="card" style="margin-top:14px;"><h3>\uD83D\uDCF7 ' + S.smart_teste_t + '</h3><p class="mini">' + S.smart_teste_sub + '</p>' +
+        '<div class="flex-row"><button class="btn btn-verde" onclick="irPara(3,\'abriu\')">' + S.smart_sim + '</button>' +
+        '<button class="btn btn-vermelho" onclick="irPara(3,\'nao-abre\')">' + S.smart_nao + '</button></div></div>';
+      break;
+    case 'win2':
+      t.textContent = S.win2_t;
+      d.innerHTML =
+        '<div class="erro">' + S.win2_erro + '</div>' +
+        '<ul class="passador">' +
+        '<li><strong>1.</strong> ' + S.win2_1 + ' <span class="codigo-bx" style="font-size:15px; display:inline-block; margin:8px 0;">' + cod + '</span></li>' +
+        '<li><strong>2.</strong> ' + S.win2_2 + '</li>' +
+        '<li><strong>3.</strong> ' + S.win2_3 + '</li>' +
+        '<li><strong>4.</strong> ' + S.win2_4 + '</li>' +
+        '</ul>' +
+        '<a class="btn btn-verde" href="download/index.html" style="color:#fff; text-decoration:none;">\u2B07\uFE0F ' + S.win2_btn + '</a>';
+      break;
+    case 'chave-ativa':
+      t.textContent = S.chave_ativa_t;
+      d.innerHTML =
+        '<div class="dica">' + S.chave_ativa_dica + '</div>' +
+        '<ul class="passador">' +
+        '<li><strong>1.</strong> ' + S.chave_ativa_1 + '</li>' +
+        '<li><strong>2.</strong> ' + S.chave_ativa_2 + '</li>' +
+        '<li><strong>3.</strong> ' + S.chave_ativa_3 + '</li>' +
+        '</ul>' +
+        '<div class="erro">' + S.chave_ativa_erro + '</div>';
+      break;
+    case 'nao-recebi':
+      t.textContent = S.nao_recebi_t;
+      d.innerHTML =
+        '<div class="ok">' + S.nao_recebi_ok + '</div>' +
+        '<ul class="passador">' +
+        '<li><strong>1.</strong> ' + S.nao_recebi_1 + '</li>' +
+        '<li><strong>2.</strong> ' + S.nao_recebi_2 + '</li>' +
+        '<li><strong>3.</strong> ' + S.nao_recebi_3 + '</li>' +
+        '</ul>';
+      break;
+    case 'erro-chave':
+      t.textContent = S.erro_chave_t;
+      d.innerHTML =
+        '<div class="erro">' + S.erro_chave_erro + '</div>' +
+        '<ul class="passador">' +
+        '<li><strong>1.</strong> ' + S.erro_chave_1 + '</li>' +
+        '<li><strong>2.</strong> ' + S.erro_chave_2 + '</li>' +
+        '<li><strong>3.</strong> ' + S.erro_chave_3 + '</li>' +
+        '</ul>';
+      break;
+    case 'download-page':
+      t.textContent = S.download_page_t;
+      d.innerHTML =
+        '<div class="ok">' + S.download_page_ok + '</div>' +
+        '<ul class="passador">' +
+        '<li><strong>1.</strong> ' + S.download_page_1 + '</li>' +
+        '<li><strong>2.</strong> ' + S.download_page_2 + '</li>' +
+        '<li><strong>3.</strong> ' + S.download_page_3 + '</li>' +
+        '</ul>' +
+        '<div class="dica">' + S.download_page_dica + '</div>';
+      break;
+    case 'codigo-errado':
+      t.textContent = S.codigo_errado_t;
+      d.innerHTML =
+        '<div class="erro">' + S.codigo_errado_erro + '</div>' +
+        '<ul class="passador">' +
+        '<li><strong>1.</strong> ' + S.codigo_errado_1 + '</li>' +
+        '<li><strong>2.</strong> ' + S.codigo_errado_2 + '</li>' +
+        '<li><strong>3.</strong> ' + S.codigo_errado_3 + '</li>' +
+        '</ul>';
+      break;
+    case 'renovar-whats':
+      t.textContent = S.renovar_whats_t;
+      d.innerHTML =
+        '<div class="ok">' + S.renovar_whats_ok + '</div>' +
+        '<ul class="passador">' +
+        '<li><strong>1.</strong> ' + S.renovar_whats_1 + '</li>' +
+        '<li><strong>2.</strong> ' + S.renovar_whats_2 + '</li>' +
+        '<li><strong>3.</strong> ' + S.renovar_whats_3 + '</li>' +
+        '</ul>' +
+        '<a class="btn btn-verde" target="_blank" style="color:#fff; text-decoration:none;" href="https://wa.me/'+WHATS+'?text='+encodeURIComponent(S.renovar_whats_msg)+'">' + S.renovar_whats_btn + '</a>';
+      break;
+    case 'abriu':
+      t.textContent = S.abriu_t;
+      d.innerHTML = '<div class="ok">' + S.abriu_ok + '</div><p>' + S.abriu_sub + '</p>';
+      break;
+    case 'nao-abre':
+      t.textContent = S.nao_abre_t;
+      d.innerHTML =
+        '<div class="erro">' + S.nao_abre_erro + '</div>' +
+        '<p class="mini">' + S.nao_abre_sub + '</p>';
+      break;
+    default:
+      t.textContent = S.default_t;
+      d.innerHTML = '<div class="ok">' + S.default_ok + '</div>';
   }
+}
 
-  function gerarWhats(){
-    var etapa = caminho || "não especificada";
-    var linhas = [];
-    linhas.push("Olá! PRECISO DE AJUDA com o BISONX SINAIS PRO.");
-    linhas.push("");
-    linhas.push("Casos de suporte disponíveis:");
-    linhas.push("  1. Não consegui abrir/instalar");
-    linhas.push("  2. Problema com chave/plano");
-    linhas.push("  3. Download/código não funciona");
-    linhas.push("  4. Renovação");
-    linhas.push("");
-    linhas.push("Situação do cliente SITE (diagnóstico automático):");
-    linhas.push("  Etapa travada: " + etapa);
-    linhas.push("  " + prepararAux());
-    linhas.push("");
-    linhas.push("Por favor, resolva rápido. Obrigado!");
-    var msg = linhas.join("\n");
-    document.getElementById('msg-pronta').textContent = msg;
-    document.getElementById('btn-abrir-whats').href = "https://wa.me/" + WHATS + "?text=" + encodeURIComponent(msg);
-    updateProg(4);
-    document.querySelectorAll('.passo').forEach(function(el){ el.classList.remove('ativo'); });
-    document.getElementById('passo-4').classList.add('ativo');
+function prepararAux(){
+  var h=[];
+  h.push(TEXTOS[IDIOMA].whats_etapa + " " + (caminho || "-"));
+  h.push("C\u00f3digo BX detectado: " + (codigoDetectado||"-"));
+  h.push("Chave detectada no link: " + (chaveDetectada?"sim":"n\u00e3o"));
+  return h.join("\n");
+}
+
+function gerarWhats(){
+  var S = SOLUCOES[IDIOMA];
+  var linhas = [];
+  linhas.push(S.whats_0);
+  linhas.push("");
+  linhas.push(S.whats_casos);
+  linhas.push(S.whats_c1);
+  linhas.push(S.whats_c2);
+  linhas.push(S.whats_c3);
+  linhas.push(S.whats_c4);
+  linhas.push("");
+  linhas.push(S.whats_sit);
+  linhas.push(prepararAux());
+  linhas.push("");
+  linhas.push(S.whats_obrigado);
+  var msg = linhas.join("\n");
+  document.getElementById('msg-pronta').textContent = msg;
+  document.getElementById('btn-abrir-whats').href = "https://wa.me/" + WHATS + "?text=" + encodeURIComponent(msg);
+  updateProg(4);
+  document.querySelectorAll('.passo').forEach(function(el){ el.classList.remove('ativo'); });
+  document.getElementById('passo-4').classList.add('ativo');
+}
+
+function copiarMsg(){
+  var t = document.getElementById('msg-pronta').textContent;
+  try{ navigator.clipboard.writeText(t); alert(TEXTOS[IDIOMA].p4_b_copiar); }
+  catch(e){
+    var x=document.createElement('textarea'); x.value=t; document.body.appendChild(x); x.select(); document.execCommand('copy'); document.body.removeChild(x);
+    alert(TEXTOS[IDIOMA].p4_b_copiar);
   }
+}
 
-  function copiarMsg(){
-    var t = document.getElementById('msg-pronta').textContent;
-    try{ navigator.clipboard.writeText(t); alert('Mensagem copiada! Cole no WhatsApp e envie.'); }
-    catch(e){ var x=document.createElement('textarea'); x.value=t; document.body.appendChild(x); x.select(); document.execCommand('copy'); document.body.removeChild(x); alert('Mensagem copiada! Cole no WhatsApp e envie.'); }
-  }
-
-  detectarParametros();
+detectarParametros();
+try{ IDIOMA = localStorage.getItem("bisonx_idioma") || detectarIdioma(); }catch(e){ IDIOMA = detectarIdioma(); }
+aplicarTexto();
 </script>
 </body>
 </html>
