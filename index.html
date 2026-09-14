@@ -67,6 +67,9 @@ header{position:sticky;top:0;z-index:60;background:rgba(7,11,26,.85);backdrop-fi
 .btn-gold:hover{filter:brightness(1.1)}
 .btn.wpp{background:#25D366;color:#062a33;display:inline-flex;align-items:center;gap:10px}
 .btn.wpp:hover{filter:brightness(1.08)}
+/* anuncio em video */
+.anuncio-video{max-width:340px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:10px;box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.anuncio-video video{width:100%;height:auto;border-radius:14px;display:block}
 /* secoes */
 .sec{padding:64px 0}
 .sec h2{text-align:center;font-size:1.95rem;margin-bottom:10px}
@@ -212,6 +215,22 @@ footer .links{margin-bottom:12px;display:flex;gap:18px;justify-content:center;fl
     <div class="botoes">
       <button class="btn btn-primary" onclick="abrirWizard()" data-i="heroBtn1">Comprar agora</button>
       <a class="btn btn-ghost" href="#como" data-i="heroBtn2">Como funciona</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="anuncio" style="background:rgba(15,22,48,.35);padding-top:16px">
+  <div class="container">
+    <h2 class="reveal" data-i="vidH">Veja o anúncio oficial</h2>
+    <p class="sub reveal" data-i="vidS">1 minuto e você entende tudo: sinais, motor, robô MT5 e gerador de anúncios.</p>
+    <div class="anuncio-video reveal">
+      <video controls preload="metadata" poster="videos/video_planos_poster.jpg">
+        <source src="videos/video_planos_site.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="botoes reveal" style="margin-top:26px">
+      <button class="btn btn-primary" onclick="abrirWizard()" data-i="vidBtn">Quero meu teste grátis</button>
+      <a class="btn btn-ghost" href="#pix" data-i="vidBtn2">Como pagar via PIX</a>
     </div>
   </div>
 </section>
@@ -458,6 +477,7 @@ const i18n={
     heroP:"O BISONX gera sinais COMPRA / VENDA em tempo real (MMA + RSI) e roda o seu próprio motor de IA. Licença segura, código protegido, pagamento via PIX e teste grátis de 3 dias (1 teste por computador).",
     b1:"100% legal",b1b:"licença oficial",b2:"Código protegido",b2b:"nada exposto",b3:"Teste 3 dias",b3b:"gratuito",b4:"PIX",b4b:"sem taxa, cai na hora",
     heroBtn1:"Comprar agora",heroBtn2:"Como funciona",
+    vidH:"Veja o anúncio oficial",vidS:"1 minuto e você entende tudo: sinais, motor, robô MT5 e gerador de anúncios.",vidBtn:"Quero meu teste grátis",vidBtn2:"Como pagar via PIX",
     menuProdutos:"Produtos",menuComo:"Como funciona",menuPix:"Pagamento",menuFaq:"FAQ",ctaTop:"Comprar",
     prodH:"Escolha o seu acesso",prodS:"5 produtos · preço em R$ · aceita PIX · licença ativada após confirmação",
     p1t:"SINAIS PRO",p1d:"Sinais de trade automáticos (Média Móvel + RSI) com leitura em tempo real. Ideal para quem opera ouro (XAUUSD) e outros mercados.",
@@ -495,6 +515,7 @@ const i18n={
     heroP:"BISONX generates real-time BUY / SELL signals (MA + RSI) and runs its own AI engine. Secure license, protected code, PIX payment and a free 3-day trial (1 trial per computer).",
     b1:"100% legal",b1b:"official license",b2:"Protected code",b2b:"nothing exposed",b3:"3-day trial",b3b:"free",b4:"Instant",b4b:"fee-free PIX",
     heroBtn1:"Buy now",heroBtn2:"How it works",
+    vidH:"Watch the official ad",vidS:"1 minute and you understand everything: signals, engine, MT5 robot and ad generator.",vidBtn:"I want my free trial",vidBtn2:"How to pay via PIX",
     menuProdutos:"Products",menuComo:"How it works",menuPix:"Payment",menuFaq:"FAQ",ctaTop:"Buy",
     prodH:"Choose your access",prodS:"5 products · price in R$ · accepts PIX · license activated after confirmation",
     p1t:"SIGNALS PRO",p1d:"Automatic trade signals (Moving Average + RSI) with real-time reading. Ideal for gold (XAUUSD) and other markets.",
@@ -532,6 +553,7 @@ const i18n={
     heroP:"BISONX genera señales COMPRA / VENTA en tiempo real (MA + RSI) y ejecuta su propio motor de IA. Licencia segura, código protegido, pago por PIX y prueba gratis de 3 días (1 prueba por computadora).",
     b1:"100% legal",b1b:"licencia oficial",b2:"Código protegido",b2b:"nada expuesto",b3:"Prueba 3 días",b3b:"gratis",b4:"PIX",b4b:"sin tasa, cae al instante",
     heroBtn1:"Comprar ahora",heroBtn2:"Cómo funciona",
+    vidH:"Mira el anuncio oficial",vidS:"1 minuto y entiendes todo: señales, motor, robot MT5 y generador de anuncios.",vidBtn:"Quiero mi prueba gratis",vidBtn2:"Cómo pagar por PIX",
     menuProdutos:"Productos",menuComo:"Cómo funciona",menuPix:"Pago",menuFaq:"FAQ",ctaTop:"Comprar",
     prodH:"Elige tu acceso",prodS:"5 productos · precio en R$ · acepta PIX · licencia activada tras confirmación",
     p1t:"SEÑALES PRO",p1d:"Señales de trading automáticas (Media Móvil + RSI) con lectura en tiempo real. Ideal para el oro (XAUUSD) y otros mercados.",
