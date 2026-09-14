@@ -70,6 +70,13 @@ header{position:sticky;top:0;z-index:60;background:rgba(7,11,26,.85);backdrop-fi
 /* anuncio em video */
 .anuncio-video{max-width:340px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:10px;box-shadow:0 20px 50px rgba(0,0,0,.45)}
 .anuncio-video video{width:100%;height:auto;border-radius:14px;display:block}
+/* anuncios tiktok */
+.tt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.tt-item{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:12px;text-align:center;backdrop-filter:blur(6px)}
+.tt-item video{width:100%;border-radius:12px;display:block;aspect-ratio:9/16;object-fit:cover;background:#000}
+.tt-item video:hover{filter:brightness(1.1)}
+.tt-nome{font-size:.9rem;font-weight:700;color:var(--cyan);margin:12px 0 10px}
+.tt-btn{width:100%;padding:10px;text-align:center;font-size:.9rem}
 /* secoes */
 .sec{padding:64px 0}
 .sec h2{text-align:center;font-size:1.95rem;margin-bottom:10px}
@@ -231,6 +238,50 @@ footer .links{margin-bottom:12px;display:flex;gap:18px;justify-content:center;fl
     <div class="botoes reveal" style="margin-top:26px">
       <button class="btn btn-primary" onclick="abrirWizard()" data-i="vidBtn">Quero meu teste grátis</button>
       <a class="btn btn-ghost" href="#pix" data-i="vidBtn2">Como pagar via PIX</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="tiktok" style="background:rgba(15,22,48,.35);">
+  <div class="container">
+    <h2 class="reveal" data-i="ttH">Nossos anúncios no TikTok</h2>
+    <p class="sub reveal" data-i="ttS">Vídeos narrados, um para cada produto. Grátis para assistir e compartilhar.</p>
+    <div class="tt-grid reveal">
+      <div class="tt-item">
+        <video controls preload="metadata" loop muted playsinline poster="videos/video_planos_poster.jpg">
+          <source src="videos/anuncio_sinais_pro.mp4" type="video/mp4">
+        </video>
+        <div class="tt-nome" data-i="ttSin">SINAIS PRO · R$ 49/mês</div>
+        <a class="btn btn-primary tt-btn" href="#produtos" data-i="ttComprar">Comprar</a>
+      </div>
+      <div class="tt-item">
+        <video controls preload="metadata" loop muted playsinline poster="videos/video_planos_poster.jpg">
+          <source src="videos/anuncio_motor_bisonx.mp4" type="video/mp4">
+        </video>
+        <div class="tt-nome" data-i="ttMotor">MOTOR BISONX · R$ 199/mês</div>
+        <a class="btn btn-primary tt-btn" href="#produtos" data-i="ttComprar">Comprar</a>
+      </div>
+      <div class="tt-item">
+        <video controls preload="metadata" loop muted playsinline poster="videos/video_planos_poster.jpg">
+          <source src="videos/anuncio_vaga_completa.mp4" type="video/mp4">
+        </video>
+        <div class="tt-nome" data-i="ttVaga">VAGA COMPLETA · R$ 99/mês</div>
+        <a class="btn btn-primary tt-btn" href="#produtos" data-i="ttComprar">Comprar</a>
+      </div>
+      <div class="tt-item">
+        <video controls preload="metadata" loop muted playsinline poster="videos/video_planos_poster.jpg">
+          <source src="videos/anuncio_robo_mt5.mp4" type="video/mp4">
+        </video>
+        <div class="tt-nome" data-i="ttRobo">ROBO MT5 · R$ 49/mês</div>
+        <a class="btn btn-primary tt-btn" href="#produtos" data-i="ttComprar">Comprar</a>
+      </div>
+      <div class="tt-item">
+        <video controls preload="metadata" loop muted playsinline poster="videos/video_planos_poster.jpg">
+          <source src="videos/anuncio_gerador_anuncios.mp4" type="video/mp4">
+        </video>
+        <div class="tt-nome" data-i="ttGer">GERADOR DE ANUNCIOS · R$ 59/mês</div>
+        <a class="btn btn-primary tt-btn" href="#produtos" data-i="ttComprar">Comprar</a>
+      </div>
     </div>
   </div>
 </section>
@@ -478,6 +529,8 @@ const i18n={
     b1:"100% legal",b1b:"licença oficial",b2:"Código protegido",b2b:"nada exposto",b3:"Teste 3 dias",b3b:"gratuito",b4:"PIX",b4b:"sem taxa, cai na hora",
     heroBtn1:"Comprar agora",heroBtn2:"Como funciona",
     vidH:"Veja o anúncio oficial",vidS:"1 minuto e você entende tudo: sinais, motor, robô MT5 e gerador de anúncios.",vidBtn:"Quero meu teste grátis",vidBtn2:"Como pagar via PIX",
+    ttH:"Anúncios no TikTok",ttS:"Vídeos narrados, um para cada produto. Toque para ver.",ttComprar:"Comprar",
+    ttSin:"SINAIS PRO · R$ 49/mês",ttMotor:"MOTOR BISONX · R$ 199/mês",ttVaga:"VAGA COMPLETA · R$ 99/mês",ttRobo:"ROBO MT5 · R$ 49/mês",ttGer:"GERADOR DE ANUNCIOS · R$ 59/mês",
     menuProdutos:"Produtos",menuComo:"Como funciona",menuPix:"Pagamento",menuFaq:"FAQ",ctaTop:"Comprar",
     prodH:"Escolha o seu acesso",prodS:"5 produtos · preço em R$ · aceita PIX · licença ativada após confirmação",
     p1t:"SINAIS PRO",p1d:"Sinais de trade automáticos (Média Móvel + RSI) com leitura em tempo real. Ideal para quem opera ouro (XAUUSD) e outros mercados.",
@@ -516,6 +569,8 @@ const i18n={
     b1:"100% legal",b1b:"official license",b2:"Protected code",b2b:"nothing exposed",b3:"3-day trial",b3b:"free",b4:"Instant",b4b:"fee-free PIX",
     heroBtn1:"Buy now",heroBtn2:"How it works",
     vidH:"Watch the official ad",vidS:"1 minute and you understand everything: signals, engine, MT5 robot and ad generator.",vidBtn:"I want my free trial",vidBtn2:"How to pay via PIX",
+    ttH:"Ads on TikTok",ttS:"Narrated videos, one for each product. Tap to watch.",ttComprar:"Buy",
+    ttSin:"SIGNALS PRO · R$ 49/mo",ttMotor:"BISONX ENGINE · R$ 199/mo",ttVaga:"FULL SEAT · R$ 99/mo",ttRobo:"MT5 ROBOT · R$ 49/mo",ttGer:"AD GENERATOR · R$ 59/mo",
     menuProdutos:"Products",menuComo:"How it works",menuPix:"Payment",menuFaq:"FAQ",ctaTop:"Buy",
     prodH:"Choose your access",prodS:"5 products · price in R$ · accepts PIX · license activated after confirmation",
     p1t:"SIGNALS PRO",p1d:"Automatic trade signals (Moving Average + RSI) with real-time reading. Ideal for gold (XAUUSD) and other markets.",
@@ -554,6 +609,8 @@ const i18n={
     b1:"100% legal",b1b:"licencia oficial",b2:"Código protegido",b2b:"nada expuesto",b3:"Prueba 3 días",b3b:"gratis",b4:"PIX",b4b:"sin tasa, cae al instante",
     heroBtn1:"Comprar ahora",heroBtn2:"Cómo funciona",
     vidH:"Mira el anuncio oficial",vidS:"1 minuto y entiendes todo: señales, motor, robot MT5 y generador de anuncios.",vidBtn:"Quiero mi prueba gratis",vidBtn2:"Cómo pagar por PIX",
+    ttH:"Anuncios en TikTok",ttS:"Videos narrados, uno para cada producto. Toca para ver.",ttComprar:"Comprar",
+    ttSin:"SEÑALES PRO · R$ 49/mes",ttMotor:"MOTOR BISONX · R$ 199/mes",ttVaga:"PLAZA COMPLETA · R$ 99/mes",ttRobo:"ROBOT MT5 · R$ 49/mes",ttGer:"GENERADOR DE ANUNCIOS · R$ 59/mes",
     menuProdutos:"Productos",menuComo:"Cómo funciona",menuPix:"Pago",menuFaq:"FAQ",ctaTop:"Comprar",
     prodH:"Elige tu acceso",prodS:"5 productos · precio en R$ · acepta PIX · licencia activada tras confirmación",
     p1t:"SEÑALES PRO",p1d:"Señales de trading automáticas (Media Móvil + RSI) con lectura en tiempo real. Ideal para el oro (XAUUSD) y otros mercados.",
