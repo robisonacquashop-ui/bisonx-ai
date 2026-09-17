@@ -19,6 +19,8 @@ input int    FastPeriod = 10;   // Media rapida (periodos)
 input int    SlowPeriod = 30;   // Media lenta (periodos)
 input double LotSize    = __LOTE__; // Lote fixo
 input int    MagicNum   = __MAGIC__; // Identificador
+input double StopLoss   = __SL__;   // Stop Loss em pontos (0 = desligado)
+input double TakeProfit = __TP__;   // Take Profit em pontos (0 = desligado)
 
 int    maFstd, maSstd;
 double f[2], s[2];
@@ -90,8 +92,18 @@ void _Abre(string tipo)
   {
    double ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
    double bid = SymbolInfoDouble(_Symbol, SYMBOL_BID);
-   if(tipo=="buy")  trade.Buy(LotSize, _Symbol, ask, 0, 0, "BISONX");
-   else               trade.Sell(LotSize, _Symbol, bid, 0, 0, "BISONX");
+   if(tipo=="buy")
+     {
+       double sl = StopLoss>0 ? ask - StopLoss*_Point : 0;
+       double tp = TakeProfit>0 ? ask + TakeProfit*_Point : 0;
+       trade.Buy(LotSize, _Symbol, ask, sl, tp, "BISONX");
+     }
+   else
+     {
+       double sl = StopLoss>0 ? bid + StopLoss*_Point : 0;
+       double tp = TakeProfit>0 ? bid - TakeProfit*_Point : 0;
+       trade.Sell(LotSize, _Symbol, bid, sl, tp, "BISONX");
+     }
   }`;
 
 var TEMPLATE_REVERSAO = String.raw`//+------------------------------------------------------------------+
@@ -111,6 +123,8 @@ input int   NivelSuperior = 70; // Sobrecompra
 input int   NivelInferior = 30; // Sobrevenda
 input double LotSize = __LOTE__;
 input int   MagicNum = __MAGIC__;
+input double StopLoss   = __SL__;   // Stop Loss em pontos (0 = desligado)
+input double TakeProfit = __TP__;   // Take Profit em pontos (0 = desligado)
 
 int    hRsi;
 double r[1];
@@ -179,8 +193,18 @@ void _Abre(string tipo)
   {
    double ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
    double bid = SymbolInfoDouble(_Symbol, SYMBOL_BID);
-   if(tipo=="buy")  trade.Buy(LotSize, _Symbol, ask, 0, 0, "BISONX");
-   else               trade.Sell(LotSize, _Symbol, bid, 0, 0, "BISONX");
+   if(tipo=="buy")
+     {
+       double sl = StopLoss>0 ? ask - StopLoss*_Point : 0;
+       double tp = TakeProfit>0 ? ask + TakeProfit*_Point : 0;
+       trade.Buy(LotSize, _Symbol, ask, sl, tp, "BISONX");
+     }
+   else
+     {
+       double sl = StopLoss>0 ? bid + StopLoss*_Point : 0;
+       double tp = TakeProfit>0 ? bid - TakeProfit*_Point : 0;
+       trade.Sell(LotSize, _Symbol, bid, sl, tp, "BISONX");
+     }
   }`;
 
 var TEMPLATE_GRADE = String.raw`//+------------------------------------------------------------------+
@@ -199,6 +223,8 @@ input double Passo       = 100.0;  // distancia em pontos
 input int   MaxNiveis   = 5; // quantos niveis
 input double LotSize    = __LOTE__;
 input int    MagicNum    = __MAGIC__;
+input double StopLoss   = __SL__;   // Stop Loss em pontos (0 = desligado)
+input double TakeProfit = __TP__;   // Take Profit em pontos (0 = desligado)
 
 int OnInit()
   {
@@ -213,7 +239,9 @@ void OnTick()
    int n = _ContaAbertas(MagicNum);
    if(n < MaxNiveis && n==0)
      {
-       trade.Buy(LotSize, _Symbol, ask, 0, 0, "grid");
+       double sl = StopLoss>0 ? ask - StopLoss*_Point : 0;
+       double tp = TakeProfit>0 ? ask + TakeProfit*_Point : 0;
+       trade.Buy(LotSize, _Symbol, ask, sl, tp, "grid");
        return;
      }
   }
@@ -320,12 +348,23 @@ function _magicNovo() {
   return 1 + Math.floor(Math.random() * 0x7fffffff);
 }
 
-function gerarMq5(tipo, lote, magic) {
+function _numero(valor, padrao) {
+  var n = parseFloat(String(valor).replace(",", "."));
+  if (isNaN(n) || n < 0) return padrao;
+  return Math.round(n * 100) / 100;
+}
+
+function gerarMq5(tipo, lote, magic, sl, tp) {
   var tpl = tipo === "reversao" ? TEMPLATE_REVERSAO
           : tipo === "grade"   ? TEMPLATE_GRADE
           : TEMPLATE_TENDENCIA;
   var l = _lotFiltrado(lote).toFixed(2);
-  return tpl.replace(/__LOTE__/g, l).replace(/__MAGIC__/g, String(magic));
+  var s = _numero(sl, 200).toFixed(0);
+  var t = _numero(tp, 300).toFixed(0);
+  return tpl.replace(/__LOTE__/g, l)
+            .replace(/__MAGIC__/g, String(magic))
+            .replace(/__SL__/g, s)
+            .replace(/__TP__/g, t);
 }
 
 function gerarInstalador(nomeArq) {
@@ -399,12 +438,12 @@ ATENCAO:
 `;
 }
 
-function montarArquivos(tipo, lote, nome) {
+function montarArquivos(tipo, lote, nome, sl, tp) {
   var nomeArq = _nomeArquivo(tipo, nome);
   var magic = _magicNovo();
   var enc = new TextEncoder();
   return [
-    { nome: nomeArq,              bytes: enc.encode(gerarMq5(tipo, lote, magic)) },
+    { nome: nomeArq,              bytes: enc.encode(gerarMq5(tipo, lote, magic, sl, tp)) },
     { nome: "INSTALAR.bat",       bytes: enc.encode(gerarInstalador(nomeArq)) },
     { nome: "PASSOS.txt",         bytes: enc.encode(gerarPassos()) }
   ];

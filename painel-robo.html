@@ -55,8 +55,19 @@
   .lote-custom:focus{outline:none;border-color:var(--cyan)}
   .campo-nome{margin-top:18px}
   .campo-nome label{display:block;color:var(--muted);font-size:.9rem;margin-bottom:6px}
-  input[type=text]{background:var(--card2);border:1px solid rgba(147,162,212,.3);border-radius:12px;padding:10px 14px;width:100%;color:var(--text);font-size:1rem}
+  input[type=text],input[type=number]{background:var(--card2);border:1px solid rgba(147,162,212,.3);border-radius:12px;padding:10px 14px;width:100%;color:var(--text);font-size:1rem}
   input:focus{outline:none;border-color:var(--cyan)}
+  .trial-box{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:linear-gradient(135deg,rgba(251,191,36,.12),rgba(34,211,238,.10));border:1px solid rgba(251,191,36,.45);border-radius:16px;padding:16px 18px;margin:18px 0 0}
+  .trial-info{display:flex;align-items:center;gap:12px;min-width:200px}
+  .trial-icone{font-size:1.8rem}
+  .trial-info b{display:block;font-size:1rem}
+  .trial-info span{color:var(--muted);font-size:.85rem}
+  .btn-trial{background:linear-gradient(135deg,#fbbf24,#f59e0b);border:none;color:#1a1206;font-weight:800;font-size:.9rem;padding:12px 22px;border-radius:12px;cursor:pointer;transition:.15s;white-space:nowrap}
+  .btn-trial:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(251,191,36,.4)}
+  .btn-trial.ativo{background:linear-gradient(135deg,#34d399,#10b981)}
+  .campos-sl-tp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .campo-sl-tp label{display:block;color:var(--muted);font-size:.85rem;margin-bottom:6px}
+  .campo-sl-tp .obs{color:var(--muted);font-size:.72rem;display:block;margin-top:4px}
   .btn-dl{display:block;margin:26px auto 0;background:linear-gradient(135deg,#059669,#10b981);border:none;color:#fff;font-size:1.12rem;font-weight:800;padding:18px 32px;border-radius:16px;cursor:pointer;box-shadow:0 12px 30px rgba(16,185,129,.35);transition:.18s}
   .btn-dl:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(16,185,129,.5)}
   .preview{background:#070b16;border:1px solid rgba(147,162,212,.2);border-radius:14px;padding:16px;margin-top:22px}
@@ -94,6 +105,17 @@
     <span class="badge" data-i="b3">🔒 Seu robô, seu controle</span>
   </div>
 
+  <div class="trial-box" id="trialBox">
+    <div class="trial-info">
+      <div class="trial-icone">🎁</div>
+      <div>
+        <b data-i="trialT">Plano ROBO MT5 · teste grátis de 7 dias</b>
+        <span data-i="trialS" id="trialStatus">Ative agora e crie seu primeiro robô sem pagar nada.</span>
+      </div>
+    </div>
+    <button class="btn-trial" id="trialBtn" onclick="ativarTrial()" data-i="trialBtn">Ativar meu teste grátis de 7 dias</button>
+  </div>
+
   <div class="passo"><div class="n">1</div><div><h2 data-i="p1t">Escolha a estratégia</h2><p data-i="p1s">Toque na que mais combina com o seu jeito de operar.</p></div></div>
   <div class="grid3" id="estrat"></div>
   <div class="resumo" id="resumo"></div>
@@ -109,6 +131,20 @@
   <div class="campo-nome">
     <label data-i="nomeLb">Nome do seu robô (opcional)</label>
     <input type="text" id="nomeRobo" placeholder="Ex.: MeuRobo_Ouro" maxlength="24" oninput="preview()">
+  </div>
+
+  <div class="passo"><div class="n">2b</div><div><h2 data-i="pt">Seus limites de proteção</h2><p data-i="ps">Defina o Stop Loss (perda máxima) e o Take Profit (ganho alvo) em pontos. 0 = desligado.</p></div></div>
+  <div class="campos-sl-tp">
+    <div class="campo-sl-tp">
+      <label data-i="slLb">Stop Loss (pontos)</label>
+      <input type="number" id="slValor" value="200" min="0" step="10" oninput="preview()">
+      <span class="obs" data-i="slOb">Ex.: 200 pontos ≈ R$2,00 no ouro (XAUUSD)</span>
+    </div>
+    <div class="campo-sl-tp">
+      <label data-i="tpLb">Take Profit (pontos)</label>
+      <input type="number" id="tpValor" value="300" min="0" step="10" oninput="preview()">
+      <span class="obs" data-i="tpOb">Ex.: 300 pontos de lucro-alvo por operação</span>
+    </div>
   </div>
 
   <div class="passo"><div class="n">3</div><div><h2 data-i="p3t">Gerar e baixar</h2><p data-i="p3s">Você recebe um arquivo .zip com o robô pronto e o instalador de 1 clique.</p></div></div>
@@ -151,7 +187,18 @@
       aviso: "⚠️ <b>Importante:</b> teste sempre primeiro em conta demo ou no Testador de Estratégia. Trading tem risco e o BISONX não garante resultado — use dinheiro que você pode perder. Faça sempre o backup dos seus robôs.",
       foot: "Feito pelo BISONX · Fale com a gente pelo",
       sel: "✓ SELECIONADA",
-      resLbl: "Sua estratégia", resLote: "Lote"
+      resLbl: "Sua estratégia", resLote: "Lote",
+      trialT: "Plano ROBO MT5 · teste grátis de 7 dias",
+      trialS: "Ative agora e crie seu primeiro robô sem pagar nada.",
+      trialS2: "Teste grátis ATIVO até",
+      trialS3: "Seu teste grátis de 7 dias terminou. Adquira o plano para continuar criando robôs.",
+      trialBtn: "Ativar meu teste grátis de 7 dias",
+      trialBtn2: "✔ Teste ativo — criar meu robô",
+      custom: "Personalizar",
+      pt: "Seus limites de proteção", ps: "Defina o Stop Loss (perda máxima) e o Take Profit (ganho alvo) em pontos. 0 = desligado.",
+      slLb: "Stop Loss (pontos)", slOb: "Ex.: 200 pontos ≈ R$2,00 no ouro (XAUUSD)",
+      tpLb: "Take Profit (pontos)", tpOb: "Ex.: 300 pontos de lucro-alvo por operação",
+      resSL: "Stop Loss", resTP: "Take Profit"
     },
     EN: {
       voltar: "← Back to site", h1: "Create your ",
@@ -170,7 +217,18 @@
       aviso: "⚠️ <b>Important:</b> always test first on a demo account or in the Strategy Tester. Trading involves risk and BISONX does not guarantee results — only use money you can afford to lose. Always keep a backup of your robots.",
       foot: "Made by BISONX · Talk to us on",
       sel: "✓ SELECTED",
-      resLbl: "Your strategy", resLote: "Lot"
+      resLbl: "Your strategy", resLote: "Lot",
+      trialT: "MT5 ROBOT PLAN · free 7-day trial",
+      trialS: "Activate now and create your first robot for free.",
+      trialS2: "Free trial ACTIVE until",
+      trialS3: "Your free 7-day trial has ended. Buy the plan to keep creating robots.",
+      trialBtn: "Activate my free 7-day trial",
+      trialBtn2: "✔ Trial active — create my robot",
+      custom: "Customize",
+      pt: "Your protection limits", ps: "Set Stop Loss (max loss) and Take Profit (target gain) in points. 0 = off.",
+      slLb: "Stop Loss (points)", slOb: "e.g. 200 points ≈ $2.00 on gold (XAUUSD)",
+      tpLb: "Take Profit (points)", tpOb: "e.g. 300 points profit target per trade",
+      resSL: "Stop Loss", resTP: "Take Profit"
     },
     ES: {
       voltar: "← Volver al sitio", h1: "Crea tu ",
@@ -189,7 +247,18 @@
       aviso: "⚠️ <b>Importante:</b> prueba siempre primero en una cuenta demo o en el Probador de Estrategias. El trading conlleva riesgo y BISONX no garantiza resultados — usa solo dinero que puedas permitirte perder. Haz siempre copia de seguridad de tus robots.",
       foot: "Hecho por BISONX · Háblanos por",
       sel: "✓ SELECCIONADA",
-      resLbl: "Tu estrategia", resLote: "Lote"
+      resLbl: "Tu estrategia", resLote: "Lote",
+      trialT: "PLAN ROBOT MT5 · prueba gratis de 7 días",
+      trialS: "Activa ahora y crea tu primer robot sin pagar nada.",
+      trialS2: "Prueba gratis ACTIVA hasta",
+      trialS3: "Tu prueba gratis de 7 días terminó. Adquiere el plan para seguir creando robots.",
+      trialBtn: "Activar mi prueba gratis de 7 días",
+      trialBtn2: "✔ Prueba activa — crear mi robot",
+      custom: "Personalizar",
+      pt: "Tus límites de protección", ps: "Define el Stop Loss (pérdida máxima) y el Take Profit (objetivo de ganancia) en puntos. 0 = desactivado.",
+      slLb: "Stop Loss (puntos)", slOb: "ej. 200 puntos ≈ $2,00 en oro (XAUUSD)",
+      tpLb: "Take Profit (puntos)", tpOb: "ej. 300 puntos de objetivo de ganancia por operación",
+      resSL: "Stop Loss", resTP: "Take Profit"
     }
   };
 
@@ -235,17 +304,83 @@
     preview();
   }
   function numeroDoRobo() { return Math.random().toString(36).slice(2, 6).toUpperCase(); }
+  function slTpAtuais() {
+    var sl = parseFloat(String(document.getElementById("slValor").value || "0").replace(",", "."));
+    var tp = parseFloat(String(document.getElementById("tpValor").value || "0").replace(",", "."));
+    return { sl: isNaN(sl) ? 0 : sl, tp: isNaN(tp) ? 0 : tp };
+  }
+  function statusTrial() {
+    var d = null;
+    try { d = localStorage.getItem("bxrobo_trial"); } catch (e) {}
+    if (!d) return null;
+    var inicio = new Date(d).getTime();
+    if (isNaN(inicio)) return null;
+    var fim = inicio + 7 * 24 * 60 * 60 * 1000;
+    return { ativo: Date.now() <= fim, ate: new Date(fim) };
+  }
+  function fmtData(dt) {
+    return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+  }
+  function ativarTrial() {
+    var st = statusTrial();
+    if (st && st.ativo) return;
+    try {
+      localStorage.setItem("bxrobo_trial", new Date().toISOString());
+    } catch (e) {}
+    atualizarTrial();
+    preview();
+  }
+  function atualizarTrial() {
+    var st = statusTrial();
+    var box = document.getElementById("trialBox");
+    var btn = document.getElementById("trialBtn");
+    var status = document.getElementById("trialStatus");
+    if (st && st.ativo) {
+      box.style.borderColor = "rgba(52,211,153,.5)";
+      box.style.background = "linear-gradient(135deg,rgba(52,211,153,.12),rgba(34,211,238,.08))";
+      btn.textContent = tr("trialBtn2");
+      btn.classList.add("ativo");
+      btn.disabled = true;
+      status.textContent = tr("trialS2") + " " + fmtData(st.ate);
+    } else if (st && !st.ativo) {
+      box.style.borderColor = "rgba(248,113,113,.45)";
+      status.textContent = tr("trialS3");
+      btn.textContent = tr("trialBtn");
+      btn.classList.remove("ativo");
+      btn.disabled = false;
+    } else {
+      box.style.borderColor = "rgba(251,191,36,.45)";
+      box.style.background = "linear-gradient(135deg,rgba(251,191,36,.12),rgba(34,211,238,.10))";
+      status.textContent = tr("trialS");
+      btn.textContent = tr("trialBtn");
+      btn.classList.remove("ativo");
+      btn.disabled = false;
+    }
+  }
+  function trialAtivo() {
+    var st = statusTrial();
+    return st && st.ativo;
+  }
   function preview() {
     var e = ESTRATEGIAS[tipo];
+    var st = slTpAtuais();
+    var linhaSL = "<b>" + tr("resSL") + ":</b> " + (st.sl > 0 ? st.sl + " pts" : "OFF") +
+      " &nbsp;·&nbsp; <b>" + tr("resTP") + ":</b> " + (st.tp > 0 ? st.tp + " pts" : "OFF");
     document.getElementById("resumo").innerHTML =
       "<b>✔ " + tr("resLbl") + ":</b> " + e.nome[LANG] +
       " &nbsp;·&nbsp; <b>" + tr("resLote") + ":</b> " + parseFloat(loteVal).toFixed(2) +
-      " &nbsp;·&nbsp; " + e.desc[LANG];
-    document.getElementById("pre").textContent = gerarMq5(tipo, loteVal, 20260912);
+      " &nbsp;·&nbsp; " + e.desc[LANG] + "<br>" + linhaSL;
+    document.getElementById("pre").textContent = gerarMq5(tipo, loteVal, 20260912, st.sl, st.tp);
   }
   function baixar() {
+    if (!trialAtivo()) {
+      atualizarTrial();
+      alert("▶ " + tr("trialBtn"));
+      return;
+    }
     var nome = document.getElementById("nomeRobo").value;
-    var arquivos = montarArquivos(tipo, loteVal, nome);
+    var st = slTpAtuais();
+    var arquivos = montarArquivos(tipo, loteVal, nome, st.sl, st.tp);
     var zip = fazerZip(arquivos);
     var nomeBase = arquivos[0].nome.replace(".mq5", "") + "_" + numeroDoRobo();
     var url = URL.createObjectURL(zip);
@@ -259,6 +394,7 @@
     try { var l = localStorage.getItem("bxrobo_lang"); if (l === "EN" || l === "ES" || l === "PT") LANG = l; } catch (e) {}
     setLang(LANG);
     lote("0.10");
+    atualizarTrial();
   })();
 </script>
 </body>
