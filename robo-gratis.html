@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robo MT5 Gratis - BISONX_ROBO_RSI (XAUUSD M5)</title>
+<meta name="description" content="Baixe de graca o robo BISONX_ROBO_RSI para o Ouro (XAUUSD M5): RSI + Media Movel com Stop Loss e Take Profit automaticos para MetaTrader 5. Free MT5 robot for Gold XAUUSD M5. Robot MT5 gratis para Oro XAUUSD M5.">
+<style>
+  :root{
+    --bg:#05070d; --card:rgba(15,22,40,.55); --card2:#0c1323;
+    --text:#e9edff; --muted:#93a2d4; --cyan:#22d3ee; --green:#34d399;
+    --gold:#fbbf24; --red:#f87171;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,Roboto,Arial,sans-serif;line-height:1.55}
+  .bg-anim{position:fixed;inset:0;z-index:-2;background:
+    radial-gradient(800px 500px at 80% -10%,rgba(34,211,238,.14),transparent 60%),
+    radial-gradient(700px 500px at 0% 110%,rgba(52,211,153,.10),transparent 60%)}
+  .wrap{max-width:960px;margin:0 auto;padding:18px}
+  header{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(147,162,212,.18);gap:10px;flex-wrap:wrap}
+  .logo{font-weight:800;font-size:1.15rem;letter-spacing:.5px}
+  .logo span{color:var(--cyan)}
+  .voltar{color:var(--muted);text-decoration:none;font-size:.9rem}
+  .voltar:hover{color:var(--cyan)}
+  .lang{display:flex;gap:4px;background:var(--card2);border:1px solid rgba(147,162,212,.25);border-radius:10px;padding:3px}
+  .lang button{background:transparent;border:none;color:var(--muted);font-weight:700;font-size:.78rem;padding:5px 9px;border-radius:7px;cursor:pointer}
+  .lang button.ativo{background:linear-gradient(135deg,var(--cyan),var(--green));color:#04121a}
+  h1{font-size:clamp(1.5rem,4vw,2.3rem);margin:26px 0 6px}
+  .gr{background:linear-gradient(90deg,var(--cyan),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--muted);max-width:680px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+  .badge{background:var(--card2);border:1px solid rgba(52,211,153,.35);color:var(--green);border-radius:999px;padding:5px 13px;font-size:.82rem}
+  .selector{background:linear-gradient(135deg,rgba(52,211,153,.14),rgba(34,211,238,.10));border:1px solid rgba(52,211,153,.5);border-radius:16px;padding:16px 20px;margin:16px 0;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .selector b{color:var(--green);font-size:1.1rem;display:block}
+  .selector span{color:var(--muted);font-size:.88rem}
+  .btn-dl{background:linear-gradient(135deg,var(--green),var(--cyan));color:#04121a;font-weight:800;border:none;border-radius:14px;padding:14px 26px;font-size:1.02rem;cursor:pointer;transition:.18s}
+  .btn-dl:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(52,211,153,.25)}
+  .passo{display:flex;gap:12px;align-items:flex-start;margin:30px 0 12px}
+  .passo .n{min-width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--green));color:#04121a;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .passo h2{font-size:1.2rem}
+  .passo p{color:var(--muted);font-size:.92rem}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .estr{background:var(--card);border:1px solid rgba(147,162,212,.22);border-radius:16px;padding:18px;text-align:left;color:var(--text)}
+  .estr .ico{font-size:1.7rem}
+  .estr h3{margin:6px 0 6px;font-size:1.02rem}
+  .estr p{color:var(--muted);font-size:.84rem}
+  .resumo{background:var(--card2);border:1px solid rgba(52,211,153,.3);border-radius:12px;padding:12px 16px;margin-top:14px;font-size:.92rem}
+  .resumo b{color:var(--green)}
+  .passos-inst{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:22px 0}
+  .pi{background:var(--card);border:1px solid rgba(147,162,212,.22);border-radius:16px;padding:16px}
+  .pi .num{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--cyan),var(--green));color:#04121a;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+  .pi b{display:block;margin-bottom:4px}
+  .pi p{color:var(--muted);font-size:.82rem}
+  .aviso{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.35);border-radius:12px;padding:12px 16px;color:#fecaca;font-size:.85rem;margin-top:24px}
+  footer{color:var(--muted);text-align:center;font-size:.82rem;padding:30px 0 40px}
+  a{color:var(--cyan)}
+</style>
+</head>
+<body>
+<div class="bg-anim"></div>
+<div class="wrap">
+  <header>
+    <div class="logo">BISONX<span>.AI</span></div>
+    <span class="lang">
+      <button id="langPT" class="ativo" onclick="setLang('PT')">PT</button>
+      <button id="langEN" onclick="setLang('EN')">EN</button>
+      <button id="langES" onclick="setLang('ES')">ES</button>
+    </span>
+    <a class="voltar" href="index.html" data-i="voltar">&larr; Voltar ao site</a>
+  </header>
+
+  <h1><span class="gr" data-i="h1">ROBO DE OURO GRATIS</span></h1>
+  <p class="sub" data-i="sub">BISONX_ROBO_RSI - RSI + Media Movel feito para o Ouro (XAUUSD) M5 no MetaTrader 5. Baixe, instale em 1 minuto e opere com Stop Loss e Take Profit automaticos. 100% gratis, conta demo ou real.</p>
+  <div class="badges">
+    <span class="badge" data-i="b1">🎁 100% gratis</span>
+    <span class="badge" data-i="b2">⚡ RSI + Media Movel</span>
+    <span class="badge" data-i="b3">🛡️ Stop Loss + Take Profit</span>
+  </div>
+
+  <div class="selector">
+    <div>
+      <b data-i="selT">BISONX_ROBO_RSI - XAUUSD M5</b>
+      <span data-i="selS">Ouro (XAUUSD) M5 · conta demo ou real · sem pegadinha · bisonx.com.br</span>
+    </div>
+    <button class="btn-dl" onclick="baixarZip()">⬇ <span data-i="btn">BAIXAR O ROBO GRATIS</span></button>
+  </div>
+
+  <div class="passo"><div class="n">1</div><div><h2 data-i="p1t">Baixe o ZIP</h2><p data-i="p1s">No botão verde acima. O arquivo já vem com o robô e o instalador dentro.</p></div></div>
+
+  <div class="passos-inst">
+    <div class="pi"><div class="num">1</div><b data-i="i1t">Extraia o .zip</b><p data-i="i1s">Descompacte o arquivo que baixou. Vem o robô + INSTALAR.bat + passo a passo.</p></div>
+    <div class="pi"><div class="num">2</div><b data-i="i2t">2 cliques no INSTALAR</b><p data-i="i2s">Ele coloca o robô na pasta certa do MT5 e compila sozinho. Pronto em segundos.</p></div>
+    <div class="pi"><div class="num">3</div><b data-i="i3t">Arraste pro gráfico</b><p data-i="i3s">No MT5: aba Navegador > Especialistas > Atualizar, arraste pro gráfico XAUUSD M5 e ligue o Algo Trading.</p></div>
+    <div class="pi"><div class="num">4</div><b data-i="i4t">Deixe trabalhar</b><p data-i="i4s">O robô caca pontos de virada com RSI + Media Movel e protege com Stop Loss / Take Profit.</p></div>
+  </div>
+
+  <div class="resumo"><b data-i="resT">Como funciona:</b> <span data-i="resS">O robô analisa a tendencia no M5, espera a confirmacao do RSI e entra na direcao, sempre protegido por Stop Loss e Take Profit automaticos.</span></div>
+
+  <div class="aviso" data-i="aviso">⚠️ <b>Importante:</b> teste sempre primeiro em conta demo ou no Testador de Estrategia. Trading tem risco e o BISONX nao garante resultado — use dinheiro que voce pode perder. Para robos personalizados, veja o painel robo MT5 do site.</div>
+
+  <footer><span data-i="foot">Feito pelo BISONX · Fale com a gente pelo</span> <a href="https://wa.me/5516997997327">WhatsApp</a></footer>
+</div>
+
+<script>
+  var I18N = {
+    PT: {
+      voltar: "← Voltar ao site", h1: "ROBO DE OURO GRATIS",
+      sub: "BISONX_ROBO_RSI - RSI + Média Móvel feito para o Ouro (XAUUSD) M5 no MetaTrader 5. Baixe, instale em 1 minuto e opere com Stop Loss e Take Profit automáticos. 100% grátis, conta demo ou real.",
+      b1: "🎁 100% grátis", b2: "⚡ RSI + Média Móvel", b3: "🛡️ Stop Loss + Take Profit",
+      selT: "BISONX_ROBO_RSI - XAUUSD M5",
+      selS: "Ouro (XAUUSD) M5 · conta demo ou real · sem pegadinha · bisonx.com.br",
+      btn: "BAIXAR O ROBO GRATIS",
+      p1t: "Baixe o ZIP", p1s: "No botão verde acima. O arquivo já vem com o robô e o instalador dentro.",
+      i1t: "Extraia o .zip", i1s: "Descompacte o arquivo que baixou. Vem o robô + INSTALAR.bat + passo a passo.",
+      i2t: "2 cliques no INSTALAR", i2s: "Ele coloca o robô na pasta certa do MT5 e compila sozinho. Pronto em segundos.",
+      i3t: "Arraste pro gráfico", i3s: "No MT5: aba Navegador > Especialistas > Atualizar, arraste pro gráfico XAUUSD M5 e ligue o Algo Trading.",
+      i4t: "Deixe trabalhar", i4s: "O robô caça pontos de virada com RSI + Média Móvel e protege com Stop Loss / Take Profit.",
+      resT: "Como funciona:", resS: "O robô analisa a tendência no M5, espera a confirmação do RSI e entra na direção, sempre protegido por Stop Loss e Take Profit automáticos.",
+      aviso: "⚠️ <b>Importante:</b> teste sempre primeiro em conta demo ou no Testador de Estratégia. Trading tem risco e o BISONX não garante resultado — use dinheiro que você pode perder. Para robôs personalizados, veja o painel robô MT5 do site.",
+      foot: "Feito pelo BISONX · Fale com a gente pelo"
+    },
+    EN: {
+      voltar: "← Back to site", h1: "FREE GOLD ROBOT",
+      sub: "BISONX_ROBO_RSI - RSI + Moving Average built for Gold (XAUUSD) M5 on MetaTrader 5. Download, install in 1 minute and trade with automatic Stop Loss and Take Profit. 100% free, demo or real account.",
+      b1: "🎁 100% free", b2: "⚡ RSI + Moving Average", b3: "🛡️ Stop Loss + Take Profit",
+      selT: "BISONX_ROBO_RSI - XAUUSD M5",
+      selS: "Gold (XAUUSD) M5 · demo or real account · no strings attached · bisonx.com.br",
+      btn: "DOWNLOAD THE FREE ROBOT",
+      p1t: "Download the ZIP", p1s: "Green button above. The file already includes the robot and the installer.",
+      i1t: "Unzip the file", i1s: "Extract the downloaded .zip. It includes the robot + INSTALAR.bat + step-by-step guide.",
+      i2t: "Double-click INSTALAR", i2s: "It copies the robot to the right MT5 folder and compiles automatically. Ready in seconds.",
+      i3t: "Drag to chart", i3s: "MT5: Navigator > Expert Advisors > Refresh, drag onto XAUUSD M5 chart and enable Algo Trading.",
+      i4t: "Let it work", i4s: "The robot hunts reversal points with RSI + Moving Average and protects with Stop Loss / Take Profit.",
+      resT: "How it works:", resS: "The robot analyzes the trend on M5, waits for RSI confirmation and enters the direction, always protected by automatic Stop Loss and Take Profit.",
+      aviso: "⚠️ <b>Important:</b> always test first on a demo account or in the Strategy Tester. Trading involves risk and BISONX does not guarantee results — only use money you can afford to lose. For customized robots, see the site's MT5 robot panel.",
+      foot: "Made by BISONX · Talk to us on"
+    },
+    ES: {
+      voltar: "← Volver al sitio", h1: "ROBOT DE ORO GRATIS",
+      sub: "BISONX_ROBO_RSI - RSI + Media Móvil creado para el Oro (XAUUSD) M5 en MetaTrader 5. Descarga, instala en 1 minuto y opera con Stop Loss y Take Profit automáticos. 100% gratis, cuenta demo o real.",
+      b1: "🎁 100% gratis", b2: "⚡ RSI + Media Móvil", b3: "🛡️ Stop Loss + Take Profit",
+      selT: "BISONX_ROBO_RSI - XAUUSD M5",
+      selS: "Oro (XAUUSD) M5 · cuenta demo o real · sin trampas · bisonx.com.br",
+      btn: "DESCARGAR EL ROBOT GRATIS",
+      p1t: "Descarga el ZIP", p1s: "Botón verde de arriba. El archivo ya incluye el robot y el instalador.",
+      i1t: "Extrae el .zip", i1s: "Descomprime el archivo descargado. Incluye el robot + INSTALAR.bat + guía paso a paso.",
+      i2t: "Doble clic en INSTALAR", i2s: "Coloca el robot en la carpeta correcta del MT5 y lo compila solo. Listo en segundos.",
+      i3t: "Arrastra al gráfico", i3s: "En MT5: Navegador > Asesores Expertos > Actualizar, arrastra al gráfico XAUUSD M5 y activa el comercio automático.",
+      i4t: "Déjalo trabajar", i4s: "El robot caza puntos de giro con RSI + Media Móvil y protege con Stop Loss / Take Profit.",
+      resT: "Cómo funciona:", resS: "El robot analiza la tendencia en M5, espera la confirmación del RSI y entra en la dirección, siempre protegido por Stop Loss y Take Profit automáticos.",
+      aviso: "⚠️ <b>Importante:</b> prueba siempre primero en una cuenta demo o en el Probador de Estrategias. El trading conlleva riesgo y BISONX no garantiza resultados — usa solo dinero que puedas permitirte perder. Para robots personalizados, mira el panel de robot MT5 del sitio.",
+      foot: "Hecho por BISONX · Háblanos por"
+    }
+  };
+
+  var LANG = "PT";
+  function tr(k) { return (I18N[LANG] && I18N[LANG][k] !== undefined) ? I18N[LANG][k] : "?"; }
+  function setLang(l) {
+    LANG = l;
+    document.querySelectorAll("#langPT,#langEN,#langES").forEach(function (b) {
+      b.classList.toggle("ativo", b.id === "lang" + l);
+    });
+    document.querySelectorAll("[data-i]").forEach(function (el) {
+      var k = el.getAttribute("data-i");
+      el.innerHTML = tr(k);
+    });
+    try { localStorage.setItem("bxrogo_lang", l); } catch (e) {}
+  }
+
+  var ZIP_URL = "download/BISONX_ROBO_RSI.zip";
+  function baixarZip() {
+    var a = document.createElement("a");
+    a.href = ZIP_URL;
+    a.download = "BISONX_ROBO_RSI.zip";
+    document.body.appendChild(a); a.click();
+    setTimeout(function () { document.body.removeChild(a); }, 1500);
+  }
+
+  (function init() {
+    try { var l = localStorage.getItem("bxrogo_lang"); if (l === "EN" || l === "ES" || l === "PT") LANG = l; } catch (e) {}
+    setLang(LANG);
+  })();
+</script>
+</body>
+</html>
